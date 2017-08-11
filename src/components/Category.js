@@ -13,7 +13,7 @@ class Category extends Component {
 
 	render() {
 
-		const { posts, categories } = this.props
+		const { /*posts, */ categories } = this.props
 
     const category = this.getCategory(categories)
 

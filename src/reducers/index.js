@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 
 import {
   SET_CATEGORIES,
-  SET_POSTS
+  SET_POSTS,
+  SET_COMMENTS_TO_POST_ID
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -26,6 +27,21 @@ function posts (state = {}, action) {
         ...state,
         posts,
       }
+    case SET_COMMENTS_TO_POST_ID :
+
+      let newState = state;
+
+      if (newState.posts) {
+        newState.posts.forEach( (post) => {
+          if (post.id === action.postId) {
+            post.comments = action.comments
+          }
+        } )
+      }
+
+      return newState
+
+
     default :
       return state
   }

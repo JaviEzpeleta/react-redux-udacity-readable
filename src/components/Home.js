@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import HomeCategories from './HomeCategories'
 import PostList from './PostList'
 
@@ -13,20 +14,13 @@ class Home extends Component {
 			<div>
 				<Header />
 
-				<HomeCategories categories={categories} />
+        <div className="readable-body-wrapper">
+  				<HomeCategories categories={categories} />
+          <PostList posts={posts} />
+        </div>
 
-        <PostList posts={posts} />
+        <Footer />
 
-        <section>
-					<div className="container">
-						<h2 className="is-size-3"> posts: </h2>
-						{ posts && posts.map( (post, index) =>
-							<div key={index}>
-								«<b>{post.title}</b>» by {post.author}
-							</div>
-						) }
-					</div>
-				</section>
 			</div>
 		)
 	}

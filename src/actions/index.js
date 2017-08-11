@@ -2,6 +2,7 @@ export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_POSTS = 'SET_POSTS'
 export const ADD_RECIPE = 'ADD_RECIPE'
 export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR'
+export const SET_COMMENTS_TO_POST_ID = 'SET_COMMENTS_TO_POST_ID'
 
 export function setCategories(categories) {
   return {
@@ -16,6 +17,13 @@ export function setPosts(posts) {
   }
 }
 
+export function setCommentsToPostId(postId, comments) {
+  return {
+    type: SET_COMMENTS_TO_POST_ID,
+    postId,
+    comments
+  }
+}
 
 export function addRecipe ({ day, recipe, meal }) {
   return {

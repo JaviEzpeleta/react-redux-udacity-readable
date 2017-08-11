@@ -18,3 +18,8 @@ body {
 	border-style: none;
 	border-bottom-color: none !important
 }
+
+.readable-body-wrapper {
+	min-height: 350px;
+	padding: 20px;
+}
