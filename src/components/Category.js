@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import { capitalizeFirstLetter, getNotificationColorByIndex } from './../utils/utils'
+import PostList from './PostList'
 
 class Category extends Component {
 
@@ -13,33 +15,37 @@ class Category extends Component {
 
 	render() {
 
-		const { /*posts, */ categories } = this.props
+		const { categories, posts } = this.props
 
     const category = this.getCategory(categories)
+
+    let postsToDisplay = []
+
+    if (category && posts) {
+      postsToDisplay = posts.filter( (post) => (post.category === category.data.name))
+    }
 
 		return (
 			<div>
 				<Header />
           { category && (
-            <section className={'hero ' + getNotificationColorByIndex(category.index)}>
-              <div className="hero-body">
-                <div className="container">
-                  <h1 className="title">
-                    {category && capitalizeFirstLetter(category.data.name)}
-                  </h1>
-                  <h2 className="subtitle">
-                    Hero subtitle
-                  </h2>
+            <div style={{marginBottom: '50px'}}>
+              <section className={'hero ' + getNotificationColorByIndex(category.index)}>
+                <div className="hero-body">
+                  <div className="container">
+                    <h1 className="title">
+                      {category && capitalizeFirstLetter(category.data.name)}
+                    </h1>
+                    <h2 className="subtitle">
+                      Hero subtitle
+                    </h2>
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+              <PostList posts={postsToDisplay} />
+            </div>
           )}
-
-				<section>
-					<div className="container">
-						<h2 className="is-size-3"> THE CATEGORY: </h2>
-					</div>
-				</section>
+        <Footer />
 			</div>
 		)
 	}
