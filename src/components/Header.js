@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LogoImage from './../images/readable-logo.png'
+import { Link } from 'react-router-dom'
 
 class Header extends Component {
 	render() {
@@ -10,10 +11,10 @@ class Header extends Component {
     <nav className="navbar ">
     <div className="navbar-brand">
 
-      <a className="navbar-item" href="/">
+      <Link className="navbar-item" to="/">
         <img src={LogoImage} alt="Bulma: a modern CSS framework based on Flexbox"
           width="112" height="26"/>
-      </a>
+      </Link>
       <a className="navbar-item is-hidden-desktop" href="https://github.com/JaviEzpeleta">
         <span className="icon">
           <i className="fa fa-github"></i>

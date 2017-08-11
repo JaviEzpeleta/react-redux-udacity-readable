@@ -4,10 +4,9 @@ import Header from './Header'
 import HomeCategories from './HomeCategories'
 import { connect } from 'react-redux'
 import { setCategories, setPosts } from './../actions'
+import PostList from './PostList'
 
 class Home extends Component {
-
-	state = {}
 
 	componentWillMount() {
     this.props.getAllCategories();
@@ -16,28 +15,17 @@ class Home extends Component {
 
 	render() {
 
-		console.log('from RENDER:')
-		console.log(this.props)
-
 		const { posts, categories } = this.props
 
 		return (
 			<div>
 				<Header />
 
-				<HomeCategories />
+				<HomeCategories categories={categories} />
 
-				<section>
-					<div className="container">
-						<h2 className="is-size-3"> categories {this.props.saludo}: </h2>
-						{ categories && categories.map( (category, index) =>
+        <PostList posts={posts} />
 
-
-							<div key={index}>
-								{category.name}
-							</div>
-						) }
-					</div>
+        <section>
 					<div className="container">
 						<h2 className="is-size-3"> posts: </h2>
 						{ posts && posts.map( (post, index) =>

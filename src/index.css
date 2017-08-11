@@ -5,8 +5,8 @@ body {
 }
 .readable-header {
     background: white;
-    box-shadow: 0px -1px 14px rgba(0, 0, 0, 0.62);
-	margin-bottom: 14px;
+    box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.62);
+/*	margin-bottom: 24px; */
 }
 .readable-logo {
 	background-image: url('./images/readable-logo.png');

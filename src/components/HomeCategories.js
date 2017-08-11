@@ -1,32 +1,32 @@
 import React, { Component } from 'react'
+import { capitalizeFirstLetter, getNotificationColorByIndex } from './../utils/utils'
+import { Link } from 'react-router-dom'
 
 class HomeCategories extends Component {
+
 	render() {
+
+    const { categories } = this.props
+
 		return (
         <div className="container">
 
-          <h3 className="title is-2">
-            <span className="icon is-medium">
+          <h3 className="title is-3 is-spaced">
+          { /* <span className="icon is-medium">
               <i className="fa fa-list"></i>
-            </span>
-            Caterories
+            </span> */ }
+            Categories
           </h3>
 
           <div className="container">
-
             <div className="columns">
-              <div className="column">
-                <p className="notification is-info">First column</p>
-              </div>
-              <div className="column">
-                <p className="notification is-success">Second column</p>
-              </div>
-              <div className="column">
-                <p className="notification is-warning">Third column</p>
-              </div>
-              <div className="column">
-                <p className="notification is-danger">Fourth column</p>
-              </div>
+              { categories && categories.map( (category, index) =>
+                <Link to={'/category/'+category.path} key={index} className="column">
+                  <p className={'notification is-centered-text ' + getNotificationColorByIndex(index)}>
+                    <span className="subtitle">{capitalizeFirstLetter(category.name)}</span>
+                  </p>
+                </Link>
+              ) }
             </div>
           </div>
 
