@@ -34,10 +34,10 @@ class Category extends Component {
                 <div className="hero-body">
                   <div className="container">
                     <h1 className="title">
-                      {category && capitalizeFirstLetter(category.data.name)}
+                      {capitalizeFirstLetter(category.data.name)}
                     </h1>
                     <h2 className="subtitle">
-                      Hero subtitle
+                      Only posts about {capitalizeFirstLetter(category.data.name)}
                     </h2>
                   </div>
                 </div>
