@@ -24,16 +24,31 @@ body {
 	padding: 20px;
 }
 
+div.readable-voteScore-wrapper {
+    background: white;
+}
+
 div.readable-voteScore-wrapper div.readable-voteScore-value {
 	color: white;
 	width: 90px;
-	height: 72px;
-    font-size: 30px;
-    line-height: 72px;
+	height: 54px;
+    font-size: 29px;
+    line-height: 54px;
     padding: 0px;
     margin-bottom: 4px;
+    text-align: center;
 }
 
 div.readable-voteScore-wrapper a.button.is-success.is-outlined {
 	margin-right: 2px;
+}
+
+.right {
+	float: right;
+}
+.whiteWrapper {
+	background: white;
+	padding: 6px;
+	border-radius: 4px;
+	box-shadow: 1px 1px 4px #bfbfbf;
 }

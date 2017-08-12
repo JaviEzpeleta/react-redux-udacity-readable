@@ -6,6 +6,7 @@ import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { showDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
+import VoteScore from './VoteScore'
 
 class Post extends Component {
 
@@ -36,51 +37,61 @@ class Post extends Component {
           { thePost &&
             <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
 
-              <h1>
-                {thePost.title}
-              </h1>
-              <blockquote>
-                {thePost.body}
-              </blockquote>
-              <p>
-                posted by <strong>{thePost.author}</strong>,
-                &nbsp;
-                {showDate(thePost.timestamp)}
-                <br />
-                category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
-              </p>
-
-              { theComments &&
-                <div>
-                  {theComments.map( (comment, index) =>
-                    <p key={index}>
-
-                      <div className="box">
-                          <div className="media-content">
-                            <div className="content">
-                              <p>
-                                <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
-                                <br />
-                                {comment.body}
-                              </p>
-                            </div>
-                            <nav className="level is-mobile">
-                              <div className="level-left">
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-edit"></i></span>
-                                </a>
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
-                                </a>
-                              </div>
-                            </nav>
-                          </div>
-                      </div>
-
-                    </p>
-                  )}
+              <div className="columns is-mobile">
+                <div className="column" style={{maxWidth: '115px'}}>
+                  <VoteScore voteScore={thePost.voteScore} postId={thePost.id}/>
                 </div>
-              }
+                <div className="column">
+                  <h1>
+                    {thePost.title}
+                  </h1>
+                  <blockquote>
+                    {thePost.body}
+                  </blockquote>
+
+                  <p>
+                    posted by <strong>{thePost.author}</strong>,
+                    &nbsp;
+                    {showDate(thePost.timestamp)}
+                    <br />
+                    category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
+                  </p>
+
+                  { theComments &&
+                    <div>
+                      {theComments.map( (comment, index) =>
+                        <p key={index}>
+
+                          <div className="box">
+                              <div className="media-content">
+                                <div className="content">
+                                  <p>
+                                    <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
+                                    <br />
+                                    {comment.body}
+                                  </p>
+                                </div>
+                                <nav className="level is-mobile">
+                                  <div className="level-left">
+                                    <a className="level-item">
+                                      <span className="icon is-small"><i className="fa fa-edit"></i></span>
+                                    </a>
+                                    <a className="level-item">
+                                      <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+                                    </a>
+                                  </div>
+                                </nav>
+                              </div>
+                          </div>
+
+                        </p>
+                      )}
+                    </div>
+                  }
+
+                </div>
+
+              </div>
 
             </div>
           }
