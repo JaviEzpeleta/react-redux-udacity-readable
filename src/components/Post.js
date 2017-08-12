@@ -4,6 +4,8 @@ import Footer from './Footer'
 import { connect } from 'react-redux'
 import { setPost, setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
+import { showDate } from '../utils/utils'
+import { Link } from 'react-router-dom'
 
 class Post extends Component {
 
@@ -16,8 +18,10 @@ class Post extends Component {
 
     const {postsInfo, comments, postId} = this.props
 
+    let thePost = false
+
     if (postsInfo) {
-      const thePost = postsInfo.find((post) => (post.id === postId))
+      thePost = postsInfo.find((post) => (post.id === postId))
       console.log(thePost)
     }
 
@@ -29,17 +33,25 @@ class Post extends Component {
 		return (
 			<div>
 				<Header />
-          <div style={{marginBottom: '50px'}}>
-            THIS IS THE POST DETAIL
-            <br />
-            { postsInfo && postsInfo.map( (post, id) =>
-              <div key={id}>
-                {post.title} !!!
+          { thePost &&
+            <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
+
+              <h1>
+                {thePost.title}
+              </h1>
+              <blockquote>
+                {thePost.body}
+              </blockquote>
+              <p>
+                posted by <strong>{thePost.author}</strong>,
+                &nbsp;
+                {showDate(thePost.timestamp)}
                 <br />
-                [ {post.comments && post.comments.length} ] !!!
-              </div>
-            )}
-          </div>
+                category: <Link to={'/category/' + thePost.category}>{thePost.category}</Link>
+              </p>
+
+            </div>
+          }
         <Footer />
 			</div>
 		)
