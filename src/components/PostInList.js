@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { showDate } from '../utils/utils'
-// import Moment from 'react-moment';
+import { connect } from 'react-redux'
+import { setPostComments } from './../actions'
+import * as ReadableAPI from './../utils/readableAPI'
 
 class PostInList extends Component {
 
+  componentWillMount() {
+      this.props.setPostComments(this.props.postId);
+  }
+
 	render() {
 
-    const { post } = this.props
+    const { post, comments } = this.props
+
+    let postComments = false
+    if (comments) {
+      postComments = comments[post.id]
+      console.log('COMMENTS')
+      console.log(comments)
+      console.log('THE COMMENTS')
+      console.log(postComments)
+    }
 
 		return (
       <div className="box">
@@ -38,13 +53,20 @@ class PostInList extends Component {
             </div>
             <nav className="level is-mobile">
               <div className="level-left">
-                <span className="tag">{post.category}</span>
+                <Link to={'/category/'+post.category} className="tag">
+                  {post.category}
+                </Link>
                 &nbsp;
                 <span className="icon is-small">
                   <i className="fa fa-comment-o"></i>
                 </span>
                 &nbsp;
-                { post.comments && post.comments.length ? post.comments.length : '--' } comments
+                { postComments && postComments.length ?
+                  ((postComments.length === 1) ?
+                      '1 comment'
+                      : postComments.length + ' comments')
+                  : ' 0 comments'
+                }
               </div>
             </nav>
           </div>
@@ -54,6 +76,22 @@ class PostInList extends Component {
 	}
 }
 
-export default PostInList
+function mapStateToProps(state, props) {
+  return {
+    postsInfo: state.posts.posts,
+    comments: state.comments
+  }
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    setPostComments: () =>
+      ReadableAPI.getCommentsByPostId(ownProps.post.id).then( (comments) => {
+        dispatch(setPostComments(ownProps.post.id, comments))
+      }
+    )
+  }
+}
 
 
+export default connect(mapStateToProps, mapDispatchToProps)(PostInList)
