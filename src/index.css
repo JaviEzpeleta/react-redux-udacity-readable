@@ -16,10 +16,24 @@ body {
 	background-repeat: no-repeat;
 	border: 0px;
 	border-style: none;
-	border-bottom-color: none !important
+	border-bottom-color: none !important;
 }
 
 .readable-body-wrapper {
 	min-height: 350px;
 	padding: 20px;
+}
+
+div.readable-voteScore-wrapper div.readable-voteScore-value {
+	color: white;
+	width: 90px;
+	height: 72px;
+    font-size: 30px;
+    line-height: 72px;
+    padding: 0px;
+    margin-bottom: 4px;
+}
+
+div.readable-voteScore-wrapper a.button.is-success.is-outlined {
+	margin-right: 2px;
 }

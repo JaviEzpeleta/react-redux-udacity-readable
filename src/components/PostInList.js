@@ -4,6 +4,7 @@ import { showDate } from '../utils/utils'
 import { connect } from 'react-redux'
 import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
+import VoteScore from './VoteScore'
 
 class PostInList extends Component {
 
@@ -28,8 +29,8 @@ class PostInList extends Component {
       <div className="box">
         <article className="media">
           <div className="media-left">
-            <figure className="image is-64x64">
-              <img src="http://bulma.io/images/placeholders/128x128.png" alt="Placeholder" />
+            <figure className="has-text-centered">
+              <VoteScore voteScore={post.voteScore} postId={post.id} />
             </figure>
           </div>
           <div className="media-content">
