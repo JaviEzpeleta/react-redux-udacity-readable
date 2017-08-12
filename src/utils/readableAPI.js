@@ -23,6 +23,10 @@ export const getCommentsByPostId = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
 
+export const getPostById = (postId) =>
+  fetch(`${api}/posts/${postId}`, { headers })
+    .then(res => res.json())
+
 
 export const remove = (contact) =>
   fetch(`${api}/contacts/${contact.id}`, { method: 'DELETE', headers })

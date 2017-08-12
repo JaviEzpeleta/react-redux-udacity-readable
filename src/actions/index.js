@@ -1,5 +1,9 @@
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_POSTS = 'SET_POSTS'
+export const SET_POST = 'SET_POST'
+export const SET_POST_COMMENTS = 'SET_POST_COMMENTS'
+
+
 export const ADD_RECIPE = 'ADD_RECIPE'
 export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR'
 export const SET_COMMENTS_TO_POST_ID = 'SET_COMMENTS_TO_POST_ID'
@@ -17,7 +21,14 @@ export function setPosts(posts) {
   }
 }
 
-export function setCommentsToPostId(postId, comments) {
+export function setPost(post) {
+  return {
+    type: SET_POST,
+    post
+  }
+}
+
+export function setPostComments(postId, comments) {
   return {
     type: SET_COMMENTS_TO_POST_ID,
     postId,

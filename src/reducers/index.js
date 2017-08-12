@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import {
   SET_CATEGORIES,
   SET_POSTS,
+  SET_POST,
   SET_COMMENTS_TO_POST_ID
 } from '../actions'
 
@@ -19,6 +20,19 @@ function categories (state = {}, action) {
   }
 }
 
+function comments (state = {}, action) {
+  switch (action.type) {
+    case SET_COMMENTS_TO_POST_ID :
+      const { postId, comments } = action
+      return {
+        ...state,
+        [postId]: comments
+      }
+    default :
+      return state
+  }
+}
+
 function posts (state = {}, action) {
   switch (action.type) {
     case SET_POSTS :
@@ -27,21 +41,12 @@ function posts (state = {}, action) {
         ...state,
         posts,
       }
-    case SET_COMMENTS_TO_POST_ID :
-
-      let newState = state;
-
-      if (newState.posts) {
-        newState.posts.forEach( (post) => {
-          if (post.id === action.postId) {
-            post.comments = action.comments
-          }
-        } )
+    case SET_POST :
+      const { post } = action
+      return {
+        ...state,
+        [post.id]: post,
       }
-
-      return newState
-
-
     default :
       return state
   }
@@ -125,5 +130,5 @@ function calendar (state = initialCalendarState, action) {
 }
 */
 export default combineReducers({
-  categories, posts
+  categories, posts, comments
 })
