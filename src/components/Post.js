@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { connect } from 'react-redux'
-import { setPost, setPostComments } from './../actions'
+import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { showDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 class Post extends Component {
 
   componentWillMount() {
-      this.props.setPost(this.props.postId);
       this.props.setPostComments(this.props.postId);
   }
 
@@ -19,6 +18,7 @@ class Post extends Component {
     const {postsInfo, comments, postId} = this.props
 
     let thePost = false
+    let theComments = false
 
     if (postsInfo) {
       thePost = postsInfo.find((post) => (post.id === postId))
@@ -26,7 +26,7 @@ class Post extends Component {
     }
 
     if (comments) {
-      const theComments = comments[postId]
+      theComments = comments[postId]
       console.log('THE COMMENTS')
       console.log(theComments)
     }
@@ -47,8 +47,40 @@ class Post extends Component {
                 &nbsp;
                 {showDate(thePost.timestamp)}
                 <br />
-                category: <Link to={'/category/' + thePost.category}>{thePost.category}</Link>
+                category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
               </p>
+
+              { theComments &&
+                <div>
+                  {theComments.map( (comment, index) =>
+                    <p key={index}>
+
+                      <div className="box">
+                          <div className="media-content">
+                            <div className="content">
+                              <p>
+                                <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
+                                <br />
+                                {comment.body}
+                              </p>
+                            </div>
+                            <nav className="level is-mobile">
+                              <div className="level-left">
+                                <a className="level-item">
+                                  <span className="icon is-small"><i className="fa fa-edit"></i></span>
+                                </a>
+                                <a className="level-item">
+                                  <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+                                </a>
+                              </div>
+                            </nav>
+                          </div>
+                      </div>
+
+                    </p>
+                  )}
+                </div>
+              }
 
             </div>
           }
@@ -66,18 +98,13 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
-      setPost: () =>
-        ReadableAPI.getPostById(ownProps.postId).then( (post) => {
-          dispatch(setPost(post))
-        }
-      ),
-      setPostComments: () =>
-        ReadableAPI.getCommentsByPostId(ownProps.postId).then( (comments) => {
-          dispatch(setPostComments(ownProps.postId, comments))
-        }
-      )
-    }
+  return {
+    setPostComments: () =>
+      ReadableAPI.getCommentsByPostId(ownProps.postId).then( (comments) => {
+        dispatch(setPostComments(ownProps.postId, comments))
+      }
+    )
+  }
 }
 
 
