@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { setCategories, setPosts } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
+import { objectToArray } from '../utils/utils'
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div>
 
@@ -59,7 +61,7 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     categories: state.categories.categories,
-    posts: state.posts.posts
+    posts: objectToArray(state.posts),
   }
 }
 

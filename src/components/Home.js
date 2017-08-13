@@ -8,15 +8,15 @@ class Home extends Component {
 
 	render() {
 
-		const { posts, categories } = this.props
+		const { categories, posts } = this.props
 
 		return (
 			<div>
 				<Header />
 
         <div className="readable-body-wrapper">
-  				<HomeCategories categories={categories} />
-          <PostList posts={posts} />
+          <HomeCategories categories={categories} />
+          <PostList posts={posts}/>
         </div>
 
         <Footer />

@@ -27,18 +27,17 @@ export const getPostById = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
     .then(res => res.json())
 
+export const votePost = (postId, value) => {
+  let option = ''
+  option = (value === 1) ? 'upVote' : 'downVote'
 
-export const remove = (contact) =>
-  fetch(`${api}/contacts/${contact.id}`, { method: 'DELETE', headers })
-    .then(res => res.json())
-    .then(data => data.contact)
-
-export const create = (body) =>
-  fetch(`${api}/contacts`, {
+  fetch(`${api}/posts/${postId}`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify({ option })
   }).then(res => res.json())
+
+}

@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { showDate } from '../utils/utils'
+import { showDate, objectToArray } from '../utils/utils'
 import { connect } from 'react-redux'
 import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import VoteScore from './VoteScore'
 
+// import Moment from 'react-moment';
+
 class PostInList extends Component {
 
   componentWillMount() {
       this.props.setPostComments(this.props.postId);
+      // console.log('🖨 PostInList.js')
   }
 
 	render() {
@@ -19,10 +22,6 @@ class PostInList extends Component {
     let postComments = false
     if (comments) {
       postComments = comments[post.id]
-      console.log('COMMENTS')
-      console.log(comments)
-      console.log('THE COMMENTS')
-      console.log(postComments)
     }
 
 		return (
@@ -30,7 +29,7 @@ class PostInList extends Component {
         <article className="media">
           <div className="media-left">
             <figure className="has-text-centered">
-              <VoteScore voteScore={post.voteScore} postId={post.id} />
+              <VoteScore postId={post.id} />
             </figure>
           </div>
           <div className="media-content">
@@ -41,7 +40,7 @@ class PostInList extends Component {
                 </strong>
                 &nbsp;
                 <small>
-                {showDate(post.timestamp)}
+                {showDate(post.timestamp)} --- {Date.now()}
                 { /*
                   <Moment fromNow>
                     <Moment unix>{post.timestamp}</Moment>
@@ -79,7 +78,7 @@ class PostInList extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    postsInfo: state.posts.posts,
+    posts: objectToArray(state.posts),
     comments: state.comments
   }
 }

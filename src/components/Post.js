@@ -4,7 +4,7 @@ import Footer from './Footer'
 import { connect } from 'react-redux'
 import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
-import { showDate } from '../utils/utils'
+import { showDate, objectToArray } from '../utils/utils'
 import { Link } from 'react-router-dom'
 import VoteScore from './VoteScore'
 
@@ -12,6 +12,7 @@ class Post extends Component {
 
   componentWillMount() {
       this.props.setPostComments(this.props.postId);
+      console.log('render Post.js')
   }
 
 	render() {
@@ -23,13 +24,10 @@ class Post extends Component {
 
     if (posts) {
       thePost = posts.find((post) => (post.id === postId))
-      console.log(thePost)
     }
 
     if (comments) {
       theComments = comments[postId]
-      console.log('THE COMMENTS')
-      console.log(theComments)
     }
 		return (
 			<div>
@@ -49,42 +47,36 @@ class Post extends Component {
                     {thePost.body}
                   </blockquote>
 
-                  <p>
                     posted by <strong>{thePost.author}</strong>,
                     &nbsp;
                     {showDate(thePost.timestamp)}
                     <br />
                     category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
-                  </p>
 
                   { theComments &&
                     <div>
                       {theComments.map( (comment, index) =>
-                        <p key={index}>
-
-                          <div className="box">
-                              <div className="media-content">
-                                <div className="content">
-                                  <p>
-                                    <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
-                                    <br />
-                                    {comment.body}
-                                  </p>
-                                </div>
-                                <nav className="level is-mobile">
-                                  <div className="level-left">
-                                    <a className="level-item">
-                                      <span className="icon is-small"><i className="fa fa-edit"></i></span>
-                                    </a>
-                                    <a className="level-item">
-                                      <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
-                                    </a>
-                                  </div>
-                                </nav>
+                        <div className="box" key={index}>
+                            <div className="media-content">
+                              <div className="content">
+                                <p>
+                                  <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
+                                  <br />
+                                  {comment.body}
+                                </p>
                               </div>
-                          </div>
-
-                        </p>
+                              <nav className="level is-mobile">
+                                <div className="level-left">
+                                  <a className="level-item">
+                                    <span className="icon is-small"><i className="fa fa-edit"></i></span>
+                                  </a>
+                                  <a className="level-item">
+                                    <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+                                  </a>
+                                </div>
+                              </nav>
+                            </div>
+                        </div>
                       )}
                     </div>
                   }
@@ -103,7 +95,7 @@ class Post extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: state.posts.posts,
+    posts: objectToArray(state.posts),
     comments: state.comments
   }
 }

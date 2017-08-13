@@ -2,21 +2,29 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { applyVote } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
+import { objectToArray } from '../utils/utils'
 
 class VoteScore extends Component {
+
 	render() {
 
-		const { voteScore } = this.props
+		const { postId, posts, applyVote } = this.props
+
+    let thePost = false
+
+    if (posts) {
+      thePost = posts.find((post) => (post.id === postId))
+    }
 
 		return (
 			<div className="readable-voteScore-wrapper">
-				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(voteScore)}>
-					{this.props.voteScore}
+				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(thePost.voteScore)}>
+					{thePost.voteScore}
 				</div>
-				<a className="button is-success is-outlined" onClick={() => this.props.applyVote(1)}>
+				<a className="button is-success is-outlined" onClick={() => applyVote(1)}>
 					<i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
 				</a>
-				<a className="button is-danger is-outlined" onClick={() => this.props.applyVote(-1)}>
+				<a className="button is-danger is-outlined" onClick={() => applyVote(-1)}>
 					<i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
 				</a>
 			</div>
@@ -25,7 +33,7 @@ class VoteScore extends Component {
 }
 
 function getColorClassForVoteSocre(voteScore) {
-	if (voteScore > 10) return 'is-sucess'
+	if (voteScore > 10) return 'is-success'
 	if (voteScore > 5) return 'is-info'
 	if (voteScore < 0) return 'is-danger'
 	return 'is-primary'
@@ -33,18 +41,16 @@ function getColorClassForVoteSocre(voteScore) {
 
 function mapStateToProps(state, props) {
   return {
-    postsInfo: state.posts.posts,
-    comments: state.comments
+    posts: objectToArray(state.posts)
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    applyVote: (value) =>
-      ReadableAPI.getCommentsByPostId(ownProps.postId).then( (comments) => {
-        dispatch(applyVote(ownProps.postId, value))
-      }
-    )
+    applyVote: (value) => {
+      ReadableAPI.votePost(ownProps.postId, value)
+      dispatch(applyVote(ownProps.postId, value))
+    }
   }
 }
 

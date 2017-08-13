@@ -29,3 +29,5 @@ export const showDate = (timestamp) => {
   var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
   return time;
 }
+
+export const objectToArray = (obj) => Object.keys(obj).map( (key) => obj[key] )

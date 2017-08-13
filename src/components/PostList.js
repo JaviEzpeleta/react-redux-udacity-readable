@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PostInList from './PostInList'
-// import Moment from 'react-moment';
 
 class PostList extends Component {
 
@@ -11,7 +10,7 @@ class PostList extends Component {
 		return (
       <section>
         <div className="container" style={{marginTop:'2em'}}>
-          { posts && posts.map( (post, index) =>
+          { posts && posts.length && posts.map( (post, index) =>
             <PostInList key={index} post={post} />
           ) }
         </div>
@@ -19,5 +18,6 @@ class PostList extends Component {
 		)
 	}
 }
+
 
 export default PostList
