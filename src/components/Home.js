@@ -15,7 +15,7 @@ class Home extends Component {
 				<Header />
 
         <div className="readable-body-wrapper">
-          <HomeCategories categories={categories} />
+          <HomeCategories categories={categories} posts={posts} />
           <PostList posts={posts}/>
         </div>
 

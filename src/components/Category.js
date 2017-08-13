@@ -25,6 +25,9 @@ class Category extends Component {
       postsToDisplay = posts.filter( (post) => (post.category === category.data.name))
     }
 
+    let elegantCategoryName = ''
+    if (category) elegantCategoryName = capitalizeFirstLetter(category.data.name)
+
 		return (
 			<div>
 				<Header />
@@ -34,15 +37,15 @@ class Category extends Component {
                 <div className="hero-body">
                   <div className="container">
                     <h1 className="title">
-                      {capitalizeFirstLetter(category.data.name)}
+                      {elegantCategoryName}
                     </h1>
                     <h2 className="subtitle">
-                      Only posts about {capitalizeFirstLetter(category.data.name)}
+                      Only posts about {elegantCategoryName}
                     </h2>
                   </div>
                 </div>
               </section>
-              <PostList posts={postsToDisplay} />
+              <PostList posts={postsToDisplay}/>
             </div>
           )}
         <Footer />

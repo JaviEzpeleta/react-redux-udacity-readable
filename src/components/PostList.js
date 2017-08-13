@@ -1,23 +1,61 @@
 import React, { Component } from 'react'
 import PostInList from './PostInList'
-
+import { connect } from 'react-redux'
+import { updateSortMethod } from '../actions'
+import { sortByDate, sortByScore } from '../utils/utils'
 class PostList extends Component {
 
 	render() {
 
-    const { posts } = this.props
+    const { posts, sortMethod, updateSortMethod } = this.props
 
-		return (
-      <section>
-        <div className="container" style={{marginTop:'2em'}}>
+    if (sortMethod === 'date') {
+      posts.sort(sortByDate);
+    } else {
+      posts.sort(sortByScore);
+    }
+
+    let sectionTitle = ''
+    if (posts.length > 1) sectionTitle = posts.length + ' posts'
+    else if (posts.length === 1) sectionTitle = '1 post'
+    else sectionTitle = 'No posts yet'
+
+    return (
+      <div className="container" style={{marginTop:'2em'}}>
+
+        <div className="select right">
+          <select value={sortMethod}
+            onChange={ (event) => { updateSortMethod(event.target.value) } }>
+            <option value="score">Top Score</option>
+            <option value="date">Most recent</option>
+          </select>
+        </div>
+
+        <h3 className="title is-3 is-spaced">
+          {sectionTitle}
+        </h3>
+
+        <div>
           { posts && posts.length && posts.map( (post, index) =>
             <PostInList key={index} post={post} />
           ) }
         </div>
-      </section>
-		)
+      </div>
+    )
 	}
 }
 
+function mapStateToProps(state, props) {
+  return {
+    sortMethod: state.sortMethod
+  }
+}
 
-export default PostList
+function mapDispatchToProps(dispatch) {
+  return {
+    updateSortMethod: (newSortMethod) => {
+      dispatch(updateSortMethod(newSortMethod))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PostList)

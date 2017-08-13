@@ -4,7 +4,8 @@ import {
   SET_CATEGORIES,
   SET_POSTS,
   SET_COMMENTS_TO_POST_ID,
-  APPLY_VOTE
+  APPLY_VOTE,
+  UPDATE_SORT_METHOD
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -63,6 +64,16 @@ function posts (state = {}, action) {
   }
 }
 
+function sortMethod(state = 'score', action) {
+  switch (action.type) {
+    case UPDATE_SORT_METHOD:
+      return action.method
+    default :
+      return state
+  }
+
+}
+
 export default combineReducers({
-  categories, posts, comments
+  categories, posts, comments, sortMethod
 })
