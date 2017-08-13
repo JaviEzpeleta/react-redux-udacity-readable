@@ -4,7 +4,8 @@ import {
   SET_CATEGORIES,
   SET_POSTS,
   SET_POST,
-  SET_COMMENTS_TO_POST_ID
+  SET_COMMENTS_TO_POST_ID,
+  APPLY_VOTE
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -47,6 +48,28 @@ function posts (state = {}, action) {
         ...state,
         [post.id]: post,
       }
+    case APPLY_VOTE :
+      const { postId, vote } = action
+      console.log('⚡️ RECEIVED: ' + postId + ' :: ' + vote)
+      console.log(state)
+      let newState = state
+      console.log('debugging newState')
+      console.log(newState)
+      newState.posts.forEach((val) => {
+        if (val.id === postId) {
+          val.voteScore += vote
+        }
+        console.log('inside THE forEach')
+        console.log(val)
+      })
+      /*
+      newState.map((val) =>{
+        console.log('inside THE forEach')
+        console.log(val)
+      })
+      */
+      return { ...state,
+        posts: newState.posts }
     default :
       return state
   }

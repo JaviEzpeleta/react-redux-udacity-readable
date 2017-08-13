@@ -2,6 +2,7 @@ export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_POSTS = 'SET_POSTS'
 export const SET_POST = 'SET_POST'
 export const SET_POST_COMMENTS = 'SET_POST_COMMENTS'
+export const APPLY_VOTE = 'APPLY_VOTE'
 
 
 export const ADD_RECIPE = 'ADD_RECIPE'
@@ -33,6 +34,14 @@ export function setPostComments(postId, comments) {
     type: SET_COMMENTS_TO_POST_ID,
     postId,
     comments
+  }
+}
+
+export function applyVote(postId, vote) {
+  return {
+    type: APPLY_VOTE,
+    postId,
+    vote
   }
 }
 

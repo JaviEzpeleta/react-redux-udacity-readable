@@ -16,13 +16,13 @@ class Post extends Component {
 
 	render() {
 
-    const {postsInfo, comments, postId} = this.props
+    const {posts, comments, postId} = this.props
 
     let thePost = false
     let theComments = false
 
-    if (postsInfo) {
-      thePost = postsInfo.find((post) => (post.id === postId))
+    if (posts) {
+      thePost = posts.find((post) => (post.id === postId))
       console.log(thePost)
     }
 
@@ -103,7 +103,7 @@ class Post extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    postsInfo: state.posts.posts,
+    posts: state.posts.posts,
     comments: state.comments
   }
 }
