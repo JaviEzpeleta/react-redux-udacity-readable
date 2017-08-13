@@ -40,12 +40,7 @@ class PostInList extends Component {
                 </strong>
                 &nbsp;
                 <small>
-                {showDate(post.timestamp)} --- {Date.now()}
-                { /*
-                  <Moment fromNow>
-                    <Moment unix>{post.timestamp}</Moment>
-                  </Moment>
-                */ }
+                {showDate(post.timestamp)}
                 </small>
                 <br />
                 <Link to={'/post/'+post.id} className="is-size-5">{post.title}</Link>

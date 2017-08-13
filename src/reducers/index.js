@@ -35,6 +35,7 @@ function comments (state = {}, action) {
 
 function posts (state = {}, action) {
   switch (action.type) {
+
     case SET_POSTS :
       const { posts } = action
       let stateWithPosts = []
@@ -45,17 +46,17 @@ function posts (state = {}, action) {
         }
       })
       return stateWithPosts
-    case APPLY_VOTE :
-      const { postId, vote } = action
 
-      let newState = state
-      Object.keys(newState).forEach((key) => {
-        if (newState[key].id === postId) {
-          newState[key].voteScore += vote
+    case APPLY_VOTE :
+      const { postId, newValue } = action
+
+      return {
+        ...state,
+        [postId]: {
+          ...state[postId],
+          voteScore: newValue
         }
-      })
-      let stateToReturn = newState
-      return stateToReturn;
+      }
 
     default :
       return state

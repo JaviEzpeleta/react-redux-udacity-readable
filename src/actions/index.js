@@ -24,10 +24,10 @@ export function setPostComments(postId, comments) {
   }
 }
 
-export function applyVote(postId, vote) {
+export function applyVote(postId, newValue) {
   return {
     type: APPLY_VOTE,
     postId,
-    vote
+    newValue
   }
 }

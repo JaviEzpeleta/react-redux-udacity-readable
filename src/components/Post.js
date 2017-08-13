@@ -47,11 +47,11 @@ class Post extends Component {
                     {thePost.body}
                   </blockquote>
 
-                    posted by <strong>{thePost.author}</strong>,
-                    &nbsp;
-                    {showDate(thePost.timestamp)}
-                    <br />
-                    category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
+                  posted by <strong>{thePost.author}</strong>,
+                  &nbsp;
+                  {showDate(thePost.timestamp)}
+                  <br />
+                  category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
 
                   { theComments &&
                     <div>

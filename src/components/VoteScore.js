@@ -21,10 +21,10 @@ class VoteScore extends Component {
 				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(thePost.voteScore)}>
 					{thePost.voteScore}
 				</div>
-				<a className="button is-success is-outlined" onClick={() => applyVote(1)}>
+				<a className="button is-success is-outlined" onClick={() => applyVote(thePost.voteScore, 1)}>
 					<i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
 				</a>
-				<a className="button is-danger is-outlined" onClick={() => applyVote(-1)}>
+				<a className="button is-danger is-outlined" onClick={() => applyVote(thePost.voteScore, -1)}>
 					<i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
 				</a>
 			</div>
@@ -47,9 +47,9 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    applyVote: (value) => {
-      ReadableAPI.votePost(ownProps.postId, value)
-      dispatch(applyVote(ownProps.postId, value))
+    applyVote: (newValue, diff) => {
+      ReadableAPI.votePost(ownProps.postId, diff)
+      dispatch(applyVote(ownProps.postId, newValue+diff))
     }
   }
 }

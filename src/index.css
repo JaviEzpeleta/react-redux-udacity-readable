@@ -37,6 +37,7 @@ div.readable-voteScore-wrapper div.readable-voteScore-value {
     padding: 0px;
     margin-bottom: 4px;
     text-align: center;
+    transition: all 2s;
 }
 
 div.readable-voteScore-wrapper a.button.is-success.is-outlined {
