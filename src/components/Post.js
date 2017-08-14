@@ -11,8 +11,8 @@ import VoteScore from './VoteScore'
 class Post extends Component {
 
   componentWillMount() {
-      this.props.setPostComments(this.props.postId);
-      console.log('render Post.js')
+    this.props.setPostComments(this.props.postId);
+    window.scrollTo(0, 0)
   }
 
 	render() {
@@ -33,7 +33,7 @@ class Post extends Component {
 			<div>
 				<Header />
           { thePost &&
-            <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
+            <div className="container content has-top-margin" style={{marginBottom: '50px'}}>
 
               <div className="columns is-mobile">
                 <div className="column" style={{maxWidth: '115px'}}>

@@ -3,6 +3,8 @@ import PostInList from './PostInList'
 import { connect } from 'react-redux'
 import { updateSortMethod } from '../actions'
 import { sortByDate, sortByScore } from '../utils/utils'
+import { Link } from 'react-router-dom'
+
 class PostList extends Component {
 
 	render() {
@@ -21,7 +23,7 @@ class PostList extends Component {
     else sectionTitle = 'No posts yet'
 
     return (
-      <div className="container" style={{marginTop:'2em'}}>
+      <div className="container has-top-margin">
 
         <div className="select right">
           <select value={sortMethod}
@@ -40,6 +42,13 @@ class PostList extends Component {
             <PostInList key={index} post={post} />
           ) }
         </div>
+
+        <div className="container has-top-margin">
+          <Link className="button" to="/new">
+            Add new post
+          </Link>
+        </div>
+
       </div>
     )
 	}

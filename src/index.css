@@ -53,3 +53,10 @@ div.readable-voteScore-wrapper a.button.is-success.is-outlined {
 	border-radius: 4px;
 	box-shadow: 1px 1px 4px #bfbfbf;
 }
+
+div.has-top-margin {
+	margin-top: 2em;
+}
+div.has-bottom-margin {
+	margin-bottom: 2em;
+}

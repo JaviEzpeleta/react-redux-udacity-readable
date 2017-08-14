@@ -3,6 +3,8 @@ export const SET_POSTS = 'SET_POSTS'
 export const APPLY_VOTE = 'APPLY_VOTE'
 export const SET_COMMENTS_TO_POST_ID = 'SET_COMMENTS_TO_POST_ID'
 export const UPDATE_SORT_METHOD = 'UPDATE_SORT_METHOD'
+export const CONTROL_NEW_POST_FORM = 'CONTROL_NEW_POST_FORM'
+export const ADD_NEW_POST = 'ADD_NEW_POST'
 
 export function setCategories(categories) {
   return {
@@ -37,5 +39,23 @@ export function updateSortMethod(method) {
   return {
     type: UPDATE_SORT_METHOD,
     method
+  }
+}
+
+export function controlNewPostForm(name, value) {
+  return {
+    type: CONTROL_NEW_POST_FORM,
+    name,
+    value
+  }
+}
+
+export function addNewPost(formValues) {
+  return {
+    type: ADD_NEW_POST,
+    title: formValues.title,
+    category: formValues.category,
+    username: formValues.username,
+    message: formValues.message
   }
 }

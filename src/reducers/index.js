@@ -5,7 +5,9 @@ import {
   SET_POSTS,
   SET_COMMENTS_TO_POST_ID,
   APPLY_VOTE,
-  UPDATE_SORT_METHOD
+  UPDATE_SORT_METHOD,
+  CONTROL_NEW_POST_FORM,
+  ADD_NEW_POST
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -58,7 +60,22 @@ function posts (state = {}, action) {
           voteScore: newValue
         }
       }
+    case ADD_NEW_POST:
+      const { title, username, message, category } = action
 
+      return {
+        ...state,
+        theNewPost: {
+          author: username,
+          body: message,
+          category,
+          deleted: false,
+          id: 'theNewPost',
+          timestamp: 1467166872634,
+          title,
+          voteScore: 1
+        }
+      }
     default :
       return state
   }
@@ -71,9 +88,21 @@ function sortMethod(state = 'score', action) {
     default :
       return state
   }
+}
 
+function newPostForm(state = {}, action) {
+  switch (action.type) {
+    case CONTROL_NEW_POST_FORM:
+      const { name, value } = action
+      return {
+        ...state,
+        [name]: value
+      }
+    default :
+      return state
+  }
 }
 
 export default combineReducers({
-  categories, posts, comments, sortMethod
+  categories, posts, comments, sortMethod, newPostForm
 })

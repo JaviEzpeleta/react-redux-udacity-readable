@@ -8,6 +8,7 @@ import { setCategories, setPosts } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
+import newPost from './NewPost'
 
 class App extends Component {
 
@@ -38,6 +39,9 @@ class App extends Component {
 
           <Route path='/post/:query' render={({ match }) => (
             <Post postId={match.params.query} />
+          )}/>
+
+          <Route path='/new' component={newPost} />
           )}/>
 
         </Switch>
