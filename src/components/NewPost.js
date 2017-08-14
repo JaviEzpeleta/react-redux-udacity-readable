@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, WithRouter } from 'react-router-dom'
 import { controlNewPostForm, addNewPost } from '../actions'
 
 class NewPost extends Component {
@@ -40,6 +40,7 @@ class NewPost extends Component {
 
 		return (
 		<div>
+
 			<Header />
 
         <div className="container has-top-margin has-bottom-margin">
@@ -135,14 +136,13 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlNewPostForm: (name, value) =>
       dispatch(controlNewPostForm(name, value)),
     addNewPost: (formValues) => {
-      console.log('I am going to dispath:')
-      console.log(formValues)
       dispatch(addNewPost(formValues))
+      ownProps.history.push('/');
     }
   }
 }
