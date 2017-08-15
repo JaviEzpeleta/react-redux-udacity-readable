@@ -16,9 +16,6 @@ class NewPost extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     if (this.fieldsAreValid()) {
-      console.log('***********')
-      console.log('READY TO SEND !!!!')
-      console.log('***********')
       this.props.newPostForm.id = faker.random.uuid()
       this.props.newPostForm.timestamp = Date.now()
       this.props.addNewPost(this.props.newPostForm)
@@ -40,7 +37,7 @@ class NewPost extends Component {
 
 	render() {
 
-    const { categories, newPostForm } = this.props
+    const { categories, newPostForm, controlNewPostForm } = this.props
 
 		return (
 		<div>
@@ -117,7 +114,7 @@ class NewPost extends Component {
 
                 { newPostForm.showNotification &&
                   <div className="container notification is-danger">
-                    <button className="delete"></button>
+                    <button className="delete" onClick={() => controlNewPostForm('showNotification', false)}></button>
                     <strong>Oops. Something is not right.</strong><br />
                     Please fill all the fields in this form, and select a category.
                   </div>
