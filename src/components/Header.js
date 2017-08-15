@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LogoImage from './../images/readable-logo.png'
 import { Link } from 'react-router-dom'
+import AddPostButton from './AddPostButton'
 
 class Header extends Component {
 	render() {
@@ -186,25 +187,8 @@ class Header extends Component {
         </a>
         <div className="navbar-item">
           <div className="field is-grouped">
-            { /*
             <p className="control">
-              <a className="tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="http://bulma.io" href="https://twitter.com/ezpe">
-  			  <span className="icon">
-  			    <i className="fa fa-twitter"></i>
-  			  </span>
-  			  <span>
-  			    Tweet
-  			  </span>
-  			</a>
-            </p>
-            */ }
-            <p className="control">
-              <a className="button is-primary" href="https://github.com/JaviEzpeleta/udacity-readable">
-                <span className="icon">
-                  <i className="fa fa-download"></i>
-                </span>
-                <span>Download</span>
-              </a>
+              <AddPostButton />
             </p>
           </div>
         </div>

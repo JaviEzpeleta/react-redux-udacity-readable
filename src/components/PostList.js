@@ -3,7 +3,7 @@ import PostInList from './PostInList'
 import { connect } from 'react-redux'
 import { updateSortMethod } from '../actions'
 import { sortByDate, sortByScore } from '../utils/utils'
-import { Link } from 'react-router-dom'
+import AddPostButton from './AddPostButton'
 
 class PostList extends Component {
 
@@ -43,10 +43,8 @@ class PostList extends Component {
           ) }
         </div>
 
-        <div className="container has-top-margin">
-          <Link className="button" to="/new">
-            Add new post
-          </Link>
+        <div className="has-top-margin">
+          <AddPostButton />
         </div>
 
       </div>

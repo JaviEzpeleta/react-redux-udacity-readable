@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { connect } from 'react-redux'
-import { Link, WithRouter } from 'react-router-dom'
 import { controlNewPostForm, addNewPost } from '../actions'
+import faker from 'faker'
 
 class NewPost extends Component {
 
@@ -17,6 +17,8 @@ class NewPost extends Component {
       console.log('***********')
       console.log('READY TO SEND !!!!')
       console.log('***********')
+      this.props.newPostForm.id = faker.random.uuid()
+      this.props.newPostForm.timestamp = Math.floor(Date.now() / 1000)
       this.props.addNewPost(this.props.newPostForm)
     } else {
       console.error('THIS IS NO VALID FORM!!!!')
@@ -48,7 +50,9 @@ class NewPost extends Component {
             <div className="column is-half">
 
               <form onSubmit={this.handleSubmit}>
-                <div className="title">Add a new Post</div>
+                <div className="title">
+                  Add a new Post
+                </div>
 
                 <div className="field">
                   <label className="label">Post Title</label>
@@ -111,11 +115,14 @@ class NewPost extends Component {
 
                 <div className="field is-grouped">
                   <div className="control">
-                    <input type="submit" className="button is-primary" value="Submit" />
-                    { /* <button className="button is-primary" onClick={() => validateForm()}>Submit</button> */ }
+                    <button type="submit" className="button is-primary">
+                      <span className="icon"><i className="fa fa-paper-plane"></i></span>
+                      &nbsp; &nbsp;
+                      Submit
+                    </button>
                   </div>
                   <div className="control">
-                    <Link to="/" className="button is-link">Cancel</Link>
+                    <a onClick={() => window.history.back()} className="button is-link">Cancel</a>
                   </div>
                 </div>
               </form>
