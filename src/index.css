@@ -60,3 +60,7 @@ div.has-top-margin {
 div.has-bottom-margin {
 	margin-bottom: 2em;
 }
+.actionButtonFromPostList {
+	width: 120px;
+	margin-bottom: 10px;
+}

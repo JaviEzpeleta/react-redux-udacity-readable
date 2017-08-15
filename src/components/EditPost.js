@@ -6,24 +6,20 @@ import { controlNewPostForm, addNewPost } from '../actions'
 import faker from 'faker'
 import { addPost } from './../utils/readableAPI'
 
-class NewPost extends Component {
+class EditPost extends Component {
 
   componentWillMount() {
     window.scrollTo(0, 0)
-    this.props.controlNewPostForm('showNotification', false)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
     if (this.fieldsAreValid()) {
-      console.log('***********')
-      console.log('READY TO SEND !!!!')
-      console.log('***********')
       this.props.newPostForm.id = faker.random.uuid()
       this.props.newPostForm.timestamp = Date.now()
       this.props.addNewPost(this.props.newPostForm)
     } else {
-      this.props.controlNewPostForm('showNotification', true)
+      console.error('THIS IS NO VALID FORM!!!!')
     }
     event.preventDefault()
   }
@@ -40,7 +36,7 @@ class NewPost extends Component {
 
 	render() {
 
-    const { categories, newPostForm } = this.props
+    const { categories } = this.props
 
 		return (
 		<div>
@@ -115,14 +111,6 @@ class NewPost extends Component {
                   </div>
                 </div>
 
-                { newPostForm.showNotification &&
-                  <div className="container notification is-danger">
-                    <button className="delete"></button>
-                    <strong>Oops. Something is not right.</strong><br />
-                    Please fill all the fields in this form, and select a category.
-                  </div>
-                }
-
                 <div className="field is-grouped">
                   <div className="control">
                     <button type="submit" className="button is-primary">
@@ -165,4 +153,4 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost)

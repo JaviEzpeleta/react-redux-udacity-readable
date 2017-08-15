@@ -26,6 +26,22 @@ class PostInList extends Component {
 
 		return (
       <div className="box">
+
+        <div className="right">
+          <div className="button actionButtonFromPostList is-danger is-outlined">
+            <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+            &nbsp;
+            delete
+          </div>
+          <br />
+          <Link to={'/edit/'+post.id} className="button actionButtonFromPostList is-info is-outlined">
+            <span className="icon is-small"><i className="fa fa-edit"></i></span>
+            &nbsp;
+            edit
+          </Link>
+        </div>
+
+
         <article className="media">
           <div className="media-left">
             <figure className="has-text-centered">

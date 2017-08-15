@@ -8,7 +8,8 @@ import { setCategories, setPosts } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
-import newPost from './NewPost'
+import NewPost from './NewPost'
+import EditPost from './EditPost'
 
 class App extends Component {
 
@@ -41,7 +42,11 @@ class App extends Component {
             <Post postId={match.params.query} />
           )}/>
 
-          <Route path='/new' component={newPost} />
+          <Route path='/edit/:query' render={({ match }) => (
+            <EditPost postId={match.params.query} />
+          )}/>
+
+          <Route path='/new' component={NewPost} />
           )}/>
 
         </Switch>
