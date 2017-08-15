@@ -61,7 +61,7 @@ function posts (state = {}, action) {
         }
       }
     case ADD_NEW_POST:
-      const { title, username, message, category } = action
+      const { title, username, message, category, id, timestamp } = action
 
       return {
         ...state,
@@ -70,8 +70,8 @@ function posts (state = {}, action) {
           body: message,
           category,
           deleted: false,
-          id: 'theNewPost',
-          timestamp: 1467166872634,
+          id,
+          timestamp,
           title,
           voteScore: 1
         }

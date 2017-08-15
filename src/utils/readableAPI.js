@@ -39,5 +39,28 @@ export const votePost = (postId, value) => {
     },
     body: JSON.stringify({ option })
   }).then(res => res.json())
+}
+
+export const addPost = (formValues) => {
+
+  const body = {
+    id: formValues.id,
+    title: formValues.title,
+    category: formValues.category,
+    author: formValues.username,
+    body: formValues.message,
+    timestamp: formValues.timestamp,
+    voteScore: 1,
+    deleted: false
+  }
+
+  fetch(`${api}/posts/`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => res.json())
 
 }

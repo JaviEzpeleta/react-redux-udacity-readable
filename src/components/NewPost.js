@@ -4,6 +4,7 @@ import Footer from './Footer'
 import { connect } from 'react-redux'
 import { controlNewPostForm, addNewPost } from '../actions'
 import faker from 'faker'
+import { addPost } from './../utils/readableAPI'
 
 class NewPost extends Component {
 
@@ -18,7 +19,7 @@ class NewPost extends Component {
       console.log('READY TO SEND !!!!')
       console.log('***********')
       this.props.newPostForm.id = faker.random.uuid()
-      this.props.newPostForm.timestamp = Math.floor(Date.now() / 1000)
+      this.props.newPostForm.timestamp = Date.now()
       this.props.addNewPost(this.props.newPostForm)
     } else {
       console.error('THIS IS NO VALID FORM!!!!')
@@ -148,6 +149,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     controlNewPostForm: (name, value) =>
       dispatch(controlNewPostForm(name, value)),
     addNewPost: (formValues) => {
+      addPost(formValues)
       dispatch(addNewPost(formValues))
       ownProps.history.push('/');
     }

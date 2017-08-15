@@ -56,6 +56,8 @@ export function addNewPost(formValues) {
     title: formValues.title,
     category: formValues.category,
     username: formValues.username,
-    message: formValues.message
+    message: formValues.message,
+    id: formValues.id,
+    timestamp: formValues.timestamp
   }
 }
