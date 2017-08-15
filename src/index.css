@@ -61,6 +61,14 @@ div.has-bottom-margin {
 	margin-bottom: 2em;
 }
 .actionButtonFromPostList {
-	width: 120px;
+	width: 75px;
 	margin-bottom: 10px;
+}
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+	background-color: rgba(35, 35, 35, 0.75) !important;
+}
+.ReactModal__Content.ReactModal__Content--after-open {
+    width: 450px !important;
+    margin: auto !important;
+    height: 242px !important;
 }

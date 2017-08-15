@@ -7,7 +7,9 @@ import {
   APPLY_VOTE,
   UPDATE_SORT_METHOD,
   CONTROL_NEW_POST_FORM,
-  ADD_NEW_POST
+  ADD_NEW_POST,
+  DISPLAY_DELETE_MODAL,
+  SET_POST_ID_TO_DELETE_MODAL
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -103,6 +105,29 @@ function newPostForm(state = {}, action) {
   }
 }
 
+function deletePostModal(state = false, action) {
+  switch (action.type) {
+    case DISPLAY_DELETE_MODAL:
+      const { active } = action
+      return {
+        ...state,
+        isActive: active
+      }
+    case SET_POST_ID_TO_DELETE_MODAL:
+      const { postId } = action
+      return {
+        ...state,
+        postId
+      }
+    default :
+      return state
+  }
+}
 export default combineReducers({
-  categories, posts, comments, sortMethod, newPostForm
+  categories,
+  posts,
+  comments,
+  sortMethod,
+  newPostForm,
+  deletePostModal
 })

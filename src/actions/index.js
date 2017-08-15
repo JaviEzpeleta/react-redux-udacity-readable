@@ -5,6 +5,8 @@ export const SET_COMMENTS_TO_POST_ID = 'SET_COMMENTS_TO_POST_ID'
 export const UPDATE_SORT_METHOD = 'UPDATE_SORT_METHOD'
 export const CONTROL_NEW_POST_FORM = 'CONTROL_NEW_POST_FORM'
 export const ADD_NEW_POST = 'ADD_NEW_POST'
+export const DISPLAY_DELETE_MODAL = 'DISPLAY_DELETE_MODAL'
+export const SET_POST_ID_TO_DELETE_MODAL = 'SET_POST_ID_TO_DELETE_MODAL'
 
 export function setCategories(categories) {
   return {
@@ -59,5 +61,19 @@ export function addNewPost(formValues) {
     message: formValues.message,
     id: formValues.id,
     timestamp: formValues.timestamp
+  }
+}
+
+export function displayDeleteModal(bool) {
+  return {
+    type: DISPLAY_DELETE_MODAL,
+    active: bool
+  }
+}
+
+export function setPostIdToDeleteModal(postId) {
+  return {
+    type: SET_POST_ID_TO_DELETE_MODAL,
+    postId
   }
 }

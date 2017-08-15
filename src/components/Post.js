@@ -51,7 +51,7 @@ class Post extends Component {
                   &nbsp;
                   {showDate(thePost.timestamp)}
                   <br />
-                  category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
+                  category: <Link to={'/category/' + thePost.category}>{thePost.category}</Link>
 
                   { theComments &&
                     <div>
