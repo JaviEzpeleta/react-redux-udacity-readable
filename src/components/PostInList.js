@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { showDate, objectToArray } from '../utils/utils'
 import { connect } from 'react-redux'
-import { setPostComments, displayDeleteModal, setPostIdToDeleteModal } from './../actions'
+import { setPostComments,
+    displayDeleteModal,
+    setPostIdToDeleteModal,
+    deletePost } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import VoteScore from './VoteScore'
 import Modal from 'react-modal'
@@ -19,7 +22,12 @@ class PostInList extends Component {
 
 	render() {
 
-    const { post, comments, deletePostModal,displayDeleteModal } = this.props
+    const { post,
+      comments,
+      deletePostModal,
+      displayDeleteModal,
+      setPostIdToDeleteModal,
+      deletePost } = this.props
 
     let postComments = false
     if (comments) {
@@ -75,8 +83,8 @@ class PostInList extends Component {
             <div
                 className="button actionButtonFromPostList is-danger is-small is-outlined"
               onClick={() => {
-                  displayDeleteModal(true)
                   setPostIdToDeleteModal(post.id)
+                  displayDeleteModal(true)
                 }
               }>
               <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
@@ -98,9 +106,19 @@ class PostInList extends Component {
           onRequestClose={() => displayDeleteModal(false)}
           contentLabel="No Overlay Click Modal"
         >
-          <h1>Force Modal</h1>
-          <p>Modal cannot be closed when clicking the overlay area</p>
-          <button onClick={() => true}>Close Modal...</button>
+          <div className="container">
+            <h1 className="title">
+              Are you sure?
+            </h1>
+            <p>
+              Please confirm that you want to delete this post.
+              <br />
+              <i>(this action cannot be undone)</i>
+            </p>
+            <br />
+            <div style={{marginRight:'12px'}}className="button" onClick={() => displayDeleteModal(false)}>Cancel</div>
+            <div className="button is-outlined is-danger" onClick={() => deletePost(deletePostModal.postId)}>Yes, I want to delete the post</div>
+          </div>
         </Modal>
 
       </div>
@@ -127,7 +145,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(displayDeleteModal(bool))
     },
     setPostIdToDeleteModal: (postId) => {
+      console.error('PONGO COMO ID ACTIVO: ' +postId)
       dispatch(setPostIdToDeleteModal(postId))
+    },
+    deletePost: (postIdToDelete) => {
+      console.error('VOY A BORRAR: ' +postIdToDelete)
+      dispatch(deletePost(postIdToDelete))
     }
   }
 }

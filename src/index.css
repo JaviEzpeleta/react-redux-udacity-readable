@@ -66,6 +66,7 @@ div.has-bottom-margin {
 }
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
 	background-color: rgba(35, 35, 35, 0.75) !important;
+	z-index: 5;
 }
 .ReactModal__Content.ReactModal__Content--after-open {
     width: 450px !important;

@@ -9,7 +9,8 @@ import {
   CONTROL_NEW_POST_FORM,
   ADD_NEW_POST,
   DISPLAY_DELETE_MODAL,
-  SET_POST_ID_TO_DELETE_MODAL
+  SET_POST_ID_TO_DELETE_MODAL,
+  DELETE_POST
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -40,6 +41,16 @@ function comments (state = {}, action) {
 
 function posts (state = {}, action) {
   switch (action.type) {
+
+    case DELETE_POST :
+      const postIdToDelete = action.postId
+      return {
+        ...state,
+        [postIdToDelete]: {
+          ...state[postIdToDelete],
+          deleted: true
+        },
+      }
 
     case SET_POSTS :
       const { posts } = action
@@ -123,11 +134,12 @@ function deletePostModal(state = false, action) {
       return state
   }
 }
+
 export default combineReducers({
   categories,
   posts,
   comments,
   sortMethod,
   newPostForm,
-  deletePostModal
+  deletePostModal,
 })

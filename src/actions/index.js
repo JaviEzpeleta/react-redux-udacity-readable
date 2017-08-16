@@ -7,6 +7,7 @@ export const CONTROL_NEW_POST_FORM = 'CONTROL_NEW_POST_FORM'
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const DISPLAY_DELETE_MODAL = 'DISPLAY_DELETE_MODAL'
 export const SET_POST_ID_TO_DELETE_MODAL = 'SET_POST_ID_TO_DELETE_MODAL'
+export const DELETE_POST = 'DELETE_POST'
 
 export function setCategories(categories) {
   return {
@@ -74,6 +75,13 @@ export function displayDeleteModal(bool) {
 export function setPostIdToDeleteModal(postId) {
   return {
     type: SET_POST_ID_TO_DELETE_MODAL,
+    postId
+  }
+}
+
+export function deletePost(postId) {
+  return {
+    type: DELETE_POST,
     postId
   }
 }
