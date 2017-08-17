@@ -8,6 +8,10 @@ export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const DISPLAY_DELETE_MODAL = 'DISPLAY_DELETE_MODAL'
 export const SET_POST_ID_TO_DELETE_MODAL = 'SET_POST_ID_TO_DELETE_MODAL'
 export const DELETE_POST = 'DELETE_POST'
+export const CONTROL_EDIT_POST_FORM = 'CONTROL_EDIT_POST_FORM'
+export const EDIT_POST = 'EDIT_POST'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
 
 export function setCategories(categories) {
   return {
@@ -53,6 +57,14 @@ export function controlNewPostForm(name, value) {
   }
 }
 
+export function controlEditPostForm(name, value) {
+  return {
+    type: CONTROL_EDIT_POST_FORM,
+    name,
+    value
+  }
+}
+
 export function addNewPost(formValues) {
   return {
     type: ADD_NEW_POST,
@@ -83,5 +95,28 @@ export function deletePost(postId) {
   return {
     type: DELETE_POST,
     postId
+  }
+}
+
+export function editPost(post) {
+  return {
+    type: EDIT_POST,
+    post
+  }
+}
+
+export function addNewCommentAction(postId, comment) {
+  return {
+    type: ADD_COMMENT,
+    postId,
+    comment
+  }
+}
+
+export function controlNewCommentData(name, value) {
+  return {
+    type: CONTROL_NEW_COMMENT,
+    name,
+    value
   }
 }

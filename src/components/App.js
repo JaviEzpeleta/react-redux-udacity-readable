@@ -14,6 +14,10 @@ import EditPost from './EditPost'
 class App extends Component {
 
   componentWillMount() {
+
+    console.log('FROM APP:')
+    console.log(this.props)
+
     this.props.getAllCategories();
     this.props.getAllPosts();
   }
@@ -43,7 +47,7 @@ class App extends Component {
           )}/>
 
           <Route path='/edit/:query' render={({ match }) => (
-            <EditPost postId={match.params.query} />
+            <EditPost postId={match.params.query} history={this.props.history} />
           )}/>
 
           <Route path='/new' component={NewPost} />

@@ -1,76 +1,81 @@
-import React, { Component } from 'react'
-import Header from './Header'
-import Footer from './Footer'
-import { connect } from 'react-redux'
-import { controlNewPostForm, addNewPost, setPosts } from '../actions'
-import faker from 'faker'
-import { addPost, getAllPosts } from './../utils/readableAPI'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { controlEditPostForm, editPost } from '../actions'
+import { editPostById } from './../utils/readableAPI'
+import AnimatedWrapper from './../utils/AnimatedWrapper';
 
-class NewPost extends Component {
+class EditForm extends Component {
 
-  componentWillMount() {
-    window.scrollTo(0, 0)
-    this.props.controlNewPostForm('showNotification', false)
-    this.props.controlNewPostForm('title', '')
-    this.props.controlNewPostForm('category', '')
-    this.props.controlNewPostForm('username', '')
-    this.props.controlNewPostForm('message', '')
-    this.props.controlNewPostForm('category', 0)
+  componentDidMount() {
 
+    console.log('FROM EDIT:')
+    console.log(this.props)
+
+
+    const { post, controlEditPostForm } = this.props
+    controlEditPostForm('id', post.id)
+    controlEditPostForm('title', post.title)
+    controlEditPostForm('timestamp', post.timestamp)
+    controlEditPostForm('body', post.body)
+    controlEditPostForm('author', post.author)
+    controlEditPostForm('category', post.category)
+  }
+
+  handleChange = (event) => {
+    this.props.controlEditPostForm(event.target.name, event.target.value)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
+    console.log('HANDLE SUBMIT YES!')
     if (this.fieldsAreValid()) {
-      this.props.newPostForm.id = faker.random.uuid()
-      this.props.newPostForm.timestamp = Date.now()
-      this.props.addNewPost(this.props.newPostForm)
+      this.props.editPost(this.props.editPostForm)
     } else {
-      this.props.controlNewPostForm('showNotification', true)
+      this.props.controlEditPostForm('showNotification', true)
     }
     event.preventDefault()
   }
 
   fieldsAreValid = () => {
-    const form = this.props.newPostForm
+    const form = this.props.editPostForm
     if (form.title && form.title !== ''
       && form.category && form.category !== ''
-      && form.username && form.username !== ''
-      && form.message && form.message !== ''
+      && form.author && form.author !== ''
+      && form.body && form.body !== ''
       && form.category !== 0
       ) return true;
     return false;
   }
 
-  handleChange = (event) => {
-    this.props.controlNewPostForm(event.target.name, event.target.value)
-  }
-
 	render() {
 
-    const { categories, newPostForm, controlNewPostForm } = this.props
+    const {post, categories, editPostForm } = this.props
 
 		return (
-		<div>
+      <div className="container has-top-margin has-bottom-margin">
+        <div className="columns">
+          <div className="column is-half">
 
-			<Header />
+            <form onSubmit={this.handleSubmit}>
 
-        <div className="container has-top-margin has-bottom-margin">
-          <div className="columns">
-            <div className="column is-half">
-
-              <form onSubmit={this.handleSubmit}>
-                <div className="title">
-                  Add a new Post
+              <div className="title">
+                  Edit this post: <i>{post.title}</i>
                 </div>
 
                 <div className="field">
                   <label className="label">Post Title</label>
                   <div className="control">
+                  { /*}
+                    <Field className="input"
+                      placeholder="Title"
+                      defaultValue={post.title}
+                      name="title" type="text" component={renderField} />
+                */ }
                     <input
                       className="input"
                       type="text"
                       name="title"
+                      defaultValue={post.title}
                       onChange={(event) => this.handleChange(event)}
                       placeholder="Title"/>
                   </div>
@@ -80,11 +85,12 @@ class NewPost extends Component {
                   <label className="label">Username</label>
                   <div className="control has-icons-left has-icons-right">
                     <input
-                      className="input {/*is-success*/}"
+                      className="input"
                       type="text"
                       name="username"
                       onChange={(event) => this.handleChange(event)}
-                      placeholder="your username" />
+                      placeholder="your username"
+                      defaultValue={post.author}/>
                     <span className="icon is-small is-left">
                       <i className="fa fa-user"></i>
                     </span>
@@ -98,6 +104,7 @@ class NewPost extends Component {
                     <div className="select">
                       <select
                         name="category"
+                        defaultValue={post.category}
                         onChange={(event) => this.handleChange(event)}>
                         <option value="0">Select category</option>
                         { categories && categories.map((category, index) =>
@@ -119,13 +126,14 @@ class NewPost extends Component {
                       name="message"
                       onChange={(event) => this.handleChange(event)}
                       className="textarea"
-                      placeholder="Your message" />
+                      defaultValue={post.body}
+                      placeholder="Your message"></textarea>
                   </div>
                 </div>
 
-                { newPostForm.showNotification &&
+                { editPostForm.showNotification &&
                   <div className="container notification is-danger">
-                    <button className="delete" onClick={() => controlNewPostForm('showNotification', false)}></button>
+                    <button className="delete" onClick={() => controlEditPostForm('showNotification', false)}></button>
                     <strong>Oops. Something is not right.</strong><br />
                     Please fill all the fields in this form, and select a category.
                   </div>
@@ -143,38 +151,35 @@ class NewPost extends Component {
                     <a onClick={() => window.history.back()} className="button is-link">Cancel</a>
                   </div>
                 </div>
-              </form>
-            </div>
+
+            </form>
           </div>
         </div>
+      </div>
 
-			<Footer />
-		</div>
 		)
+
 	}
+
 }
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories,
-    newPostForm: state.newPostForm
+    editPostForm: state.editPostForm
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    controlNewPostForm: (name, value) =>
-      dispatch(controlNewPostForm(name, value)),
-    addNewPost: (formValues) => {
-      addPost(formValues).then(() => {
-        dispatch(addNewPost(formValues))
-        getAllPosts().then( (posts) => {
-          dispatch(setPosts(posts))
-          ownProps.history.push('/')
-        })
+    controlEditPostForm: (name, value) =>
+      dispatch(controlEditPostForm(name, value)),
+    editPost: (formValues) => {
+      editPostById(formValues.id, formValues).then(() => {
+        dispatch(editPost(formValues))
+        ownProps.history.push('/');
       })
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(EditForm))

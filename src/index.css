@@ -60,6 +60,9 @@ div.has-top-margin {
 div.has-bottom-margin {
 	margin-bottom: 2em;
 }
+input.has-bottom-margin, textarea.has-bottom-margin {
+	margin-bottom: 0.75em;
+}
 .actionButtonFromPostList {
 	width: 75px;
 	margin-bottom: 10px;
@@ -74,6 +77,10 @@ div.has-bottom-margin {
     height: 242px !important;
 }
 
+.container {
+	padding-left: 20px;
+	padding-right: 20px
+}
 
 div.box {
     margin-bottom: 1.5rem;

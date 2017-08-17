@@ -10,7 +10,11 @@ import {
   ADD_NEW_POST,
   DISPLAY_DELETE_MODAL,
   SET_POST_ID_TO_DELETE_MODAL,
-  DELETE_POST
+  DELETE_POST,
+  CONTROL_EDIT_POST_FORM,
+  EDIT_POST,
+  CONTROL_NEW_COMMENT,
+  ADD_COMMENT
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -33,6 +37,22 @@ function comments (state = {}, action) {
       return {
         ...state,
         [postId]: comments
+      }
+    case ADD_COMMENT :
+      const { comment } = action
+      const parentId = action.postId
+      return {
+        ...state,
+        [parentId]: state[parentId].concat({
+          author: comment.commentAuthor,
+          body: comment.newComment,
+          deleted: false,
+          id: comment.id,
+          parentDeleted: false,
+          parentId,
+          timestamp: comment.timestamp,
+          voteScore: 1
+        })
       }
     default :
       return state
@@ -62,6 +82,19 @@ function posts (state = {}, action) {
         }
       })
       return stateWithPosts
+
+    case EDIT_POST:
+      const postEdited = action.post
+      return {
+        ...state,
+        [postEdited.id]: {
+          ...state[postEdited.id],
+          title: postEdited.title,
+          body: postEdited.message,
+          author: postEdited.username,
+          category: postEdited.category
+        }
+      }
 
     case APPLY_VOTE :
       const { postId, newValue } = action
@@ -135,11 +168,39 @@ function deletePostModal(state = false, action) {
   }
 }
 
+function editPostForm(state = {}, action) {
+  switch (action.type) {
+    case CONTROL_EDIT_POST_FORM:
+      const { name, value } = action
+      return {
+        ...state,
+        [name]: value
+      }
+    default :
+      return state
+  }
+}
+
+function newCommentData(state = {}, action) {
+  switch (action.type) {
+    case CONTROL_NEW_COMMENT:
+      const { name, value } = action
+      return {
+        ...state,
+        [name]: value
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   categories,
   posts,
   comments,
   sortMethod,
   newPostForm,
+  editPostForm,
   deletePostModal,
+  newCommentData
 })

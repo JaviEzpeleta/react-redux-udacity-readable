@@ -65,7 +65,52 @@ export const addPost = (formValues) => {
 
 }
 
+
+export const editPostById = (postId, formValues) => {
+
+  const body = {
+    title: formValues.title,
+    category: formValues.category,
+    author: formValues.author,
+    body: formValues.body
+  }
+
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+
+}
+
 export const deletePostById = (postId) =>
   fetch(`${api}/posts/${postId}`, {
     method: 'DELETE',
-    headers: headers})
+    headers: headers}
+  ).then(res => res)
+
+export const addNewComment = (postId, comment) => {
+  const body = {
+    body: comment.newComment,
+    voteScore: 1,
+    id: comment.id,
+    parentId: postId,
+    owner: comment.commentAuthor,
+    timestamp: comment.timestamp
+  }
+  return fetch(`${api}/comments/`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => {
+    console.log('response from promise')
+    console.log(res)
+    return res
+  })
+}
