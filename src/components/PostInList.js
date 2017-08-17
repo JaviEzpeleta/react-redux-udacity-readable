@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { showDate, objectToArray } from '../utils/utils'
+import { showDate } from '../utils/utils'
 import { connect } from 'react-redux'
 import { setPostComments,
     displayDeleteModal,
@@ -16,7 +16,6 @@ class PostInList extends Component {
   componentWillMount() {
       this.props.setPostComments(this.props.postId);
       // console.log('🖨 PostInList.js')
-      console.log(this.props.position*500)
   }
 
 	render() {
@@ -116,7 +115,13 @@ class PostInList extends Component {
             </p>
             <br />
             <div style={{marginRight:'12px'}}className="button" onClick={() => displayDeleteModal(false)}>Cancel</div>
-            <div className="button is-outlined is-danger" onClick={() => deletePost(deletePostModal.postId)}>Yes, I want to delete the post</div>
+            <div className="button is-outlined is-danger"
+                onClick={() => {
+                  deletePost(deletePostModal.postId)
+                  displayDeleteModal(false)
+                }} >
+              Yes, I want to delete the post
+            </div>
           </div>
         </Modal>
 
@@ -127,7 +132,6 @@ class PostInList extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: objectToArray(state.posts),
     comments: state.comments,
     deletePostModal: state.deletePostModal
   }
@@ -147,7 +151,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(setPostIdToDeleteModal(postId))
     },
     deletePost: (postIdToDelete) => {
-      dispatch(deletePost(postIdToDelete))
+      ReadableAPI.deletePostById(postIdToDelete).then(() => dispatch(deletePost(postIdToDelete)))
     }
   }
 }

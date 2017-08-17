@@ -59,7 +59,7 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     categories: state.categories.categories,
-    posts: objectToArray(state.posts),
+    posts: objectToArray(state.posts).filter((post) => (post.deleted === false))
   }
 }
 

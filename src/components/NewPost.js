@@ -2,15 +2,21 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { connect } from 'react-redux'
-import { controlNewPostForm, addNewPost } from '../actions'
+import { controlNewPostForm, addNewPost, setPosts } from '../actions'
 import faker from 'faker'
-import { addPost } from './../utils/readableAPI'
+import { addPost, getAllPosts } from './../utils/readableAPI'
 
 class NewPost extends Component {
 
   componentWillMount() {
     window.scrollTo(0, 0)
     this.props.controlNewPostForm('showNotification', false)
+    this.props.controlNewPostForm('title', '')
+    this.props.controlNewPostForm('category', '')
+    this.props.controlNewPostForm('username', '')
+    this.props.controlNewPostForm('message', '')
+    this.props.controlNewPostForm('category', 0)
+
   }
 
   handleSubmit = (event) => {
@@ -27,7 +33,12 @@ class NewPost extends Component {
 
   fieldsAreValid = () => {
     const form = this.props.newPostForm
-    if (form.title && form.category && form.username && form.message) return true;
+    if (form.title && form.title !== ''
+      && form.category && form.category !== ''
+      && form.username && form.username !== ''
+      && form.message && form.message !== ''
+      && form.category !== 0
+      ) return true;
     return false;
   }
 
@@ -155,9 +166,13 @@ function mapDispatchToProps(dispatch, ownProps) {
     controlNewPostForm: (name, value) =>
       dispatch(controlNewPostForm(name, value)),
     addNewPost: (formValues) => {
-      addPost(formValues)
-      dispatch(addNewPost(formValues))
-      ownProps.history.push('/');
+      addPost(formValues).then(() => {
+        dispatch(addNewPost(formValues))
+        getAllPosts().then( (posts) => {
+          dispatch(setPosts(posts))
+          ownProps.history.push('/');
+        })
+      })
     }
   }
 }

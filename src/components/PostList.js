@@ -38,7 +38,7 @@ class PostList extends Component {
         </h3>
 
         <div>
-          { posts && posts.length && posts.map( (post, index) =>
+          { posts.length > 0 && posts.map( (post, index) =>
             <PostInList position={index} key={index} post={post} />
           ) }
         </div>

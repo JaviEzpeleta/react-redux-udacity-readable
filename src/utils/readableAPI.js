@@ -54,13 +54,18 @@ export const addPost = (formValues) => {
     deleted: false
   }
 
-  fetch(`${api}/posts/`, {
+  return fetch(`${api}/posts/`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then(res => res.json())
+  })
 
 }
+
+export const deletePostById = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: headers})

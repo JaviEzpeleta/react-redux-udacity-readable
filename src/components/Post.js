@@ -3,7 +3,6 @@ import { showDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
 import VoteScore from './VoteScore'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
-import * as Animated from "animated/lib/targets/react-dom";
 
 class Post extends Component {
 

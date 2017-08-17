@@ -12,12 +12,8 @@ extends Component {
 		};
 		if (!distance) distance = '12'
 		if (!delay) delay = '150'
-
-			console.log('inside animated')
-		console.log(props)
 		if (props.position > 0) {
 			delay = 150 * (props.position+1)
-			console.log('setting delay as ' + delay)
 		}
 	}
 

@@ -6,24 +6,21 @@ import PostList from './PostList'
 
 class Home extends Component {
 
-	render() {
+  render() {
 
-		const { categories, posts } = this.props
+    const { categories, posts } = this.props
 
-		return (
-			<div>
-				<Header />
-
+    return (
+      <div>
+        <Header />
         <div className="readable-body-wrapper">
           <HomeCategories categories={categories} posts={posts} />
           <PostList posts={posts}/>
         </div>
-
         <Footer />
-
-			</div>
-		)
-	}
+      </div>
+    )
+  }
 }
 
 export default Home
