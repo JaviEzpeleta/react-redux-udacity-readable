@@ -39,7 +39,7 @@ class PostList extends Component {
 
         <div>
           { posts && posts.length && posts.map( (post, index) =>
-            <PostInList key={index} post={post} />
+            <PostInList position={index} key={index} post={post} />
           ) }
         </div>
 

@@ -73,3 +73,8 @@ div.has-bottom-margin {
     margin: auto !important;
     height: 242px !important;
 }
+
+
+div.box {
+    margin-bottom: 1.5rem;
+}

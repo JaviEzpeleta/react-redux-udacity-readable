@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Home from './Home'
 import Category from './Category'
-import Post from './Post'
+import PostView from './PostView'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setCategories, setPosts } from './../actions'
@@ -39,7 +39,7 @@ class App extends Component {
           )}/>
 
           <Route path='/post/:query' render={({ match }) => (
-            <Post postId={match.params.query} />
+            <PostView postId={match.params.query} />
           )}/>
 
           <Route path='/edit/:query' render={({ match }) => (
@@ -50,17 +50,6 @@ class App extends Component {
           )}/>
 
         </Switch>
-
-
-            { /*
-            <SearchBooks
-              updateLastQuery={updateLastQuery.bind(this)}
-              changeSelectedBookshelf={changeSelectedBookshelf}
-              shelfNames={shelfNames}
-              lastQuery={lastQuery}
-              books={books} />
-            */ }
-
 
       </div>
     )

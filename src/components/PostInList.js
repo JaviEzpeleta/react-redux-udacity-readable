@@ -9,15 +9,14 @@ import { setPostComments,
 import * as ReadableAPI from './../utils/readableAPI'
 import VoteScore from './VoteScore'
 import Modal from 'react-modal'
-
-
-// import Moment from 'react-moment';
+import AnimatedWrapper from './../utils/AnimatedWrapper';
 
 class PostInList extends Component {
 
   componentWillMount() {
       this.props.setPostComments(this.props.postId);
       // console.log('🖨 PostInList.js')
+      console.log(this.props.position*500)
   }
 
 	render() {
@@ -145,15 +144,13 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(displayDeleteModal(bool))
     },
     setPostIdToDeleteModal: (postId) => {
-      console.error('PONGO COMO ID ACTIVO: ' +postId)
       dispatch(setPostIdToDeleteModal(postId))
     },
     deletePost: (postIdToDelete) => {
-      console.error('VOY A BORRAR: ' +postIdToDelete)
       dispatch(deletePost(postIdToDelete))
     }
   }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostInList)
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(PostInList, 12))
+// export default connect(mapStateToProps, mapDispatchToProps)(PostInList)
