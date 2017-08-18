@@ -16,7 +16,6 @@ class AddComment extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log('HANDLE SUBMIT YES!')
     if (this.fieldsAreValid()) {
       this.props.newCommentData.id = faker.random.uuid()
       this.props.newCommentData.timestamp = Date.now()
@@ -81,18 +80,11 @@ function mapDispatchToProps(dispatch, ownProps) {
     controlNewCommentData: (name, value) =>
       dispatch(controlNewCommentData(name, value)),
     addNewComment: (commentData) => {
-      console.log('FROM mapDispatchToProps')
-      console.log(commentData)
-      console.log(ownProps)
-      console.log('-----------------------')
       addNewComment(ownProps.postId, commentData).then(() => {
-
         getCommentsByPostId(ownProps.postId).then( (comments) => {
           dispatch(setPostComments(ownProps.postId, comments))
         })
-
-//        dispatch(addNewCommentAction(ownProps.postId, commentData))
-        // ownProps.history.push('/');
+        // dispatch(addNewCommentAction(ownProps.postId, commentData))
       })
     }
   }

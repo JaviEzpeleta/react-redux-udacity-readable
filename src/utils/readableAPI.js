@@ -109,8 +109,6 @@ export const addNewComment = (postId, comment) => {
     },
     body: JSON.stringify(body)
   }).then(res => {
-    console.log('response from promise')
-    console.log(res)
     return res
   })
 }

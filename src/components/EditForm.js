@@ -7,11 +7,6 @@ import AnimatedWrapper from './../utils/AnimatedWrapper';
 class EditForm extends Component {
 
   componentDidMount() {
-
-    console.log('FROM EDIT:')
-    console.log(this.props)
-
-
     const { post, controlEditPostForm } = this.props
     controlEditPostForm('id', post.id)
     controlEditPostForm('title', post.title)
@@ -27,7 +22,6 @@ class EditForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log('HANDLE SUBMIT YES!')
     if (this.fieldsAreValid()) {
       this.props.editPost(this.props.editPostForm)
     } else {

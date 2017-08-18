@@ -14,10 +14,6 @@ import EditPost from './EditPost'
 class App extends Component {
 
   componentWillMount() {
-
-    console.log('FROM APP:')
-    console.log(this.props)
-
     this.props.getAllCategories();
     this.props.getAllPosts();
   }

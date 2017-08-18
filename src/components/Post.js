@@ -11,12 +11,6 @@ class Post extends Component {
 
     const {post, comments} = this.props
 
-    if (comments) {
-      console.log('COMMENTS IN THE POST: ')
-      console.log(comments)
-      console.log('********************')
-    }
-
 		return (
 			<div>
         { post &&

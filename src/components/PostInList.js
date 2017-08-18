@@ -157,4 +157,3 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(PostInList, 12))
-// export default connect(mapStateToProps, mapDispatchToProps)(PostInList)
