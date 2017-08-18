@@ -4,12 +4,11 @@ import { showDate } from '../utils/utils'
 import { connect } from 'react-redux'
 import { setPostComments,
     displayDeleteModal,
-    setPostIdToDeleteModal,
-    deletePost } from './../actions'
+    setPostIdToDeleteModal } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import VoteScore from './VoteScore'
-import Modal from 'react-modal'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
+import PostDeleteModal from './PostDeleteModal'
 
 class PostInList extends Component {
 
@@ -24,8 +23,8 @@ class PostInList extends Component {
       comments,
       deletePostModal,
       displayDeleteModal,
-      setPostIdToDeleteModal,
-      deletePost } = this.props
+      setPostIdToDeleteModal
+    } = this.props
 
     let postComments = false
     if (comments) {
@@ -39,7 +38,7 @@ class PostInList extends Component {
             <article className="media">
               <div className="media-left">
                 <figure className="has-text-centered">
-                  <VoteScore postId={post.id} />
+                  <VoteScore post={post} />
                 </figure>
               </div>
               <div className="media-content">
@@ -99,31 +98,7 @@ class PostInList extends Component {
           </div>
         </div>
 
-        <Modal
-          isOpen={deletePostModal.isActive}
-          onRequestClose={() => displayDeleteModal(false)}
-          contentLabel="No Overlay Click Modal"
-        >
-          <div className="container">
-            <h1 className="title">
-              Are you sure?
-            </h1>
-            <p>
-              Please confirm that you want to delete this post.
-              <br />
-              <i>(this action cannot be undone)</i>
-            </p>
-            <br />
-            <div style={{marginRight:'12px'}}className="button" onClick={() => displayDeleteModal(false)}>Cancel</div>
-            <div className="button is-outlined is-danger"
-                onClick={() => {
-                  deletePost(deletePostModal.postId)
-                  displayDeleteModal(false)
-                }} >
-              Yes, I want to delete the post
-            </div>
-          </div>
-        </Modal>
+        <PostDeleteModal deletePostModal={deletePostModal}/>
 
       </div>
 		)
@@ -149,9 +124,6 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     setPostIdToDeleteModal: (postId) => {
       dispatch(setPostIdToDeleteModal(postId))
-    },
-    deletePost: (postIdToDelete) => {
-      ReadableAPI.deletePostById(postIdToDelete).then(() => dispatch(deletePost(postIdToDelete)))
     }
   }
 }

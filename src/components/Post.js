@@ -19,12 +19,18 @@ class Post extends Component {
 
             <div className="columns is-mobile">
               <div className="column" style={{maxWidth: '115px'}}>
-                <VoteScore voteScore={post.voteScore} postId={post.id}/>
+                <VoteScore voteScore={post.voteScore} post={post}/>
               </div>
               <div className="column">
                 <h1>
                   {post.title}
                 </h1>
+                <span>delete</span>
+                &nbsp;
+                ·
+                <span>edit</span>
+                <br />
+                <br />
                 <blockquote>
                   {post.body}
                 </blockquote>

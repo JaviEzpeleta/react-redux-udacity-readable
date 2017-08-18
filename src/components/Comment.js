@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { showDate } from '../utils/utils'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
+import VoteScoreComment from './VoteScoreComment';
+import CommentActions from './CommentActions';
 
 class Comment extends Component {
 
@@ -18,21 +20,13 @@ class Comment extends Component {
               {comment.body}
             </p>
           </div>
-          <nav className="level is-mobile">
-            <div className="level-left">
-              <a className="level-item">
-                <span className="icon is-small"><i className="fa fa-edit"></i></span>
-              </a>
-              <a className="level-item">
-                <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
-              </a>
-            </div>
-          </nav>
+          <VoteScoreComment voteScore={comment.voteScore} comment={comment} />
+          <CommentActions comment={comment} />
         </div>
       </div>
 		)
 	}
 }
 
-export default AnimatedWrapper(Comment, 4)
+export default AnimatedWrapper(Comment)
 

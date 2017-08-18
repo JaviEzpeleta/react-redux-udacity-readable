@@ -41,6 +41,20 @@ export const votePost = (postId, value) => {
   }).then(res => res.json())
 }
 
+export const voteComment = (commentId, value) => {
+  let option = ''
+  option = (value === 1) ? 'upVote' : 'downVote'
+
+  return fetch(`${api}/comments/${commentId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option })
+  }).then(res => res)
+}
+
 export const addPost = (formValues) => {
 
   const body = {
@@ -89,8 +103,16 @@ export const editPostById = (postId, formValues) => {
 export const deletePostById = (postId) =>
   fetch(`${api}/posts/${postId}`, {
     method: 'DELETE',
-    headers: headers}
-  ).then(res => res)
+    headers: headers
+  }).then(res => res)
+
+export const deleteCommentById = (commentId) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: headers
+  }).then(res => res)
+
+
 
 export const addNewComment = (postId, comment) => {
   const body = {

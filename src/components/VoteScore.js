@@ -8,23 +8,18 @@ class VoteScore extends Component {
 
 	render() {
 
-		const { postId, posts, applyVote } = this.props
+		const { post, applyVote } = this.props
 
-    let thePost = false
-
-    if (posts) {
-      thePost = posts.find((post) => (post.id === postId))
-    }
 
 		return (
 			<div className="readable-voteScore-wrapper">
-				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(thePost.voteScore)}>
-					{thePost.voteScore}
+				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(post.voteScore)}>
+					{post.voteScore}
 				</div>
-				<a className="button is-success is-outlined" onClick={() => applyVote(thePost.voteScore, 1)}>
+				<a className="button is-success is-outlined" onClick={() => applyVote(post.voteScore, 1)}>
 					<i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
 				</a>
-				<a className="button is-danger is-outlined" onClick={() => applyVote(thePost.voteScore, -1)}>
+				<a className="button is-danger is-outlined" onClick={() => applyVote(post.voteScore, -1)}>
 					<i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
 				</a>
 			</div>
@@ -48,8 +43,8 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     applyVote: (newValue, diff) => {
-      ReadableAPI.votePost(ownProps.postId, diff)
-      dispatch(applyVote(ownProps.postId, newValue+diff))
+      ReadableAPI.votePost(ownProps.post.id, diff)
+      dispatch(applyVote(ownProps.post.id, newValue+diff))
     }
   }
 }

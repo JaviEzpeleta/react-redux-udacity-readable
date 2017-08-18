@@ -12,6 +12,7 @@ export const CONTROL_EDIT_POST_FORM = 'CONTROL_EDIT_POST_FORM'
 export const EDIT_POST = 'EDIT_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
+export const APPLY_VOTE_TO_COMMENT = 'APPLY_VOTE_TO_COMMENT'
 
 export function setCategories(categories) {
   return {
@@ -118,5 +119,14 @@ export function controlNewCommentData(name, value) {
     type: CONTROL_NEW_COMMENT,
     name,
     value
+  }
+}
+
+export function applyVoteToComment(commentId, parentId, newValue) {
+  return {
+    type: APPLY_VOTE_TO_COMMENT,
+    commentId,
+    parentId,
+    newValue
   }
 }

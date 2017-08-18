@@ -14,7 +14,8 @@ import {
   CONTROL_EDIT_POST_FORM,
   EDIT_POST,
   CONTROL_NEW_COMMENT,
-  ADD_COMMENT
+  ADD_COMMENT,
+  APPLY_VOTE_TO_COMMENT
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -33,12 +34,26 @@ function categories (state = {}, action) {
 function comments (state = {}, action) {
   switch (action.type) {
     case SET_COMMENTS_TO_POST_ID :
+
       const { postId, comments } = action
       return {
         ...state,
         [postId]: comments
       }
+
+    case APPLY_VOTE_TO_COMMENT :
+
+      const {commentId, newValue } = action
+      let newState = state;
+      newState[action.parentId].map((comment) => {
+        if (comment.id === commentId)
+          comment.voteScore = newValue
+        return comment
+      })
+      return newState
+
     case ADD_COMMENT :
+
       const { comment } = action
       const parentId = action.postId
       return {
@@ -54,6 +69,7 @@ function comments (state = {}, action) {
           voteScore: 1
         })
       }
+
     default :
       return state
   }
