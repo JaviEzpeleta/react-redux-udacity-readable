@@ -20,6 +20,8 @@ class App extends Component {
 
   render() {
 
+    const { history, categories, posts } = this.props
+
     return (
       <div>
 
@@ -27,23 +29,23 @@ class App extends Component {
 
           <Route exact path='/' render={ ({ match }) => (
             <Home
-              categories={this.props.categories}
-              posts={this.props.posts} />
+              categories={categories}
+              posts={posts} />
           )}/>
 
           <Route path='/category/:url' render={ ({ match }) => (
             <Category
               categoryPath={match.params.url}
-              categories={this.props.categories}
-              posts={this.props.posts} />
+              categories={categories}
+              posts={posts} />
           )}/>
 
           <Route path='/post/:query' render={({ match }) => (
-            <PostView postId={match.params.query} />
+            <PostView postId={match.params.query} history={history} />
           )}/>
 
           <Route path='/edit/:query' render={({ match }) => (
-            <EditPost postId={match.params.query} history={this.props.history} />
+            <EditPost postId={match.params.query} history={history} />
           )}/>
 
           <Route path='/new' component={NewPost} />

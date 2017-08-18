@@ -5,12 +5,21 @@ import VoteScore from './VoteScore'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 import AddComment from './AddComment'
 import Comment from './Comment'
+import { displayDeleteModal, setPostIdToDeleteModal } from './../actions'
+import { connect } from 'react-redux'
+import PostDeleteModal from './PostDeleteModal'
 
 class Post extends Component {
 
 	render() {
 
-    const {post, comments} = this.props
+    const { post,
+      comments,
+      deletePostModal,
+      displayDeleteModal,
+      setPostIdToDeleteModal,
+      history
+    } = this.props
 
 		return (
 			<div>
@@ -25,7 +34,11 @@ class Post extends Component {
                 <h1>
                   {post.title}
                 </h1>
-                <span>delete</span>
+                <span className="notifcation is-danger is-small button" onClick={() => {
+                  console.log('clicked')
+                  setPostIdToDeleteModal(post.id)
+                  displayDeleteModal(true)
+                }}>delete</span>
                 &nbsp;
                 ·
                 <span>edit</span>
@@ -56,10 +69,32 @@ class Post extends Component {
 
           </div>
         }
+
+        <PostDeleteModal
+          deletePostModal={deletePostModal}
+          history={history}
+          redirectAfterDelete={true} />
+
 			</div>
 		)
 	}
 }
 
-export default AnimatedWrapper(Post, 4, 50)
+function mapStateToProps(state, props) {
+  return {
+    deletePostModal: state.deletePostModal
+  }
+}
 
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    displayDeleteModal: (bool) => {
+      dispatch(displayDeleteModal(bool))
+    },
+    setPostIdToDeleteModal: (postId) => {
+      dispatch(setPostIdToDeleteModal(postId))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(Post, 4, 50))

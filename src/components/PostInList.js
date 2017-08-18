@@ -79,7 +79,7 @@ class PostInList extends Component {
           <div className="column" style={{maxWidth: '100px'}}>
             <div
                 className="button actionButtonFromPostList is-danger is-small is-outlined"
-              onClick={() => {
+                onClick={() => {
                   setPostIdToDeleteModal(post.id)
                   displayDeleteModal(true)
                 }
@@ -98,7 +98,7 @@ class PostInList extends Component {
           </div>
         </div>
 
-        <PostDeleteModal deletePostModal={deletePostModal}/>
+        <PostDeleteModal deletePostModal={deletePostModal} />
 
       </div>
 		)

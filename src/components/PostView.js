@@ -16,7 +16,7 @@ class PostView extends Component {
 
   render() {
 
-    const {posts, comments, postId} = this.props
+    const { posts, comments, postId, history } = this.props
 
     let post = false
     let theComments = false
@@ -29,7 +29,7 @@ class PostView extends Component {
     return (
       <div>
         <Header />
-        { post && <Post post={post} comments={theComments}/> }
+        { post && <Post post={post} comments={theComments} history={history} /> }
         <Footer />
       </div>
     )

@@ -58,6 +58,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     deletePost: (postIdToDelete) => {
       ReadableAPI.deletePostById(postIdToDelete).then(() => dispatch(deletePost(postIdToDelete)))
+      if (ownProps.redirectAfterDelete)
+        ownProps.history.push('/')
     }
   }
 }
