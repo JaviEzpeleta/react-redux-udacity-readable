@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import VoteScore from './VoteScore'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 import AddComment from './AddComment'
+import Comment from './Comment'
 
 class Post extends Component {
 
@@ -37,30 +38,9 @@ class Post extends Component {
                 { comments &&
                   <div>
                     {comments.map( (comment, index) =>
-                      <div className="box" key={index}>
-                          <div className="media-content">
-                            <div className="content">
-                              <p>
-                                <strong>{comment.author}</strong> <small>{showDate(comment.timestamp)}</small>
-                                <br />
-                                {comment.body}
-                              </p>
-                            </div>
-                            <nav className="level is-mobile">
-                              <div className="level-left">
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-edit"></i></span>
-                                </a>
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
-                                </a>
-                              </div>
-                            </nav>
-                          </div>
-                      </div>
+                      <Comment position={index} key={index} comment={comment} />
                     )}
                   </div>
-
                 }
 
                 <AddComment postId={post.id} />

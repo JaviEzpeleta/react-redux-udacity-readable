@@ -98,7 +98,7 @@ export const addNewComment = (postId, comment) => {
     voteScore: 1,
     id: comment.id,
     parentId: postId,
-    owner: comment.commentAuthor,
+    author: comment.commentAuthor,
     timestamp: comment.timestamp
   }
   return fetch(`${api}/comments/`, {
