@@ -90,3 +90,30 @@ div.box {
 .columns:not(:last-child) {
     margin-bottom: 0px !important;
 }
+
+
+div.toast-notification {
+
+    position: fixed;
+    width: 100% !important;
+    /* margin: 0px auto; */
+    right: -2px !important;
+    top: -80px !important;
+    left: 0px;
+    text-align: right !important;
+    z-index: 1000;
+    pointer-events: none;
+    transition: all 300ms ease-in-out;
+    transform: translateY(108px);
+}
+
+div.toast-notification span {
+    cursor: pointer;
+    display: inline;
+    width: auto;
+    border-radius: 4px !important;
+    margin: 20px !important;
+    font-size: 1.2em;
+    font-weight: 300;
+	box-shadow: -2px 3px 5px #b3b3b3;
+}

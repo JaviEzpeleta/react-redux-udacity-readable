@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { connect } from 'react-redux'
-import { controlNewPostForm, addNewPost, setPosts } from '../actions'
+import { controlNewPostForm, addNewPost, setPosts, setToastMessage } from '../actions'
 import faker from 'faker'
 import { addPost, getAllPosts } from './../utils/readableAPI'
 
@@ -170,6 +170,7 @@ function mapDispatchToProps(dispatch, ownProps) {
         dispatch(addNewPost(formValues))
         getAllPosts().then( (posts) => {
           dispatch(setPosts(posts))
+          dispatch(setToastMessage('✅ New Post Added!'))
           ownProps.history.push('/')
         })
       })

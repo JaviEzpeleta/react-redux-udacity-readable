@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlNewCommentData, setPostComments } from '../actions'
+import { controlNewCommentData, setPostComments, setToastMessage } from '../actions'
 import { addNewComment, getCommentsByPostId } from './../utils/readableAPI'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 import faker from 'faker'
+import {notify} from 'react-notify-toast';
+
 
 class AddComment extends Component {
 
@@ -83,6 +85,8 @@ function mapDispatchToProps(dispatch, ownProps) {
       addNewComment(ownProps.postId, commentData).then(() => {
         getCommentsByPostId(ownProps.postId).then( (comments) => {
           dispatch(setPostComments(ownProps.postId, comments))
+          let myColor = { background: '#0E1717', text: "#FFFFFF" };
+          notify.show('✅ New Comment Added!', "custom", 2000, myColor);
         })
         // dispatch(addNewCommentAction(ownProps.postId, commentData))
       })
