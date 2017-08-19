@@ -4,7 +4,7 @@ import Category from './Category'
 import PostView from './PostView'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setCategories, setPosts } from './../actions'
+import { setCategories, setPosts, setToastMessage } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
@@ -20,10 +20,11 @@ class App extends Component {
   }
 
   componentWillReceiveProps() {
-    const { toastMessage } = this.props
+    const { toastMessage, setToastMessage } = this.props
     if (this.props.toastMessage !== '') {
       let myColor = { background: '#0E1717', text: "#FFFFFF" };
       notify.show(toastMessage, "custom", 2000, myColor);
+      setToastMessage('')
     }
   }
 
@@ -86,6 +87,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    setToastMessage: (message) => dispatch(setToastMessage(message)),
     getAllCategories: () =>
       ReadableAPI.getAllCategories().then( (categories) => {
         dispatch(setCategories(categories))

@@ -132,7 +132,7 @@ export function applyVoteToComment(commentId, parentId, newValue) {
   }
 }
 
-export function showToast(message) {
+export function setToastMessage(message) {
   return {
     type: SHOW_TOAST,
     message

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlEditPostForm, editPost } from '../actions'
+import { controlEditPostForm, editPost, setToastMessage } from '../actions'
 import { editPostById } from './../utils/readableAPI'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 
@@ -165,6 +165,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     editPost: (formValues) => {
       editPostById(formValues.id, formValues).then(() => {
         dispatch(editPost(formValues))
+        dispatch(setToastMessage('Post Saved!!'))
         window.history.back();
       })
     }
