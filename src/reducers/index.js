@@ -16,7 +16,8 @@ import {
   CONTROL_NEW_COMMENT,
   ADD_COMMENT,
   APPLY_VOTE_TO_COMMENT,
-  SHOW_TOAST
+  SHOW_TOAST,
+  CONTROL_EDIT_COMMENT_FORM
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -221,6 +222,19 @@ function toastMessage(state = '', action) {
   }
 }
 
+function editCommentForm(state = {id: 0, text:''}, action) {
+  switch (action.type) {
+    case CONTROL_EDIT_COMMENT_FORM:
+      const { name, value } = action
+      return {
+        ...state,
+        [name]: value
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   categories,
   posts,
@@ -230,5 +244,6 @@ export default combineReducers({
   editPostForm,
   deletePostModal,
   newCommentData,
-  toastMessage
+  toastMessage,
+  editCommentForm
 })

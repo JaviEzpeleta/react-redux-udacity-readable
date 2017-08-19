@@ -14,6 +14,7 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
 export const APPLY_VOTE_TO_COMMENT = 'APPLY_VOTE_TO_COMMENT'
 export const SHOW_TOAST = 'SHOW_TOAST'
+export const CONTROL_EDIT_COMMENT_FORM = 'CONTROL_EDIT_COMMENT_FORM'
 
 export function setCategories(categories) {
   return {
@@ -137,4 +138,13 @@ export function setToastMessage(message) {
     type: SHOW_TOAST,
     message
   }
+}
+
+export function controlEditCommentForm(name, value) {
+  return {
+    type: CONTROL_EDIT_COMMENT_FORM,
+    name,
+    value
+  }
+
 }
