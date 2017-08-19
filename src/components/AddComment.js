@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlNewCommentData, setPostComments, setToastMessage } from '../actions'
+import { controlNewCommentData, setPostComments } from '../actions'
 import { addNewComment, getCommentsByPostId } from './../utils/readableAPI'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 import faker from 'faker'
@@ -9,7 +9,13 @@ import {notify} from 'react-notify-toast';
 
 class AddComment extends Component {
 
-  componentDidMount() {
+  constructor(props) {
+    super(props)
+    this.emptyInputField = this.emptyInputField.bind(this)
+  }
+
+  emptyInputField() {
+    this.textInput.value = ''
   }
 
   handleChange = (event) => {
@@ -22,6 +28,7 @@ class AddComment extends Component {
       this.props.newCommentData.id = faker.random.uuid()
       this.props.newCommentData.timestamp = Date.now()
       this.props.addNewComment(this.props.newCommentData)
+      this.emptyInputField()
     } else {
       this.props.controlNewCommentData('showNotification', true)
     }
@@ -49,7 +56,9 @@ class AddComment extends Component {
           name="commentAuthor"
           placeholder="your username"
           onChange={(event) => this.handleChange(event)} />
-        <textarea className="textarea has-bottom-margin"
+        <textarea
+          className="textarea has-bottom-margin"
+          ref={element => this.textInput = element}
           type="text"
           name="newComment"
           placeholder="add a comment..."
