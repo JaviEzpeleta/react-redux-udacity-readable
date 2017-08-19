@@ -84,4 +84,9 @@ input.has-bottom-margin, textarea.has-bottom-margin {
 
 div.box {
     margin-bottom: 1.5rem;
+	padding: 0.8rem 1.25rem;
+}
+
+.columns:not(:last-child) {
+    margin-bottom: 0px !important;
 }

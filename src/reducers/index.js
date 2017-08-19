@@ -106,8 +106,8 @@ function posts (state = {}, action) {
         [postEdited.id]: {
           ...state[postEdited.id],
           title: postEdited.title,
-          body: postEdited.message,
-          author: postEdited.username,
+          body: postEdited.body,
+          author: postEdited.author,
           category: postEdited.category
         }
       }

@@ -45,14 +45,16 @@ class PostInList extends Component {
                 <div className="content">
                   <p>
                     <strong>
-                      {post.author}
+                      <i className="fa fa-user-circle-o" aria-hidden="true"></i> {post.author}
                     </strong>
-                    &nbsp;
+                    &nbsp; · &nbsp;
                     <small>
-                    {showDate(post.timestamp)}
+                     <i className="fa fa-clock-o" aria-hidden="true"></i> {showDate(post.timestamp)}
                     </small>
                     <br />
-                    <Link to={'/post/'+post.id} className="is-size-5">{post.title}</Link>
+                    <Link to={'/'+post.category+'/'+post.id} className="is-size-4">
+                      {post.title}
+                    </Link>
                   </p>
                 </div>
                 <nav className="level is-mobile">

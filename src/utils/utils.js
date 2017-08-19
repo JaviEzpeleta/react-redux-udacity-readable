@@ -29,7 +29,7 @@ export const showDate = (timestamp) => {
   min = ('00'+min).slice(-2);
   var sec = a.getSeconds();
   sec = ('00'+sec).slice(-2);
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min /*+ ':' + sec */;
   return time;
 }
 

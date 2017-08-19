@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { displayDeleteModal, deletePost } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import Modal from 'react-modal'
+import { Link } from 'react-router-dom'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
 
 class PostDeleteModal extends Component {

@@ -40,16 +40,23 @@ class App extends Component {
               posts={posts} />
           )}/>
 
-          <Route path='/post/:query' render={({ match }) => (
-            <PostView postId={match.params.query} history={history} />
-          )}/>
-
           <Route path='/edit/:query' render={({ match }) => (
             <EditPost postId={match.params.query} history={history} />
           )}/>
 
-          <Route path='/new' component={NewPost} />
+          <Route path='/:category/:postId' render={ ({ match }) => (
+            <PostView
+              postId={match.params.postId}
+              categoryUrl={match.params.category}
+              categoryPath={match.params.url}
+              history={history} />
           )}/>
+
+          <Route path='/post/:query' render={({ match }) => (
+            <PostView postId={match.params.query} history={history} />
+          )}/>
+
+          <Route exact path='/new' component={NewPost} />
 
         </Switch>
 

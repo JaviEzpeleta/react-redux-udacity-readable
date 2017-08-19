@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { showDate } from '../utils/utils'
+import { showDate, capitalizeFirstLetter } from '../utils/utils'
 import { Link } from 'react-router-dom'
 import VoteScore from './VoteScore'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
@@ -34,28 +34,35 @@ class Post extends Component {
                 <h1>
                   {post.title}
                 </h1>
-                <span className="notifcation is-danger is-small button" onClick={() => {
-                  console.log('clicked')
-                  setPostIdToDeleteModal(post.id)
-                  displayDeleteModal(true)
-                }}>delete</span>
-                &nbsp;
-                ·
-                <span>edit</span>
-                <br />
-                <br />
                 <blockquote>
                   {post.body}
                 </blockquote>
-
-                posted by <strong>{post.author}</strong>,
-                &nbsp;
-                {showDate(post.timestamp)}
-                <br />
-                category: <Link to={'/category/' + post.category}>{post.category}</Link>
-
-                { comments &&
+                <div className="has-bottom-margin">
+                  <i className="fa fa-user-circle-o" aria-hidden="true"></i> <strong>{post.author}</strong>
+                  &nbsp; · &nbsp;
+                  <i className="fa fa-clock-o" aria-hidden="true"></i> {showDate(post.timestamp)}
+                  &nbsp; · &nbsp;
+                  Category: <Link className="tag is-small is-primary is-outlined" to={'/category/' + post.category}>{capitalizeFirstLetter(post.category)}</Link>
+                  &nbsp; · &nbsp;
+                  <span className="notifcation is-danger is-outlined is-small button" onClick={() => {
+                    console.log('clicked')
+                    setPostIdToDeleteModal(post.id)
+                    displayDeleteModal(true)
+                  }}>delete</span>
+                  &nbsp;
+                  <Link
+                      to={'/edit/'+post.id}
+                      className="notifcation is-info is-outlined is-small button">
+                    edit
+                  </Link>
+                </div>
+                { comments && (comments.length > 0) &&
                   <div>
+                    {(comments.length > 1) ?
+                      <h3>{comments.length} comments:</h3>
+                    :
+                      <h3>{comments.length} comment:</h3>
+                    }
                     {comments.map( (comment, index) =>
                       <Comment position={index} key={index} comment={comment} />
                     )}
