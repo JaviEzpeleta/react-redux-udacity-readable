@@ -13,6 +13,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
 export const APPLY_VOTE_TO_COMMENT = 'APPLY_VOTE_TO_COMMENT'
+export const SHOW_TOAST = 'SHOW_TOAST'
 
 export function setCategories(categories) {
   return {
@@ -128,5 +129,12 @@ export function applyVoteToComment(commentId, parentId, newValue) {
     commentId,
     parentId,
     newValue
+  }
+}
+
+export function showToast(message) {
+  return {
+    type: SHOW_TOAST,
+    message
   }
 }

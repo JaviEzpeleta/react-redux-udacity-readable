@@ -10,12 +10,21 @@ import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
 import NewPost from './NewPost'
 import EditPost from './EditPost'
+import Notifications, {notify} from 'react-notify-toast';
 
 class App extends Component {
 
   componentWillMount() {
     this.props.getAllCategories();
     this.props.getAllPosts();
+  }
+
+  componentWillReceiveProps() {
+    const { toastMessage } = this.props
+    if (this.props.toastMessage !== '') {
+      let myColor = { background: '#0E1717', text: "#FFFFFF" };
+      notify.show(toastMessage, "custom", 2000, myColor);
+    }
   }
 
   render() {
@@ -60,6 +69,8 @@ class App extends Component {
 
         </Switch>
 
+        <Notifications />
+
       </div>
     )
   }
@@ -68,7 +79,8 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     categories: state.categories.categories,
-    posts: objectToArray(state.posts).filter((post) => (post.deleted === false))
+    posts: objectToArray(state.posts).filter((post) => (post.deleted === false)),
+    toastMessage: state.toastMessage
   }
 }
 
