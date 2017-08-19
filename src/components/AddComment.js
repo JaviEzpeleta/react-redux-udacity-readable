@@ -29,6 +29,8 @@ class AddComment extends Component {
       this.props.newCommentData.timestamp = Date.now()
       this.props.addNewComment(this.props.newCommentData)
       this.emptyInputField()
+      this.props.controlNewCommentData('showNotification', false)
+      this.props.controlNewCommentData('newComment', '')
     } else {
       this.props.controlNewCommentData('showNotification', true)
     }
@@ -47,10 +49,10 @@ class AddComment extends Component {
 
     const { newCommentData, controlNewCommentData } = this.props
 		return (
-      <div>
-        <div>
+      <div className="newCommentWapper">
+        <h4>
           Add a comment:
-        </div>
+        </h4>
         <input className="input has-bottom-margin"
           type="text"
           name="commentAuthor"
@@ -63,7 +65,7 @@ class AddComment extends Component {
           name="newComment"
           placeholder="add a comment..."
           onChange={(event) => this.handleChange(event)} />
-        <div className="button has-bottom-margin" onClick={this.handleSubmit}>Post Comment</div>
+        <div className="button has-bottom-mini-margin" onClick={this.handleSubmit}>Post Comment</div>
 
         { newCommentData.showNotification &&
           <div className="notification is-danger">

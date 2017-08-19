@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { deleteCommentById, getCommentsByPostId } from './../utils/readableAPI'
-import { setPostComments } from '../actions'
+import { setPostComments, controlEditCommentForm } from '../actions'
 import { connect } from 'react-redux';
 import {notify} from 'react-notify-toast';
 
@@ -8,17 +8,18 @@ class CommentActions extends Component {
 
 	render() {
 
-    const { deleteComment } = this.props
+    const { deleteComment, startEditingThisComment } = this.props
 
 		return (
-      <div>
-        <div>
+      <span>
+        <div onClick={deleteComment} className="button is-small is-danger is-outlined">
+          delete
+        </div>
+        &nbsp;
+        <div onClick={startEditingThisComment} className="button is-small is-info is-outlined">
           edit
         </div>
-        <div onClick={deleteComment}>
-          remove
-        </div>
-      </div>
+      </span>
 		)
 	}
 }
@@ -32,6 +33,10 @@ function mapDispatchToProps(dispatch, ownProps) {
           notify.show('✔️ comment deleted');
         })
       })
+    },
+    startEditingThisComment: () => {
+      console.log('startEditingThisComment!!!')
+      dispatch(controlEditCommentForm('id', ownProps.comment.id))
     }
   }
 }
