@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { displayDeleteModal, deletePost } from './../actions'
+import { displayDeleteModal, deletePost, setToastMessage } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import Modal from 'react-modal'
 import AnimatedWrapper from './../utils/AnimatedWrapper';
@@ -58,6 +58,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     deletePost: (postIdToDelete) => {
       ReadableAPI.deletePostById(postIdToDelete).then(() => dispatch(deletePost(postIdToDelete)))
+      dispatch(setToastMessage('Post Deleted!'))
       if (ownProps.redirectAfterDelete)
         ownProps.history.push('/')
     }

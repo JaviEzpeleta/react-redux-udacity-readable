@@ -63,8 +63,6 @@ class AddComment extends Component {
             Please enter your username and some text for the comment.
           </div>
         }
-
-
       </div>
 		)
 	}

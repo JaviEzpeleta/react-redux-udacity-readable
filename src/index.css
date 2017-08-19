@@ -116,4 +116,6 @@ div.toast-notification span {
     font-size: 1.2em;
     font-weight: 300;
 	box-shadow: -2px 3px 5px #b3b3b3;
+	background-color: rgba(50, 115, 220, 0.91) !important;
+	color: white;
 }

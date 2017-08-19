@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { deleteCommentById, getCommentsByPostId } from './../utils/readableAPI'
 import { setPostComments } from '../actions'
 import { connect } from 'react-redux';
+import {notify} from 'react-notify-toast';
 
 class CommentActions extends Component {
 
@@ -28,6 +29,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       deleteCommentById(ownProps.comment.id).then(() => {
         getCommentsByPostId(ownProps.comment.parentId).then( (comments) => {
           dispatch(setPostComments(ownProps.comment.parentId, comments))
+          notify.show('✔️ comment deleted');
         })
       })
     }

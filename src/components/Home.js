@@ -8,14 +8,14 @@ class Home extends Component {
 
   render() {
 
-    const { categories, posts } = this.props
+    const { categories, posts, history } = this.props
 
     return (
       <div>
         <Header />
         <div className="readable-body-wrapper">
           <HomeCategories categories={categories} posts={posts} />
-          <PostList posts={posts}/>
+          <PostList posts={posts} history={history} />
         </div>
         <Footer />
       </div>

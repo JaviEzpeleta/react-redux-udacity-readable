@@ -21,9 +21,8 @@ class App extends Component {
 
   componentWillReceiveProps() {
     const { toastMessage, setToastMessage } = this.props
-    if (this.props.toastMessage !== '') {
-      let myColor = { background: '#0E1717', text: "#FFFFFF" };
-      notify.show(toastMessage, "custom", 2000, myColor);
+    if (toastMessage !== '') {
+      notify.show(toastMessage);
       setToastMessage('')
     }
   }
@@ -40,14 +39,16 @@ class App extends Component {
           <Route exact path='/' render={ ({ match }) => (
             <Home
               categories={categories}
-              posts={posts} />
+              posts={posts}
+              history={history} />
           )}/>
 
           <Route path='/category/:url' render={ ({ match }) => (
             <Category
               categoryPath={match.params.url}
               categories={categories}
-              posts={posts} />
+              posts={posts}
+              history={history} />
           )}/>
 
           <Route path='/edit/:query' render={({ match }) => (
@@ -70,7 +71,7 @@ class App extends Component {
 
         </Switch>
 
-        <Notifications />
+        <Notifications options={{timeout: 2000}}/>
 
       </div>
     )

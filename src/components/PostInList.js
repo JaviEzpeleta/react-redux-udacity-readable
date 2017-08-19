@@ -23,7 +23,8 @@ class PostInList extends Component {
       comments,
       deletePostModal,
       displayDeleteModal,
-      setPostIdToDeleteModal
+      setPostIdToDeleteModal,
+      history
     } = this.props
 
     let postComments = false
@@ -100,7 +101,7 @@ class PostInList extends Component {
           </div>
         </div>
 
-        <PostDeleteModal deletePostModal={deletePostModal} />
+        <PostDeleteModal deletePostModal={deletePostModal} history={history} />
 
       </div>
 		)

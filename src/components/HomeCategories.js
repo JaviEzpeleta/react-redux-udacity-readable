@@ -6,7 +6,7 @@ class HomeCategories extends Component {
 
 	render() {
 
-    const { categories, posts } = this.props
+    const { categories, posts, history } = this.props
 
 		return (
         <div className="container">

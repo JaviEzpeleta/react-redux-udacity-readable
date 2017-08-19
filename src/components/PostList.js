@@ -9,7 +9,7 @@ class PostList extends Component {
 
 	render() {
 
-    const { posts, sortMethod, updateSortMethod } = this.props
+    const { posts, sortMethod, updateSortMethod, history } = this.props
 
     if (sortMethod === 'date') {
       posts.sort(sortByDate);
@@ -39,7 +39,7 @@ class PostList extends Component {
 
         <div>
           { posts.length > 0 && posts.map( (post, index) =>
-            <PostInList position={index} key={index} post={post} />
+            <PostInList position={index} key={index} post={post} history={history} />
           ) }
         </div>
 

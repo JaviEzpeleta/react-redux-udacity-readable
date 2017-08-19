@@ -15,7 +15,7 @@ class Category extends Component {
 
 	render() {
 
-		const { categories, posts } = this.props
+		const { categories, posts, history } = this.props
 
     const category = this.getCategory(categories)
 
@@ -45,7 +45,7 @@ class Category extends Component {
                   </div>
                 </div>
               </section>
-              <PostList posts={postsToDisplay}/>
+              <PostList posts={postsToDisplay} history={history}/>
             </div>
           )}
         <Footer />
