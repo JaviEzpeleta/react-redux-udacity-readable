@@ -35,7 +35,6 @@ function mapDispatchToProps(dispatch, ownProps) {
       })
     },
     startEditingThisComment: () => {
-      console.log('startEditingThisComment!!!')
       dispatch(controlEditCommentForm('id', ownProps.comment.id))
     }
   }

@@ -138,3 +138,8 @@ div.newCommentWapper {
   background-color: #f4f4f4;
   margin: 12px 0px;
 }
+div.editCommentArea .textarea:not([rows]) {
+    max-height: 600px;
+    min-height: 85px;
+    padding: 4px 9px;
+}
