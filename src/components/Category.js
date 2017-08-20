@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import CategoryHeader from './CategoryHeader'
-import { capitalizeFirstLetter, getNotificationColorByIndex } from './../utils/utils'
+import { capitalizeFirstLetter } from './../utils/utils'
 import PostList from './PostList'
 
 class Category extends Component {

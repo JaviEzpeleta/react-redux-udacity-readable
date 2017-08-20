@@ -15,6 +15,7 @@ export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
 export const APPLY_VOTE_TO_COMMENT = 'APPLY_VOTE_TO_COMMENT'
 export const SHOW_TOAST = 'SHOW_TOAST'
 export const CONTROL_EDIT_COMMENT_FORM = 'CONTROL_EDIT_COMMENT_FORM'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 
 export function setCategories(categories) {
   return {
@@ -146,5 +147,14 @@ export function controlEditCommentForm(name, value) {
     name,
     value
   }
+}
 
+export function updateComment(id, parentId,body, author) {
+  return {
+    type: UPDATE_COMMENT,
+    parentId,
+    id,
+    body,
+    author
+  }
 }

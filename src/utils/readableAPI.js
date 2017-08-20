@@ -81,7 +81,23 @@ export const addPost = (formValues) => {
 
 }
 
+export const updateCommentById = (commentId, body, author) => {
 
+  const commentBody = {
+    body,
+    author,
+  }
+
+  return fetch(`${api}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(commentBody)
+  })
+
+}
 export const editPostById = (postId, formValues) => {
 
   const body = {

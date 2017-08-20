@@ -17,7 +17,8 @@ import {
   ADD_COMMENT,
   APPLY_VOTE_TO_COMMENT,
   SHOW_TOAST,
-  CONTROL_EDIT_COMMENT_FORM
+  CONTROL_EDIT_COMMENT_FORM,
+  UPDATE_COMMENT
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -71,6 +72,15 @@ function comments (state = {}, action) {
           voteScore: 1
         })
       }
+    case UPDATE_COMMENT:
+
+    return {
+      ...state,
+      [action.parentId]: state[action.parentId].map(
+           (content) => content.id === action.id ? {...content, body: action.body, author: action.author}
+                                   : content
+       )
+    }
 
     default :
       return state

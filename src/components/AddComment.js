@@ -94,8 +94,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       addNewComment(ownProps.postId, commentData).then(() => {
         getCommentsByPostId(ownProps.postId).then( (comments) => {
           dispatch(setPostComments(ownProps.postId, comments))
-          let myColor = { background: '#0E1717', text: "#FFFFFF" };
-          notify.show('✅ New Comment Added!', "custom", 2000, myColor);
+          notify.show('✅ New Comment Added!');
         })
         // dispatch(addNewCommentAction(ownProps.postId, commentData))
       })

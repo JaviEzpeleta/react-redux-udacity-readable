@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { showDate } from '../utils/utils'
-import { controlEditCommentForm } from '../actions'
+import { showDate, nl2br } from '../utils/utils'
+import { controlEditCommentForm, updateComment } from '../actions'
 import VoteScoreComment from './VoteScoreComment';
 import CommentActions from './CommentActions';
 import { connect } from 'react-redux'
+import { updateCommentById } from './../utils/readableAPI'
+import {notify} from 'react-notify-toast';
 
 class Comment extends Component {
 
@@ -15,8 +17,13 @@ class Comment extends Component {
   }
 
   handleSubmit() {
+    const { editCommentForm } = this.props
     if (this.fieldsAreValid()) {
       controlEditCommentForm('showNotification', false)
+      this.props.updateComment(
+        editCommentForm.id,
+        editCommentForm.commentBody,
+        editCommentForm.commentAuthor)
     } else {
       this.props.controlEditCommentForm('showNotification', true)
     }
@@ -51,7 +58,11 @@ class Comment extends Component {
               &nbsp; · &nbsp;
               <CommentActions comment={comment} />
               <br />
-              {comment.body}
+              <div className="content">
+                {comment.body.split('\n').map((item, key) => {
+                  return <span key={key}>{item}<br/></span>
+                })}
+              </div>
             </div>
             }
             { (editCommentForm.id === comment.id) &&
@@ -102,6 +113,18 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlEditCommentForm: (name, value) => {
       dispatch(controlEditCommentForm(name, value))
+    },
+    updateComment: (commentId, body, author) => {
+      updateCommentById(commentId, body, author)
+        .then(() => {
+          dispatch(updateComment(commentId,
+            ownProps.comment.parentId,
+            body,
+            author))
+          dispatch(controlEditCommentForm('id', 0))
+          notify.show('✅ Comment Updated!');
+        }
+        )
     }
   }
 }
