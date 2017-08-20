@@ -6,6 +6,7 @@ import { setPostComments } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { objectToArray } from '../utils/utils'
 import Post from './Post'
+import PostBadCategory from './PostBadCategory'
 
 class PostView extends Component {
 
@@ -16,20 +17,32 @@ class PostView extends Component {
 
   render() {
 
-    const { posts, comments, postId, history } = this.props
+    const { posts, comments, postId, history, categoryUrl } = this.props
 
     let post = false
-    let theComments = false
+    let rightCategory = false
+    let isActive = true
 
     if (posts) {
-      post = posts.find((post) => (post.id === postId))
+      if (post = posts.find((post) => (post.id === postId))) {
+        console.log('THE POST')
+        console.log(post)
+        if (post.category === categoryUrl) {
+          rightCategory = true
+        } else {
+          if (post.deleted) isActive = false
+        }
+      }
     }
 
-    if (comments) theComments = comments[postId]
     return (
       <div>
         <Header />
-        { post && <Post post={post} comments={theComments} history={history} /> }
+        { rightCategory ?
+          <Post post={post} comments={comments} history={history} />
+          :
+          <PostBadCategory categoryUrl={categoryUrl} />
+        }
         <Footer />
       </div>
     )
@@ -39,7 +52,7 @@ class PostView extends Component {
 function mapStateToProps(state, props) {
   return {
     posts: objectToArray(state.posts),
-    comments: state.comments
+    comments: state.comments[props.postId]
   }
 }
 

@@ -148,7 +148,12 @@ div.newCommentWapper {
   margin: 12px 0px;
 }
 div.editCommentArea .textarea:not([rows]) {
-    max-height: 600px;
-    min-height: 85px;
-    padding: 4px 9px;
+  max-height: 600px;
+  min-height: 85px;
+  padding: 4px 9px;
+}
+.container .title .fa {
+  font-size: 2rem;
+  vertical-align: inherit;
+  margin-right: 12px;
 }

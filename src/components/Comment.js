@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { showDate, nl2br } from '../utils/utils'
+import { showDate } from '../utils/utils'
 import { controlEditCommentForm, updateComment } from '../actions'
 import VoteScoreComment from './VoteScoreComment';
 import CommentActions from './CommentActions';

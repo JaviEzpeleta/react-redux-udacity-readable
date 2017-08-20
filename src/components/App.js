@@ -59,7 +59,6 @@ class App extends Component {
             <PostView
               postId={match.params.postId}
               categoryUrl={match.params.category}
-              categoryPath={match.params.url}
               history={history} />
           )}/>
 
