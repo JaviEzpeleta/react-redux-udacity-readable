@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import CategoryHeader from './CategoryHeader'
 import { capitalizeFirstLetter, getNotificationColorByIndex } from './../utils/utils'
 import PostList from './PostList'
 
@@ -33,18 +34,9 @@ class Category extends Component {
 				<Header />
           { category && (
             <div style={{marginBottom: '50px'}}>
-              <section className={'hero ' + getNotificationColorByIndex(category.index)}>
-                <div className="hero-body">
-                  <div className="container">
-                    <h1 className="title">
-                      {elegantCategoryName}
-                    </h1>
-                    <h2 className="subtitle">
-                      Only posts about {elegantCategoryName}
-                    </h2>
-                  </div>
-                </div>
-              </section>
+              <CategoryHeader
+                elegantCategoryName={elegantCategoryName}
+                category={category} />
               <PostList posts={postsToDisplay} history={history}/>
             </div>
           )}

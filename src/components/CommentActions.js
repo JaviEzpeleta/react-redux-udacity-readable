@@ -36,6 +36,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     startEditingThisComment: () => {
       dispatch(controlEditCommentForm('id', ownProps.comment.id))
+      dispatch(controlEditCommentForm('commentAuthor', ownProps.comment.author))
+      dispatch(controlEditCommentForm('commentBody', ownProps.comment.body))
     }
   }
 }
