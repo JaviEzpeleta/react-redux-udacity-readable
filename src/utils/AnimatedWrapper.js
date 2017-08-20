@@ -12,9 +12,7 @@ extends Component {
 		};
 		if (!distance) distance = '12'
 		if (!delay) delay = '150'
-		if (props.position > 0) {
-			delay = 150 * (props.position+1)
-		}
+		delay = 150 * (props.position+1)
 	}
 
 	componentWillAppear(cb) {

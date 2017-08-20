@@ -90,6 +90,15 @@ div.box {
   padding: 0.8rem 1.25rem;
 }
 
+
+div.box { /* trying a more minimalistic design */
+    border: 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px;
+    box-shadow: 0px 0px 0px 0px;
+    margin: 0;
+    border-top: 1px solid #eee !important;
+}
+
 .columns:not(:last-child) {
   margin-bottom: 0px !important;
 }
