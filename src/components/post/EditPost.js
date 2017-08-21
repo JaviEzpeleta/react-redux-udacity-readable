@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './../Header'
+import Footer from './../Footer'
 import EditForm from './EditForm'
 import { connect } from 'react-redux'
-import { objectToArray } from './../utils/utils'
+import { objectToArray } from './../../utils/utils'
 
 class EditPost extends Component {
 

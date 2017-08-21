@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { showDate, capitalizeFirstLetter } from '../utils/utils'
+import { showDate, capitalizeFirstLetter } from '../../utils/utils'
 import { Link } from 'react-router-dom'
 import VoteScore from './VoteScore'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
-import AddComment from './AddComment'
-import Comment from './Comment'
-import { displayDeleteModal, setPostIdToDeleteModal } from './../actions'
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
+import AddComment from './../comment/AddComment'
+import Comment from './../comment/Comment'
+import { displayDeleteModal, setPostIdToDeleteModal } from './../../actions'
 import { connect } from 'react-redux'
 import PostDeleteModal from './PostDeleteModal'
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { deleteCommentById, getCommentsByPostId } from './../utils/readableAPI'
-import { setPostComments, controlEditCommentForm } from '../actions'
+import { deleteCommentById, getCommentsByPostId } from './../../utils/readableAPI'
+import { setPostComments, controlEditCommentForm } from '../../actions'
 import { connect } from 'react-redux';
 import {notify} from 'react-notify-toast';
 

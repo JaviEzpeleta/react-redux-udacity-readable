@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './../Header'
+import Footer from './../Footer'
 import { connect } from 'react-redux'
-import { controlNewPostForm, addNewPost, setPosts, setToastMessage } from '../actions'
+import { controlNewPostForm, addNewPost, setPosts, setToastMessage } from '../../actions'
 import faker from 'faker'
-import { addPost, getAllPosts } from './../utils/readableAPI'
+import { addPost, getAllPosts } from './../../utils/readableAPI'
 
 class NewPost extends Component {
 

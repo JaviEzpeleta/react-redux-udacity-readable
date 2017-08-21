@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LogoImage from './../images/readable-logo.png'
 import { Link } from 'react-router-dom'
-import AddPostButton from './AddPostButton'
+import AddPostButton from './post/AddPostButton'
 
 class Header extends Component {
 	render() {

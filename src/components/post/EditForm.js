@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlEditPostForm, editPost, setToastMessage } from '../actions'
-import { editPostById } from './../utils/readableAPI'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import { controlEditPostForm, editPost, setToastMessage } from '../../actions'
+import { editPostById } from './../../utils/readableAPI'
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 
 class EditForm extends Component {
 

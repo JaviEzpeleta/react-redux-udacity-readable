@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { displayDeleteModal, deletePost, setToastMessage } from './../actions'
-import * as ReadableAPI from './../utils/readableAPI'
+import { displayDeleteModal, deletePost, setToastMessage } from './../../actions'
+import * as ReadableAPI from './../../utils/readableAPI'
 import Modal from 'react-modal'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 
 class PostDeleteModal extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PostInList from './PostInList'
 import { connect } from 'react-redux'
-import { updateSortMethod } from '../actions'
-import { sortByDate, sortByScore } from '../utils/utils'
+import { updateSortMethod } from '../../actions'
+import { sortByDate, sortByScore } from '../../utils/utils'
 import AddPostButton from './AddPostButton'
 
 class PostList extends Component {

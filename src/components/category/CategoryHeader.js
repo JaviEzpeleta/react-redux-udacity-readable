@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { getNotificationColorByIndex } from './../utils/utils'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import { getNotificationColorByIndex } from './../../utils/utils'
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 
 class CategoryHeader extends Component {
 

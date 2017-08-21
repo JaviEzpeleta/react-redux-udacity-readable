@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 
-class PostIsDeleted extends Component {
+class PostBadCategory extends Component {
 
 	render() {
 		return (
@@ -12,7 +12,7 @@ class PostIsDeleted extends Component {
       			<div className="container">
               <div className="title">
                 <i className="fa fa-exclamation-triangle"></i>
-                [Error] This post has been deleted.
+                [Error] : Bad URL («{this.props.categoryUrl}» is a wrong category)
               </div>
             </div>
           </div>
@@ -23,4 +23,4 @@ class PostIsDeleted extends Component {
 	}
 }
 
-export default AnimatedWrapper(PostIsDeleted, 4, 50)
+export default AnimatedWrapper(PostBadCategory, 4, 50)

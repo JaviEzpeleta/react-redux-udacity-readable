@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setPostComments } from './../actions'
-import { voteComment, getCommentsByPostId } from './../utils/readableAPI'
-import { objectToArray } from '../utils/utils'
+import { setPostComments } from './../../actions'
+import { voteComment, getCommentsByPostId } from './../../utils/readableAPI'
+import { objectToArray } from '../../utils/utils'
 
 class VoteScoreComment extends Component {
 

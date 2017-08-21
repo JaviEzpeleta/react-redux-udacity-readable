@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import HomeCategories from './HomeCategories'
-import PostList from './PostList'
+import HomeCategories from './category/HomeCategories'
+import PostList from './post/PostList'
 
 class Home extends Component {
 

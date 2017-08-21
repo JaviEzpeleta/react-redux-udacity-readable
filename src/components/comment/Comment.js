@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { showDate } from '../utils/utils'
-import { controlEditCommentForm, updateComment } from '../actions'
+import { showDate } from '../../utils/utils'
+import { controlEditCommentForm, updateComment } from '../../actions'
 import VoteScoreComment from './VoteScoreComment';
 import CommentActions from './CommentActions';
 import { connect } from 'react-redux'
-import { updateCommentById } from './../utils/readableAPI'
+import { updateCommentById } from './../../utils/readableAPI'
 import {notify} from 'react-notify-toast';
 
 class Comment extends Component {

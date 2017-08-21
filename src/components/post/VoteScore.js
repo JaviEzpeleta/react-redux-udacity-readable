@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { applyVote } from './../actions'
-import * as ReadableAPI from './../utils/readableAPI'
-import { objectToArray } from '../utils/utils'
+import { applyVote } from './../../actions'
+import * as ReadableAPI from './../../utils/readableAPI'
+import { objectToArray } from '../../utils/utils'
 
 class VoteScore extends Component {
 

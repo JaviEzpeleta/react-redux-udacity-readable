@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { showDate } from '../utils/utils'
+import { showDate } from '../../utils/utils'
 import { connect } from 'react-redux'
 import { setPostComments,
     displayDeleteModal,
-    setPostIdToDeleteModal } from './../actions'
-import * as ReadableAPI from './../utils/readableAPI'
+    setPostIdToDeleteModal } from './../../actions'
+import * as ReadableAPI from './../../utils/readableAPI'
 import VoteScore from './VoteScore'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 import PostDeleteModal from './PostDeleteModal'
 
 class PostInList extends Component {

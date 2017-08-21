@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlNewCommentData, setPostComments } from '../actions'
-import { addNewComment, getCommentsByPostId } from './../utils/readableAPI'
-import AnimatedWrapper from './../utils/AnimatedWrapper';
+import { controlNewCommentData, setPostComments } from '../../actions'
+import { addNewComment, getCommentsByPostId } from './../../utils/readableAPI'
+import AnimatedWrapper from './../../utils/AnimatedWrapper';
 import faker from 'faker'
 import {notify} from 'react-notify-toast';
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './../Header'
+import Footer from './../Footer'
 import CategoryHeader from './CategoryHeader'
-import { capitalizeFirstLetter } from './../utils/utils'
-import PostList from './PostList'
+import { capitalizeFirstLetter } from './../../utils/utils'
+import PostList from './../post/PostList'
 
 class Category extends Component {
 

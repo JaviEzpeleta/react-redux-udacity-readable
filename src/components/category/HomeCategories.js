@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { capitalizeFirstLetter, getNotificationColorByIndex } from './../utils/utils'
+import { capitalizeFirstLetter, getNotificationColorByIndex } from './../../utils/utils'
 import CategorySummary from './CategorySummary'
 
 class HomeCategories extends Component {

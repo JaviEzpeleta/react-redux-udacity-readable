@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import Home from './Home'
-import Category from './Category'
-import PostView from './PostView'
+import Category from './category/Category'
+import PostView from './post/PostView'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setCategories, setPosts, setToastMessage } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
-import NewPost from './NewPost'
-import EditPost from './EditPost'
+import NewPost from './post/NewPost'
+import EditPost from './post/EditPost'
 import Notifications, {notify} from 'react-notify-toast';
 
 class App extends Component {
