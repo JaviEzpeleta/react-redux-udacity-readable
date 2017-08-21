@@ -79,7 +79,7 @@ class App extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    categories: state.categories.categories,
+    categories: state.categories,
     posts: objectToArray(state.posts).filter((post) => (post.deleted === false)),
     toastMessage: state.toastMessage
   }

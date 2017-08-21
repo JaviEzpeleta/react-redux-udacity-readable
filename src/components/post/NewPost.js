@@ -156,7 +156,7 @@ class NewPost extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories,
+    categories: state.categories,
     newPostForm: state.newPostForm
   }
 }

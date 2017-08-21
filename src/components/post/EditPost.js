@@ -46,7 +46,7 @@ class EditPost extends Component {
 function mapStateToProps(state) {
   return {
     posts: objectToArray(state.posts),
-    categories: state.categories.categories,
+    categories: state.categories,
     newPostForm: state.newPostForm
   }
 }

@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 
 import {
-  SET_CATEGORIES,
   SET_POSTS,
   SET_COMMENTS_TO_POST_ID,
   APPLY_VOTE,
@@ -21,18 +20,7 @@ import {
   UPDATE_COMMENT
 } from '../actions'
 
-function categories (state = {}, action) {
-  switch (action.type) {
-    case SET_CATEGORIES :
-      const { categories } = action
-      return {
-        ...state,
-        categories,
-      }
-    default :
-      return state
-  }
-}
+import { categories } from './categories'
 
 function comments (state = {}, action) {
   switch (action.type) {
