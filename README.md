@@ -15,5 +15,5 @@ Madrid, August 2017.
 2. `cd udacity-readable` then run `npm install`
 3. `npm start` or `yarn start` to start the app then navigate to http://localhost:3000/ on your local machine
 
-## Whanna test it live without installing it?
+## Wanna test it live without installing it?
 Try it from here: https://salty-wildwood-13440.herokuapp.com/
