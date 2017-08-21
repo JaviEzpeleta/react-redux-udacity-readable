@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setPostComments } from './../../actions'
 import { voteComment, getCommentsByPostId } from './../../utils/readableAPI'
-import { objectToArray } from '../../utils/utils'
+import { objectToArray, getColorClassForVoteScore } from '../../utils/utils'
 
 class VoteScoreComment extends Component {
 
@@ -12,7 +12,7 @@ class VoteScoreComment extends Component {
 
 		return (
 			<div className="readable-voteScore-wrapper">
-				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(comment.voteScore)}>
+				<div className={'readable-voteScore-value notification ' + getColorClassForVoteScore(comment.voteScore)}>
 					{comment.voteScore}
 				</div>
 				<a className="button is-success is-outlined" onClick={() => applyVoteToComment(comment.voteScore, 1)}>
@@ -26,12 +26,6 @@ class VoteScoreComment extends Component {
 	}
 }
 
-function getColorClassForVoteSocre(voteScore) {
-	if (voteScore > 10) return 'is-success'
-	if (voteScore > 5) return 'is-info'
-	if (voteScore < 0) return 'is-danger'
-	return 'is-primary'
-}
 
 function mapStateToProps(state, props) {
   return {

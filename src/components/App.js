@@ -11,6 +11,7 @@ import { objectToArray } from '../utils/utils'
 import NewPost from './post/NewPost'
 import EditPost from './post/EditPost'
 import Notifications, {notify} from 'react-notify-toast';
+import NotFound from './NotFound'
 
 class App extends Component {
 
@@ -68,9 +69,11 @@ class App extends Component {
 
           <Route exact path='/new' component={NewPost} />
 
+          <Route path="*" component={NotFound} />
+
         </Switch>
 
-        <Notifications options={{timeout: 2000}}/>
+        <Notifications options={{timeout: 2200}}/>
 
       </div>
     )

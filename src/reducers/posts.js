@@ -62,7 +62,7 @@ export const posts = (state = {}, action) => {
 
       return {
         ...state,
-        theNewPost: {
+        [id]: {
           author: username,
           body: message,
           category,

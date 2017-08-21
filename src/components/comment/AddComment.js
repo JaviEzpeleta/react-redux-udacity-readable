@@ -11,6 +11,9 @@ class AddComment extends Component {
 
   constructor(props) {
     super(props)
+    // emptyInputField will be used to empty the "body" textarea right after you post a new comment
+    // that way you can post several comments and you won't have to clean the previously entered text
+    // (but the username will be kept, assuming you are still you)
     this.emptyInputField = this.emptyInputField.bind(this)
   }
 
@@ -28,8 +31,8 @@ class AddComment extends Component {
       this.props.newCommentData.id = faker.random.uuid()
       this.props.newCommentData.timestamp = Date.now()
       this.props.addNewComment(this.props.newCommentData)
-      this.emptyInputField()
       this.props.controlNewCommentData('showNotification', false)
+      this.emptyInputField()
       this.props.controlNewCommentData('newComment', '')
     } else {
       this.props.controlNewCommentData('showNotification', true)
@@ -94,7 +97,6 @@ function mapDispatchToProps(dispatch, ownProps) {
       addNewComment(ownProps.postId, commentData).then(() => {
         getCommentsByPostId(ownProps.postId).then( (comments) => {
           dispatch(addNewCommentAction(ownProps.postId, commentData))
-          //dispatch(setPostComments(ownProps.postId, comments))
           notify.show('✅ New Comment Added!');
         })
       })

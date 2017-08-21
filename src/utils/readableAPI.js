@@ -1,5 +1,5 @@
-const api = 'http://localhost:5001'
-//const api = 'https://evening-harbor-34965.herokuapp.com'
+//const api = 'http://localhost:5001'
+const api = 'https://evening-harbor-34965.herokuapp.com'
 
 
 let token = localStorage.token
@@ -33,14 +33,14 @@ export const votePost = (postId, value) => {
   let option = ''
   option = (value === 1) ? 'upVote' : 'downVote'
 
-  fetch(`${api}/posts/${postId}`, {
+  return fetch(`${api}/posts/${postId}`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ option })
-  }).then(res => res.json())
+  }).then(res => res)
 }
 
 export const voteComment = (commentId, value) => {

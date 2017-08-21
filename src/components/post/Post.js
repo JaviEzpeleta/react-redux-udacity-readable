@@ -11,6 +11,10 @@ import PostDeleteModal from './PostDeleteModal'
 
 class Post extends Component {
 
+  componentWillMount() {
+    window.scrollTo(0, 0)
+  }
+
 	render() {
 
     const { post,

@@ -2,6 +2,14 @@ export const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+export const getColorClassForVoteScore = (voteScore) => {
+  if (voteScore > 10) return 'is-success'
+  if (voteScore > 5) return 'is-info'
+  if (voteScore === 0) return 'is-warning'
+  if (voteScore < 0) return 'is-danger'
+  return 'is-primary'
+}
+
 export const getNotificationColorByIndex = (index) => {
   const colorsForTheCategories = ['is-primary', 'is-info', 'is-success', 'is-waring', 'is-danger']
   return colorsForTheCategories[index % 5]

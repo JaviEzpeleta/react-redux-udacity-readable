@@ -14,7 +14,6 @@ class PostInList extends Component {
 
   componentWillMount() {
       this.props.setPostComments(this.props.postId);
-      // console.log('🖨 PostInList.js')
   }
 
 	render() {

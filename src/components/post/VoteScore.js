@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { applyVote } from './../../actions'
 import * as ReadableAPI from './../../utils/readableAPI'
-import { objectToArray } from '../../utils/utils'
+import { objectToArray, getColorClassForVoteScore } from '../../utils/utils'
 
 class VoteScore extends Component {
 
@@ -10,10 +10,9 @@ class VoteScore extends Component {
 
 		const { post, applyVote } = this.props
 
-
 		return (
 			<div className="readable-voteScore-wrapper">
-				<div className={'readable-voteScore-value notification ' + getColorClassForVoteSocre(post.voteScore)}>
+				<div className={'readable-voteScore-value notification ' + getColorClassForVoteScore(post.voteScore)}>
 					{post.voteScore}
 				</div>
 				<a className="button is-success is-outlined" onClick={() => applyVote(post.voteScore, 1)}>
@@ -27,13 +26,6 @@ class VoteScore extends Component {
 	}
 }
 
-function getColorClassForVoteSocre(voteScore) {
-	if (voteScore > 10) return 'is-success'
-	if (voteScore > 5) return 'is-info'
-	if (voteScore < 0) return 'is-danger'
-	return 'is-primary'
-}
-
 function mapStateToProps(state, props) {
   return {
     posts: objectToArray(state.posts)
@@ -43,8 +35,9 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     applyVote: (newValue, diff) => {
-      ReadableAPI.votePost(ownProps.post.id, diff)
-      dispatch(applyVote(ownProps.post.id, newValue+diff))
+      ReadableAPI.votePost(ownProps.post.id, diff).then(()=>
+        dispatch(applyVote(ownProps.post.id, newValue+diff))
+      )
     }
   }
 }

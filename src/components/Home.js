@@ -6,6 +6,10 @@ import PostList from './post/PostList'
 
 class Home extends Component {
 
+  componentWillMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
 
     const { categories, posts, history } = this.props
