@@ -166,7 +166,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       editPostById(formValues.id, formValues).then(() => {
         dispatch(editPost(formValues))
         dispatch(setToastMessage('Post Saved!!'))
-        window.history.back();
+        ownProps.history.push('/'+formValues.category+'/'+formValues.id);
       })
     }
   }
