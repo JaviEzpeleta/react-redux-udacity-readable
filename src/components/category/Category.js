@@ -4,7 +4,6 @@ import Footer from './../Footer'
 import CategoryHeader from './CategoryHeader'
 import { capitalizeFirstLetter } from './../../utils/utils'
 import PostList from './../post/PostList'
-import { connect } from 'react-redux'
 import WrongCategoryURL from './WrongCategoryURL'
 
 class Category extends Component {
@@ -55,15 +54,4 @@ class Category extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-  return {
-    categories: state.categories
-  }
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Category)
+export default Category
