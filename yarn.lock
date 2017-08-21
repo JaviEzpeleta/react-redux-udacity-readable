@@ -4309,6 +4309,10 @@ object-assign@4.1.1, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
+object-assign@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
+
 object-hash@^1.1.4:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-1.1.8.tgz#28a659cf987d96a4dabe7860289f3b5326c4a03c"
@@ -4946,7 +4950,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -5075,7 +5079,7 @@ react-dom-factories@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.1.tgz#c50692ac5ff1adb39d86dfe6dbe3485dacf58455"
 
-react-dom@^15.6.1:
+"react-dom@^0.14.7 || ^15.0.0", react-dom@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
   dependencies:
@@ -5106,6 +5110,15 @@ react-modal@^2.2.4:
 react-moment@^0.6.1:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-0.6.4.tgz#5e531d47ad7b0bff6f6b7175093e98659f5e667b"
+
+react-notify-toast@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-notify-toast/-/react-notify-toast-0.3.1.tgz#26cffffa8ac637c131e98025ac1e6c7da83a115a"
+  dependencies:
+    object-assign "^3.0.0"
+    prop-types "^15.5.8"
+    react "^0.14.7 || ^15.0.0"
+    react-dom "^0.14.7 || ^15.0.0"
 
 react-redux@^5.0.6:
   version "5.0.6"
@@ -5182,7 +5195,7 @@ react-scripts@1.0.11:
   optionalDependencies:
     fsevents "1.1.2"
 
-react@^15.6.1:
+"react@^0.14.7 || ^15.0.0", react@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
