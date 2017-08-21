@@ -7,6 +7,7 @@ import * as ReadableAPI from './../utils/readableAPI'
 import { objectToArray } from '../utils/utils'
 import Post from './Post'
 import PostBadCategory from './PostBadCategory'
+import PostIsDeleted from './PostIsDeleted'
 
 class PostView extends Component {
 
@@ -24,13 +25,16 @@ class PostView extends Component {
     let isActive = true
 
     if (posts) {
-      if (post = posts.find((post) => (post.id === postId))) {
+      post = posts.find((post) => (post.id === postId))
+      if (post) {
         console.log('THE POST')
         console.log(post)
         if (post.category === categoryUrl) {
           rightCategory = true
-        } else {
-          if (post.deleted) isActive = false
+          if (post.deleted) {
+            isActive = false
+            console.log('marking this post as FALSe')
+          }
         }
       }
     }
@@ -39,8 +43,11 @@ class PostView extends Component {
       <div>
         <Header />
         { rightCategory ?
+          (isActive ?
           <Post post={post} comments={comments} history={history} />
           :
+          <PostIsDeleted />
+          ):
           <PostBadCategory categoryUrl={categoryUrl} />
         }
         <Footer />
