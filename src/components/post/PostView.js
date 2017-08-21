@@ -27,14 +27,9 @@ class PostView extends Component {
     if (posts) {
       post = posts.find((post) => (post.id === postId))
       if (post) {
-        console.log('THE POST')
-        console.log(post)
         if (post.category === categoryUrl) {
           rightCategory = true
-          if (post.deleted) {
-            isActive = false
-            console.log('marking this post as FALSe')
-          }
+          if (post.deleted) isActive = false
         }
       }
     }
@@ -74,4 +69,3 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostView)
-

@@ -1,26 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-class CategorySummary extends Component {
-
-	render() {
-
-    const { linkTo, colorToApply, title, numberOfPosts } = this.props
-
-		return (
-      <Link to={linkTo} className="column">
-        <p className={'notification is-centered-text ' + colorToApply}>
-          <span className="title">{title}</span>
-          <br />
-          { (numberOfPosts > 0 ) ?
-            ((numberOfPosts > 1 ) ?
-              numberOfPosts + ' posts' : '1 post')
-            : 'No posts yet' }
-        </p>
-      </Link>
-		)
-	}
-
-}
+const CategorySummary = (props) => (
+  <Link to={props.linkTo} className="column">
+    <p className={'notification is-centered-text ' + props.colorToApply}>
+      <span className="title">{props.title}</span>
+      <br />
+      { (props.numberOfPosts > 0 ) ?
+        ((props.numberOfPosts > 1 ) ?
+          props.numberOfPosts + ' posts' : '1 post')
+        : 'No posts yet' }
+    </p>
+  </Link>
+)
 
 export default CategorySummary

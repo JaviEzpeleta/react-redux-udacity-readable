@@ -32,18 +32,21 @@ export const comments = (state = {}, action) => {
 
       const { comment } = action
       const parentId = action.postId
+
+      const newComment = {
+        author: comment.commentAuthor,
+        body: comment.newComment,
+        deleted: false,
+        id: comment.id,
+        parentDeleted: false,
+        parentId: parentId,
+        timestamp: comment.timestamp,
+        voteScore: 1
+      }
+
       return {
         ...state,
-        [parentId]: state[parentId].concat({
-          author: comment.commentAuthor,
-          body: comment.newComment,
-          deleted: false,
-          id: comment.id,
-          parentDeleted: false,
-          parentId,
-          timestamp: comment.timestamp,
-          voteScore: 1
-        })
+        [parentId]: state[parentId].concat(newComment)
       }
     case UPDATE_COMMENT:
 

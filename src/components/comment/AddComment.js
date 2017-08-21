@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { controlNewCommentData, setPostComments } from '../../actions'
+import { controlNewCommentData, addNewCommentAction } from '../../actions'
 import { addNewComment, getCommentsByPostId } from './../../utils/readableAPI'
 import AnimatedWrapper from './../../utils/AnimatedWrapper';
 import faker from 'faker'
@@ -93,10 +93,10 @@ function mapDispatchToProps(dispatch, ownProps) {
     addNewComment: (commentData) => {
       addNewComment(ownProps.postId, commentData).then(() => {
         getCommentsByPostId(ownProps.postId).then( (comments) => {
-          dispatch(setPostComments(ownProps.postId, comments))
+          dispatch(addNewCommentAction(ownProps.postId, commentData))
+          //dispatch(setPostComments(ownProps.postId, comments))
           notify.show('✅ New Comment Added!');
         })
-        // dispatch(addNewCommentAction(ownProps.postId, commentData))
       })
     }
   }

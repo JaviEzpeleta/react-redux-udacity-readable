@@ -1,31 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import AnimatedWrapper from './../../utils/AnimatedWrapper';
 
-class WrongCategoryURL extends Component {
+const WrongCategoryURL = (props) => (
 
-	render() {
-		return (
-
-      <section className="hero is-danger">
-        <div className="hero-body">
-          <div className="container">
-      			<div className="container">
-              <div className="title is-spaced">
-                <i className="fa fa-exclamation-triangle"></i>
-                [Error] : Bad URL
-              </div>
-              <div className="subtitle">
-				«{this.props.categoryUrl}» is an incorrect category
-				<br />
-              	Please review the URL.
-              </div>
-            </div>
+  <section className="hero is-danger">
+    <div className="hero-body">
+      <div className="container">
+  			<div className="container">
+          <div className="title is-spaced">
+            <i className="fa fa-exclamation-triangle"></i>
+            [Error] : Bad URL
+          </div>
+          <div className="subtitle">
+          	«{props.categoryUrl}» is an incorrect category
+          	<br />
+          	Please review the URL.
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-		)
-	}
-}
+)
 
 export default AnimatedWrapper(WrongCategoryURL, 4, 50)
