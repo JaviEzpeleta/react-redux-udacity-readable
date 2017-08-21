@@ -46,7 +46,6 @@ class App extends Component {
           <Route path='/category/:url' render={ ({ match }) => (
             <Category
               categoryPath={match.params.url}
-              categories={categories}
               posts={posts}
               history={history} />
           )}/>

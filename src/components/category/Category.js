@@ -4,19 +4,26 @@ import Footer from './../Footer'
 import CategoryHeader from './CategoryHeader'
 import { capitalizeFirstLetter } from './../../utils/utils'
 import PostList from './../post/PostList'
+import { connect } from 'react-redux'
+import WrongCategoryURL from './WrongCategoryURL'
 
 class Category extends Component {
 
   getCategory = (categories) => {
-    if (categories)
-      return { data: categories.find((category) => (category.path === this.props.categoryPath)),
-        index: categories.findIndex((category) => (category.path === this.props.categoryPath)) }
-    else return null
+    if (categories) {
+      const categoryFound = {
+          data: categories.find((category) => (category.path === this.props.categoryPath)),
+          index: categories.findIndex((category) => (category.path === this.props.categoryPath))
+      }
+      if (categoryFound.index === -1) return null
+      else return categoryFound
+    }
+    return null
   }
 
 	render() {
 
-		const { categories, posts, history } = this.props
+		const { categories, posts, history, categoryPath } = this.props
 
     const category = this.getCategory(categories)
 
@@ -32,18 +39,31 @@ class Category extends Component {
 		return (
 			<div>
 				<Header />
-          { category && (
+          { category ? (
             <div style={{marginBottom: '50px'}}>
               <CategoryHeader
                 elegantCategoryName={elegantCategoryName}
                 category={category} />
               <PostList posts={postsToDisplay} history={history}/>
             </div>
-          )}
+            ) :
+            <WrongCategoryURL categoryUrl={categoryPath}/>
+          }
         <Footer />
 			</div>
 		)
 	}
 }
 
-export default Category
+function mapStateToProps(state) {
+  return {
+    categories: state.categories
+  }
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)
