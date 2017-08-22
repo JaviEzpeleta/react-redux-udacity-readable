@@ -1,11 +1,8 @@
 import { combineReducers } from 'redux'
 
-import {
-  UPDATE_SORT_METHOD,
-  SHOW_TOAST
-} from '../actions'
+import { UPDATE_SORT_METHOD, SHOW_TOAST } from '../actions'
 
-import { categories } from './categories'
+import { categories, categoriesAreLoading } from './categories'
 import { posts, newPostForm, deletePostModal, editPostForm } from './posts'
 import { comments, newCommentData, editCommentForm } from './comments'
 
@@ -13,17 +10,17 @@ function sortMethod(state = 'score', action) {
   switch (action.type) {
     case UPDATE_SORT_METHOD:
       return action.method
-    default :
+    default:
       return state
   }
 }
 
 function toastMessage(state = '', action) {
   switch (action.type) {
-    case SHOW_TOAST :
+    case SHOW_TOAST:
       const { message } = action
       return message
-    default :
+    default:
       return state
   }
 }
@@ -38,5 +35,6 @@ export default combineReducers({
   deletePostModal,
   newCommentData,
   toastMessage,
-  editCommentForm
+  editCommentForm,
+  categoriesAreLoading
 })
