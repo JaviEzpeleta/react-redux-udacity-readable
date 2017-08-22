@@ -10,8 +10,7 @@ const Footer = () => (
     	    A project for the React Nanodegree @<a href="htpps://udacity.com">Udacity</a>.
     	    <br />
     	    Madrid, August 2017.
-    	  </p>
-    	  <p>
+            <br />
     	    <a className="icon" href="https://github.com/JaviEzpeleta">
     	      <i className="fa fa-github"></i>
     	    </a>
