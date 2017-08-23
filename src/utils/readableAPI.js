@@ -1,7 +1,7 @@
 import firebase from './../firebase'
 import { objectToArray } from './utils'
 
-const workOnLocalhost = true
+const workOnLocalhost = false
 
 let api = ''
 if (workOnLocalhost) {
@@ -18,6 +18,46 @@ const headers = {
   Accept: 'application/json',
   Authorization: token
 }
+
+export const updatePostById = (id, data) => {
+  return firebase
+    .database()
+    .ref('posts')
+    .child(id)
+    .update(data)
+    .then(ref => ref.once('value'))
+    .then(snapshot => snapshot.val())
+    .catch(error => ({
+      errorCode: error.code,
+      errorMessage: error.message
+    }))
+}
+
+export const votePost = workOnLocalhost
+  ? (postId, value) => {
+      let option = ''
+      option = value === 1 ? 'upVote' : 'downVote'
+
+      return fetch(`${api}/posts/${postId}`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ option })
+      }).then(res => res)
+    }
+  : (postId, value) => {
+      firebase
+        .database()
+        .ref('posts/' + postId + '/voteScore')
+        .once('value')
+        .then(snapshot => {
+          let postScore = snapshot.val()
+          let newValue = +postScore + +value
+          return updatePostById(postId, { voteScore: newValue })
+        })
+    }
 
 export const getAllCategories = workOnLocalhost
   ? () =>
@@ -45,20 +85,6 @@ export const getCommentsByPostId = postId =>
 
 export const getPostById = postId =>
   fetch(`${api}/posts/${postId}`, { headers }).then(res => res.json())
-
-export const votePost = (postId, value) => {
-  let option = ''
-  option = value === 1 ? 'upVote' : 'downVote'
-
-  return fetch(`${api}/posts/${postId}`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ option })
-  }).then(res => res)
-}
 
 export const voteComment = (commentId, value) => {
   let option = ''
