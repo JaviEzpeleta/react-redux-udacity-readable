@@ -1,4 +1,5 @@
 import firebase from './../firebase'
+import { objectToArray } from './utils'
 
 const workOnLocalhost = true
 
@@ -30,8 +31,14 @@ export const getAllCategories = workOnLocalhost
         .once('value')
         .then(snapshot => snapshot.val())
 
-export const getAllPosts = () =>
-  fetch(`${api}/posts`, { headers }).then(res => res.json())
+export const getAllPosts = workOnLocalhost
+  ? () => fetch(`${api}/posts`, { headers }).then(res => res.json())
+  : () =>
+      firebase
+        .database()
+        .ref('posts')
+        .once('value')
+        .then(snapshot => objectToArray(snapshot.val()))
 
 export const getCommentsByPostId = postId =>
   fetch(`${api}/posts/${postId}/comments`, { headers }).then(res => res.json())

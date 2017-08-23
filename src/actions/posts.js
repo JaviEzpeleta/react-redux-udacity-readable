@@ -8,6 +8,7 @@ export const SET_POST_ID_TO_DELETE_MODAL = 'SET_POST_ID_TO_DELETE_MODAL'
 export const DELETE_POST = 'DELETE_POST'
 export const CONTROL_EDIT_POST_FORM = 'CONTROL_EDIT_POST_FORM'
 export const EDIT_POST = 'EDIT_POST'
+export const POSTS_ARE_LOADING = 'POSTS_ARE_LOADING'
 
 export function setPosts(posts) {
   return {
@@ -66,23 +67,22 @@ export function displayDeleteModal(bool) {
   }
 }
 
-export function setPostIdToDeleteModal(postId) {
-  return {
-    type: SET_POST_ID_TO_DELETE_MODAL,
-    postId
-  }
-}
+export const setPostIdToDeleteModal = postId => ({
+  type: SET_POST_ID_TO_DELETE_MODAL,
+  postId
+})
 
-export function deletePost(postId) {
-  return {
-    type: DELETE_POST,
-    postId
-  }
-}
+export const deletePost = postId => ({
+  type: DELETE_POST,
+  postId
+})
 
-export function editPost(post) {
-  return {
-    type: EDIT_POST,
-    post
-  }
-}
+export const editPost = post => ({
+  type: EDIT_POST,
+  post
+})
+
+export const postsAreLoading = value => ({
+  type: POSTS_ARE_LOADING,
+  value
+})

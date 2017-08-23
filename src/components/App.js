@@ -8,7 +8,8 @@ import {
   setCategories,
   setPosts,
   setToastMessage,
-  categoriesAreLoading
+  categoriesAreLoading,
+  postsAreLoading
 } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import { withRouter } from 'react-router'
@@ -99,7 +100,8 @@ function mapStateToProps(state, props) {
     categories: state.categories,
     posts: objectToArray(state.posts).filter(post => post.deleted === false),
     toastMessage: state.toastMessage,
-    loadingCategories: state.categoriesAreLoading
+    loadingCategories: state.categoriesAreLoading,
+    loadingPosts: state.loadingPosts
   }
 }
 
@@ -113,10 +115,14 @@ function mapDispatchToProps(dispatch) {
         dispatch(categoriesAreLoading(false))
       })
     },
-    getAllPosts: () =>
+    getAllPosts: () => {
+      console.log('HERE GETTING ALL POSTS')
+      dispatch(postsAreLoading(true))
       ReadableAPI.getAllPosts().then(posts => {
         dispatch(setPosts(posts))
+        dispatch(postsAreLoading(false))
       })
+    }
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -7,26 +7,26 @@ import {
   SET_POST_ID_TO_DELETE_MODAL,
   DELETE_POST,
   CONTROL_EDIT_POST_FORM,
-  EDIT_POST
+  EDIT_POST,
+  POSTS_ARE_LOADING
 } from '../actions'
 
 export const posts = (state = {}, action) => {
   switch (action.type) {
-
-    case DELETE_POST :
+    case DELETE_POST:
       const postIdToDelete = action.postId
       return {
         ...state,
         [postIdToDelete]: {
           ...state[postIdToDelete],
           deleted: true
-        },
+        }
       }
 
-    case SET_POSTS :
+    case SET_POSTS:
       const { posts } = action
       let stateWithPosts = []
-      posts.forEach( (post) => {
+      posts.forEach(post => {
         stateWithPosts = {
           ...stateWithPosts,
           [post.id]: post
@@ -47,7 +47,7 @@ export const posts = (state = {}, action) => {
         }
       }
 
-    case APPLY_VOTE :
+    case APPLY_VOTE:
       const { postId, newValue } = action
 
       return {
@@ -73,7 +73,7 @@ export const posts = (state = {}, action) => {
           voteScore: 1
         }
       }
-    default :
+    default:
       return state
   }
 }
@@ -86,7 +86,7 @@ export const newPostForm = (state = {}, action) => {
         ...state,
         [name]: value
       }
-    default :
+    default:
       return state
   }
 }
@@ -105,7 +105,7 @@ export const deletePostModal = (state = false, action) => {
         ...state,
         postId
       }
-    default :
+    default:
       return state
   }
 }
@@ -118,7 +118,16 @@ export const editPostForm = (state = {}, action) => {
         ...state,
         [name]: value
       }
-    default :
+    default:
+      return state
+  }
+}
+
+export const postsAreLoading = (state = false, action) => {
+  switch (action.type) {
+    case POSTS_ARE_LOADING:
+      return action.value
+    default:
       return state
   }
 }
