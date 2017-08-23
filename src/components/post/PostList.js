@@ -15,11 +15,7 @@ class PostList extends Component {
       loadingPosts
     } = this.props
 
-    if (sortMethod === 'date') {
-      posts.sort(sortByDate)
-    } else {
-      posts.sort(sortByScore)
-    }
+    sortMethod === 'date' ? posts.sort(sortByDate) : posts.sort(sortByScore)
 
     let sectionTitle = ''
     if (posts.length > 1) sectionTitle = posts.length + ' posts'

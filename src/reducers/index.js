@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
-
 import { UPDATE_SORT_METHOD, SHOW_TOAST } from '../actions'
-
 import { categories, categoriesAreLoading } from './categories'
+import {
+  comments,
+  newCommentData,
+  editCommentForm,
+  commentsSortMethod
+} from './comments'
 import {
   posts,
   newPostForm,
@@ -10,7 +14,6 @@ import {
   editPostForm,
   postsAreLoading
 } from './posts'
-import { comments, newCommentData, editCommentForm } from './comments'
 
 function sortMethod(state = 'score', action) {
   switch (action.type) {
@@ -43,5 +46,6 @@ export default combineReducers({
   toastMessage,
   editCommentForm,
   categoriesAreLoading,
-  postsAreLoading
+  postsAreLoading,
+  commentsSortMethod
 })

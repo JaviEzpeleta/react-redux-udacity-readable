@@ -4,7 +4,7 @@ export const SET_COMMENTS_TO_POST_ID = 'SET_COMMENTS_TO_POST_ID'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const CONTROL_NEW_COMMENT = 'CONTROL_NEW_COMMENT'
 export const APPLY_VOTE_TO_COMMENT = 'APPLY_VOTE_TO_COMMENT'
-
+export const UPDATE_COMMENTS_SORT_METHOD = 'UPDATE_COMMENTS_SORT_METHOD'
 
 export function setPostComments(postId, comments) {
   return {
@@ -47,7 +47,7 @@ export function controlEditCommentForm(name, value) {
   }
 }
 
-export function updateComment(id, parentId,body, author) {
+export function updateComment(id, parentId, body, author) {
   return {
     type: UPDATE_COMMENT,
     parentId,
@@ -56,3 +56,8 @@ export function updateComment(id, parentId,body, author) {
     author
   }
 }
+
+export const updateCommentsSortMethod = method => ({
+  type: UPDATE_COMMENTS_SORT_METHOD,
+  method
+})
