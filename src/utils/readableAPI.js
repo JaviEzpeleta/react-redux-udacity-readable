@@ -100,6 +100,55 @@ export const voteComment = (commentId, value) => {
   }).then(res => res)
 }
 
+export const hardCoded = data => {
+  firebase.database().ref('posts').push(data)
+}
+
+export const addPost = workOnLocalhost
+  ? formValues => {
+      const body = {
+        id: formValues.id,
+        title: formValues.title,
+        category: formValues.category,
+        author: formValues.username,
+        body: formValues.message,
+        timestamp: formValues.timestamp,
+        voteScore: 1,
+        deleted: false
+      }
+      return fetch(`${api}/posts/`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+    }
+  : formValues => {
+      const body = {
+        id: formValues.id,
+        title: formValues.title,
+        category: formValues.category,
+        author: formValues.username,
+        body: formValues.message,
+        timestamp: formValues.timestamp,
+        voteScore: 1,
+        deleted: false
+      }
+
+      return firebase
+        .database()
+        .ref('posts')
+        .push(body)
+        .then(element =>
+          updatePostById(element.getKey(), { id: element.getKey() })
+        )
+
+      //    return updatePostById(insertedKey, {id: insertedKey})
+    }
+
+/*
 export const addPost = formValues => {
   const body = {
     id: formValues.id,
@@ -121,6 +170,7 @@ export const addPost = formValues => {
     body: JSON.stringify(body)
   })
 }
+*/
 
 export const updateCommentById = (commentId, body, author) => {
   const commentBody = {
