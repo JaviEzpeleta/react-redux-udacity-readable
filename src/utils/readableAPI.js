@@ -254,11 +254,13 @@ export const editPostById = (postId, formValues) => {
   })
 }
 
-export const deletePostById = postId =>
-  fetch(`${api}/posts/${postId}`, {
-    method: 'DELETE',
-    headers: headers
-  }).then(res => res)
+export const deletePostById = workOnLocalhost
+  ? postId =>
+      fetch(`${api}/posts/${postId}`, {
+        method: 'DELETE',
+        headers: headers
+      }).then(res => res)
+  : postId => updatePostById(postId, { deleted: true })
 
 export const deleteCommentById = commentId =>
   fetch(`${api}/comments/${commentId}`, {
