@@ -207,21 +207,35 @@ export const addPost = workOnLocalhost
         )
     }
 
-export const updateCommentById = (commentId, body, author) => {
-  const commentBody = {
-    body,
-    author
-  }
+export const updateCommentById = workOnLocalhost
+  ? (commentId, body, author) => {
+      const commentBody = {
+        body,
+        author
+      }
 
-  return fetch(`${api}/comments/${commentId}`, {
-    method: 'PUT',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(commentBody)
-  })
-}
+      return fetch(`${api}/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(commentBody)
+      })
+    }
+  : (commentId, body, author) => {
+      updateFirebaseCommentById(commentId, { body })
+      updateFirebaseCommentById(commentId, { author })
+      return getCommentById(commentId)
+    }
+
+const getCommentById = id =>
+  firebase
+    .database()
+    .ref('comments/' + id)
+    .once('value')
+    .then(snapshot => snapshot.val())
+
 export const editPostById = (postId, formValues) => {
   const body = {
     title: formValues.title,
