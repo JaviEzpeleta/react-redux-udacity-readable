@@ -32,7 +32,19 @@ export const updatePostById = (id, data) => {
       errorMessage: error.message
     }))
 }
-
+export const updateFirebaseCommentById = (id, data) => {
+  return firebase
+    .database()
+    .ref('comments')
+    .child(id)
+    .update(data)
+    .then(ref => ref.once('value'))
+    .then(snapshot => snapshot.val())
+    .catch(error => ({
+      errorCode: error.code,
+      errorMessage: error.message
+    }))
+}
 export const votePost = workOnLocalhost
   ? (postId, value) => {
       let option = ''
@@ -80,8 +92,19 @@ export const getAllPosts = workOnLocalhost
         .once('value')
         .then(snapshot => objectToArray(snapshot.val()))
 
-export const getCommentsByPostId = postId =>
-  fetch(`${api}/posts/${postId}/comments`, { headers }).then(res => res.json())
+export const getCommentsByPostId = workOnLocalhost
+  ? postId =>
+      fetch(`${api}/posts/${postId}/comments`, { headers }).then(res =>
+        res.json()
+      )
+  : postId =>
+      firebase
+        .database()
+        .ref('comments')
+        .orderByChild('parentId')
+        .equalTo(postId)
+        .once('value')
+        .then(snapshot => objectToArray(snapshot.val()))
 
 export const getPostById = postId =>
   fetch(`${api}/posts/${postId}`, { headers }).then(res => res.json())
@@ -103,6 +126,45 @@ export const voteComment = (commentId, value) => {
 export const hardCoded = data => {
   firebase.database().ref('posts').push(data)
 }
+
+export const addNewComment = workOnLocalhost
+  ? (postId, comment) => {
+      const body = {
+        body: comment.newComment,
+        voteScore: 1,
+        id: comment.id,
+        parentId: postId,
+        author: comment.commentAuthor,
+        timestamp: comment.timestamp
+      }
+      return fetch(`${api}/comments/`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }).then(res => {
+        return res
+      })
+    }
+  : (postId, comment) => {
+      const body = {
+        body: comment.newComment,
+        voteScore: 1,
+        id: comment.id,
+        parentId: postId,
+        author: comment.commentAuthor,
+        timestamp: comment.timestamp
+      }
+      return firebase
+        .database()
+        .ref('comments')
+        .push(body)
+        .then(element =>
+          updateFirebaseCommentById(element.getKey(), { id: element.getKey() })
+        )
+    }
 
 export const addPost = workOnLocalhost
   ? formValues => {
@@ -136,7 +198,6 @@ export const addPost = workOnLocalhost
         voteScore: 1,
         deleted: false
       }
-
       return firebase
         .database()
         .ref('posts')
@@ -144,33 +205,7 @@ export const addPost = workOnLocalhost
         .then(element =>
           updatePostById(element.getKey(), { id: element.getKey() })
         )
-
-      //    return updatePostById(insertedKey, {id: insertedKey})
     }
-
-/*
-export const addPost = formValues => {
-  const body = {
-    id: formValues.id,
-    title: formValues.title,
-    category: formValues.category,
-    author: formValues.username,
-    body: formValues.message,
-    timestamp: formValues.timestamp,
-    voteScore: 1,
-    deleted: false
-  }
-
-  return fetch(`${api}/posts/`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })
-}
-*/
 
 export const updateCommentById = (commentId, body, author) => {
   const commentBody = {
@@ -216,24 +251,3 @@ export const deleteCommentById = commentId =>
     method: 'DELETE',
     headers: headers
   }).then(res => res)
-
-export const addNewComment = (postId, comment) => {
-  const body = {
-    body: comment.newComment,
-    voteScore: 1,
-    id: comment.id,
-    parentId: postId,
-    author: comment.commentAuthor,
-    timestamp: comment.timestamp
-  }
-  return fetch(`${api}/comments/`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  }).then(res => {
-    return res
-  })
-}

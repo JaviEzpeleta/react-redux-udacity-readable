@@ -116,7 +116,6 @@ function mapDispatchToProps(dispatch) {
       })
     },
     getAllPosts: () => {
-      console.log('HERE GETTING ALL POSTS')
       dispatch(postsAreLoading(true))
       ReadableAPI.getAllPosts().then(posts => {
         dispatch(setPosts(posts))
