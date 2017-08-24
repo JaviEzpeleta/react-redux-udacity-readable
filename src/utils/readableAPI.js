@@ -109,19 +109,31 @@ export const getCommentsByPostId = workOnLocalhost
 export const getPostById = postId =>
   fetch(`${api}/posts/${postId}`, { headers }).then(res => res.json())
 
-export const voteComment = (commentId, value) => {
-  let option = ''
-  option = value === 1 ? 'upVote' : 'downVote'
+export const voteComment = workOnLocalhost
+  ? (commentId, value) => {
+      let option = ''
+      option = value === 1 ? 'upVote' : 'downVote'
 
-  return fetch(`${api}/comments/${commentId}`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ option })
-  }).then(res => res)
-}
+      return fetch(`${api}/comments/${commentId}`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ option })
+      }).then(res => res)
+    }
+  : (commentId, value) =>
+      firebase
+        .database()
+        .ref('comments/' + commentId + '/voteScore')
+        .once('value')
+        .then(snapshot => {
+          let commentScore = snapshot.val()
+          let newValue = +commentScore + +value
+          updateFirebaseCommentById(commentId, { voteScore: newValue })
+          return getCommentById(commentId)
+        })
 
 export const hardCoded = data => {
   firebase.database().ref('posts').push(data)

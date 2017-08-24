@@ -18,14 +18,15 @@ export const comments = (state = {}, action) => {
       }
 
     case APPLY_VOTE_TO_COMMENT:
-      const { commentId, newValue } = action
-      let newState = state
-      newState[action.parentId].map(comment => {
-        if (comment.id === commentId) comment.voteScore = newValue
-        return comment
-      })
-      return newState
-
+      return {
+        ...state,
+        [action.parentId]: state[action.parentId].map(
+          content =>
+            content.id === action.commentId
+              ? { ...content, voteScore: action.newValue }
+              : content
+        )
+      }
     case ADD_COMMENT:
       const { comment } = action
       const parentId = action.postId
