@@ -143,7 +143,8 @@ export const addNewComment = workOnLocalhost
         id: comment.id,
         parentId: postId,
         author: comment.commentAuthor,
-        timestamp: comment.timestamp
+        timestamp: comment.timestamp,
+        deleted: false
       }
       return fetch(`${api}/comments/`, {
         method: 'POST',
@@ -163,7 +164,8 @@ export const addNewComment = workOnLocalhost
         id: comment.id,
         parentId: postId,
         author: comment.commentAuthor,
-        timestamp: comment.timestamp
+        timestamp: comment.timestamp,
+        deleted: false
       }
       return firebase
         .database()
@@ -244,23 +246,33 @@ const getCommentById = id =>
     .once('value')
     .then(snapshot => snapshot.val())
 
-export const editPostById = (postId, formValues) => {
-  const body = {
-    title: formValues.title,
-    category: formValues.category,
-    author: formValues.author,
-    body: formValues.body
-  }
+export const editPostById = workOnLocalhost
+  ? (postId, formValues) => {
+      const body = {
+        title: formValues.title,
+        category: formValues.category,
+        author: formValues.author,
+        body: formValues.body
+      }
 
-  return fetch(`${api}/posts/${postId}`, {
-    method: 'PUT',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })
-}
+      return fetch(`${api}/posts/${postId}`, {
+        method: 'PUT',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+    }
+  : (postId, formValues) => {
+      const body = {
+        title: formValues.title,
+        category: formValues.category,
+        author: formValues.author,
+        body: formValues.body
+      }
+      return updatePostById(postId, body)
+    }
 
 export const deletePostById = workOnLocalhost
   ? postId =>
@@ -270,8 +282,13 @@ export const deletePostById = workOnLocalhost
       }).then(res => res)
   : postId => updatePostById(postId, { deleted: true })
 
-export const deleteCommentById = commentId =>
-  fetch(`${api}/comments/${commentId}`, {
-    method: 'DELETE',
-    headers: headers
-  }).then(res => res)
+export const deleteCommentById = workOnLocalhost
+  ? commentId =>
+      fetch(`${api}/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: headers
+      }).then(res => res)
+  : commentId => {
+      updateFirebaseCommentById(commentId, { deleted: 'true' })
+      return getCommentById(commentId)
+    }

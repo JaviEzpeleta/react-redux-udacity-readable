@@ -2,23 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { showDate } from '../../utils/utils'
 import { connect } from 'react-redux'
-import { setPostComments,
-    displayDeleteModal,
-    setPostIdToDeleteModal } from './../../actions'
+import {
+  setPostComments,
+  displayDeleteModal,
+  setPostIdToDeleteModal
+} from './../../actions'
 import * as ReadableAPI from './../../utils/readableAPI'
 import VoteScore from './VoteScore'
-import AnimatedWrapper from './../../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper'
 import PostDeleteModal from './PostDeleteModal'
 
 class PostInList extends Component {
-
   componentWillMount() {
-      this.props.setPostComments(this.props.postId);
+    this.props.setPostComments(this.props.postId)
   }
 
-	render() {
-
-    const { post,
+  render() {
+    const {
+      post,
       comments,
       deletePostModal,
       displayDeleteModal,
@@ -28,10 +29,13 @@ class PostInList extends Component {
 
     let postComments = false
     if (comments) {
-      postComments = comments[post.id]
+      if (comments[post.id])
+        postComments = comments[post.id].filter(
+          comment => comment.deleted === false
+        )
     }
 
-		return (
+    return (
       <div className="box">
         <div className="columns">
           <div className="column">
@@ -45,66 +49,76 @@ class PostInList extends Component {
                 <div className="content">
                   <p>
                     <strong>
-                      <i className="fa fa-user-circle-o" aria-hidden="true"></i> {post.author}
+                      <i
+                        className="fa fa-user-circle-o"
+                        aria-hidden="true"
+                      />{' '}
+                      {post.author}
                     </strong>
                     &nbsp; · &nbsp;
                     <small>
-                     <i className="fa fa-clock-o" aria-hidden="true"></i> {showDate(post.timestamp)}
+                      <i className="fa fa-clock-o" aria-hidden="true" />{' '}
+                      {showDate(post.timestamp)}
                     </small>
                     <br />
-                    <Link to={'/'+post.category+'/'+post.id} className="is-size-4">
+                    <Link
+                      to={'/' + post.category + '/' + post.id}
+                      className="is-size-4"
+                    >
                       {post.title}
                     </Link>
                   </p>
                 </div>
                 <nav className="level is-mobile">
                   <div className="level-left">
-                    <Link to={'/category/'+post.category} className="tag">
+                    <Link to={'/category/' + post.category} className="tag">
                       {post.category}
                     </Link>
                     &nbsp;
                     <span className="icon is-small">
-                      <i className="fa fa-comment-o"></i>
+                      <i className="fa fa-comment-o" />
                     </span>
                     &nbsp;
-                    { postComments && postComments.length ?
-                      ((postComments.length === 1) ?
-                          '1 comment'
-                          : postComments.length + ' comments')
-                      : ' 0 comments'
-                    }
+                    {postComments && postComments.length
+                      ? postComments.length === 1
+                        ? '1 comment'
+                        : postComments.length + ' comments'
+                      : ' 0 comments'}
                   </div>
                 </nav>
               </div>
             </article>
           </div>
-          <div className="column" style={{maxWidth: '100px'}}>
+          <div className="column" style={{ maxWidth: '100px' }}>
             <div
-                className="button actionButtonFromPostList is-danger is-small is-outlined"
-                onClick={() => {
-                  setPostIdToDeleteModal(post.id)
-                  displayDeleteModal(true)
-                }
-              }>
-              <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
-              &nbsp;
-              delete
+              className="button actionButtonFromPostList is-danger is-small is-outlined"
+              onClick={() => {
+                setPostIdToDeleteModal(post.id)
+                displayDeleteModal(true)
+              }}
+            >
+              <span className="icon is-small">
+                <i className="fa fa-trash-o" />
+              </span>
+              &nbsp; delete
             </div>
             <br />
-            <Link to={'/edit/'+post.id}
-                className="button actionButtonFromPostList is-small is-info is-outlined">
-              <span className="icon is-small"><i className="fa fa-edit"></i></span>
-              &nbsp;
-              edit
+            <Link
+              to={'/edit/' + post.id}
+              className="button actionButtonFromPostList is-small is-info is-outlined"
+            >
+              <span className="icon is-small">
+                <i className="fa fa-edit" />
+              </span>
+              &nbsp; edit
             </Link>
           </div>
         </div>
 
         <PostDeleteModal deletePostModal={deletePostModal} history={history} />
-
       </div>
-		)
-	}
+    )
+  }
 }
 
 function mapStateToProps(state, props) {
@@ -117,17 +131,18 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     setPostComments: () =>
-      ReadableAPI.getCommentsByPostId(ownProps.post.id).then( (comments) => {
+      ReadableAPI.getCommentsByPostId(ownProps.post.id).then(comments => {
         dispatch(setPostComments(ownProps.post.id, comments))
-      }
-    ),
-    displayDeleteModal: (bool) => {
+      }),
+    displayDeleteModal: bool => {
       dispatch(displayDeleteModal(bool))
     },
-    setPostIdToDeleteModal: (postId) => {
+    setPostIdToDeleteModal: postId => {
       dispatch(setPostIdToDeleteModal(postId))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(PostInList, 12))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AnimatedWrapper(PostInList, 12)
+)

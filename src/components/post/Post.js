@@ -40,6 +40,12 @@ class Post extends Component {
         ? comments.sort(sortByDate)
         : comments.sort(sortByScore)
 
+    let commentsToShow = []
+
+    if (comments) {
+      commentsToShow = comments.filter(comment => comment.deleted === false)
+    }
+
     return (
       <div>
         {post &&
@@ -75,7 +81,6 @@ class Post extends Component {
                   <span
                     className="notifcation is-danger is-outlined is-small button"
                     onClick={() => {
-                      console.log('clicked')
                       setPostIdToDeleteModal(post.id)
                       displayDeleteModal(true)
                     }}
@@ -90,10 +95,10 @@ class Post extends Component {
                     edit
                   </Link>
                 </div>
-                {comments &&
-                  comments.length > 0 &&
+                {commentsToShow &&
+                  commentsToShow.length > 0 &&
                   <div>
-                    {comments.length > 1
+                    {commentsToShow.length > 1
                       ? <div>
                           <div className="select right">
                             <select
@@ -107,13 +112,13 @@ class Post extends Component {
                             </select>
                           </div>
                           <h3>
-                            {comments.length} comments:
+                            {commentsToShow.length} comments:
                           </h3>
                         </div>
                       : <h3>
-                          {comments.length} comment:
+                          {commentsToShow.length} comment:
                         </h3>}
-                    {comments.map((comment, index) =>
+                    {commentsToShow.map((comment, index) =>
                       <Comment position={index} key={index} comment={comment} />
                     )}
                   </div>}
