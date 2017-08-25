@@ -4,10 +4,13 @@
 
 ## About
 
-This is the second project for the Udacity React Nanodegree.
+This is a nice example of the use of **[React JS](https://facebook.github.io/react/)**, **[React Router](https://github.com/ReactTraining/react-router)**, **[Redux](http://redux.js.org/)**, **[Firebase Realtime DB](https://firebase.google.com/)**, **Animations on Transitions for React & React Router** and **[Bulma](http://bulma.io/)**
 
-Hope you like it!
-Madrid, August 2017.
+Educational puposes only!
+
+If you want to play with the app, add posts and comments, or type whatever you want, please have respect to others and use a nice languaje. Thanks!!
+
+Made in Madrid, August 2017.
 
 ## How to test it locally
 
@@ -16,4 +19,4 @@ Madrid, August 2017.
 3. `npm start` or `yarn start` to start the app then navigate to http://localhost:3000/ on your local machine
 
 ## Wanna test it live without installing it?
-Try it from here: https://salty-wildwood-13440.herokuapp.com/
+Try it from here: https://readabledb.firebaseapp.com/
