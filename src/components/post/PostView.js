@@ -10,22 +10,27 @@ import PostBadCategory from './PostBadCategory'
 import PostIsDeleted from './PostIsDeleted'
 
 class PostView extends Component {
-
   componentWillMount() {
-    this.props.setPostComments(this.props.postId);
+    this.props.setPostComments(this.props.postId)
     window.scrollTo(0, 0)
   }
 
   render() {
-
-    const { posts, comments, postId, history, categoryUrl } = this.props
+    const {
+      posts,
+      comments,
+      postId,
+      history,
+      categoryUrl,
+      loadingPosts
+    } = this.props
 
     let post = false
     let rightCategory = false
     let isActive = true
 
     if (posts) {
-      post = posts.find((post) => (post.id === postId))
+      post = posts.find(post => post.id === postId)
       if (post) {
         if (post.category === categoryUrl) {
           rightCategory = true
@@ -37,14 +42,11 @@ class PostView extends Component {
     return (
       <div>
         <Header />
-        { rightCategory ?
-          (isActive ?
-          <Post post={post} comments={comments} history={history} />
-          :
-          <PostIsDeleted />
-          ):
-          <PostBadCategory categoryUrl={categoryUrl} />
-        }
+        {rightCategory
+          ? isActive
+            ? <Post post={post} comments={comments} history={history} />
+            : <PostIsDeleted />
+          : !loadingPosts && <PostBadCategory categoryUrl={categoryUrl} />}
         <Footer />
       </div>
     )
@@ -54,17 +56,17 @@ class PostView extends Component {
 function mapStateToProps(state, props) {
   return {
     posts: objectToArray(state.posts),
-    comments: state.comments[props.postId]
+    comments: state.comments[props.postId],
+    loadingPosts: state.postsAreLoading
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     setPostComments: () =>
-      ReadableAPI.getCommentsByPostId(ownProps.postId).then( (comments) => {
+      ReadableAPI.getCommentsByPostId(ownProps.postId).then(comments => {
         dispatch(setPostComments(ownProps.postId, comments))
-      }
-    )
+      })
   }
 }
 

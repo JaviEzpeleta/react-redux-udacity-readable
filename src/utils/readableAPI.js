@@ -4,11 +4,7 @@ import { objectToArray } from './utils'
 const workOnLocalhost = false
 
 let api = ''
-if (workOnLocalhost) {
-  api = 'http://localhost:5001'
-} else {
-  api = 'https://evening-harbor-34965.herokuapp.com'
-}
+if (workOnLocalhost) api = 'http://localhost:5001'
 
 let token = localStorage.token
 
