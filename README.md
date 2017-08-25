@@ -6,7 +6,7 @@
 
 This is a nice example of the use of **[React JS](https://facebook.github.io/react/)**, **[React Router](https://github.com/ReactTraining/react-router)**, **[Redux](http://redux.js.org/)**, **[Firebase Realtime DB](https://firebase.google.com/)**, **Animations on Transitions for React & React Router** and **[Bulma](http://bulma.io/)**
 
-Educational puposes only!
+Made for educational purposes only!
 
 If you want to play with the app, add posts and comments, or type whatever you want, please have respect to others and use a nice languaje. Thanks!!
 
