@@ -10,6 +10,7 @@ import reducer from './reducers'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { BrowserRouter } from 'react-router-dom'
+import { install } from 'offline-plugin/runtime'
 
 const logger = store => next => action => {
   //  console.group(action.type)
@@ -36,3 +37,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 registerServiceWorker()
+install()
