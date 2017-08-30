@@ -1,6 +1,6 @@
-export * from './categories'
-export * from './posts'
-export * from './comments'
+export * from './categories'
+export * from './posts'
+export * from './comments'
 
 export const SHOW_TOAST = 'SHOW_TOAST'
 

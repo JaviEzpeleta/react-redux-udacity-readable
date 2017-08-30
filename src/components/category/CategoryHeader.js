@@ -1,9 +1,11 @@
 import React from 'react'
 import { getNotificationColorByIndex } from './../../utils/utils'
-import AnimatedWrapper from './../../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper'
 
-const CategoryHeader = (props) => (
-  <section className={'hero ' + getNotificationColorByIndex(props.category.index)}>
+const CategoryHeader = props =>
+  <section
+    className={'hero ' + getNotificationColorByIndex(props.category.index)}
+  >
     <div className="hero-body">
       <div className="container">
         <h1 className="title">
@@ -15,6 +17,5 @@ const CategoryHeader = (props) => (
       </div>
     </div>
   </section>
-)
 
 export default AnimatedWrapper(CategoryHeader)

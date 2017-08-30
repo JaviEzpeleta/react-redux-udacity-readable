@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AddPostButton = () => (
+const AddPostButton = () =>
   <Link className="button is-primary" to="/new">
-    <span className="icon"><i className="fa fa-plus"></i></span>
+    <span className="icon">
+      <i className="fa fa-plus" />
+    </span>
     &nbsp; Add new post
   </Link>
-)
 
 export default AddPostButton

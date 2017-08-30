@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { controlNewCommentData, addNewCommentAction } from '../../actions'
 import { addNewComment, getCommentsByPostId } from './../../utils/readableAPI'
-import AnimatedWrapper from './../../utils/AnimatedWrapper';
+import AnimatedWrapper from './../../utils/AnimatedWrapper'
 import faker from 'faker'
-import {notify} from 'react-notify-toast';
-
+import { notify } from 'react-notify-toast'
 
 class AddComment extends Component {
-
   constructor(props) {
     super(props)
     // emptyInputField will be used to empty the "body" textarea right after you post a new comment
@@ -21,11 +19,11 @@ class AddComment extends Component {
     this.textInput.value = ''
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.props.controlNewCommentData(event.target.name, event.target.value)
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
     if (this.fieldsAreValid()) {
       this.props.newCommentData.id = faker.random.uuid()
@@ -42,50 +40,61 @@ class AddComment extends Component {
 
   fieldsAreValid = () => {
     const form = this.props.newCommentData
-    if (form.commentAuthor && form.commentAuthor !== ''
-      && form.newComment && form.newComment !== ''
-      ) return true;
-    return false;
+    if (
+      form.commentAuthor &&
+      form.commentAuthor !== '' &&
+      form.newComment &&
+      form.newComment !== ''
+    )
+      return true
+    return false
   }
 
-	render() {
-
-    const { newCommentData, controlNewCommentData } = this.props
-		return (
+  render() {
+    const { newCommentData, controlNewCommentData } = this.props
+    return (
       <div className="newCommentWapper">
-        <h4>
-          Add a comment:
-        </h4>
-        <input className="input has-bottom-margin"
+        <h4>Add a comment:</h4>
+        <input
+          className="input has-bottom-margin"
           type="text"
           name="commentAuthor"
           placeholder="your username"
-          onChange={(event) => this.handleChange(event)} />
+          onChange={event => this.handleChange(event)}
+        />
         <textarea
           className="textarea has-bottom-margin"
-          ref={element => this.textInput = element}
+          ref={element => (this.textInput = element)}
           type="text"
           name="newComment"
           placeholder="add a comment..."
-          onChange={(event) => this.handleChange(event)} />
-        <div className="button has-bottom-mini-margin" onClick={this.handleSubmit}>Post Comment</div>
+          onChange={event => this.handleChange(event)}
+        />
+        <div
+          className="button has-bottom-mini-margin"
+          onClick={this.handleSubmit}
+        >
+          Post Comment
+        </div>
 
-        { newCommentData.showNotification &&
+        {newCommentData.showNotification &&
           <div className="notification is-danger">
-            <button className="delete" onClick={() => controlNewCommentData('showNotification', false)}></button>
-            <strong>Oops. Something is not right.</strong><br />
+            <button
+              className="delete"
+              onClick={() => controlNewCommentData('showNotification', false)}
+            />
+            <strong>Oops. Something is not right.</strong>
+            <br />
             Please enter your username and some text for the comment.
-          </div>
-        }
+          </div>}
       </div>
-		)
-	}
-
+    )
+  }
 }
 
 function mapStateToProps(state) {
   return {
-    newCommentData: state.newCommentData,
+    newCommentData: state.newCommentData
   }
 }
 
@@ -93,15 +102,17 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlNewCommentData: (name, value) =>
       dispatch(controlNewCommentData(name, value)),
-    addNewComment: (commentData) => {
+    addNewComment: commentData => {
       addNewComment(ownProps.postId, commentData).then(() => {
-        getCommentsByPostId(ownProps.postId).then( (comments) => {
+        getCommentsByPostId(ownProps.postId).then(comments => {
           dispatch(addNewCommentAction(ownProps.postId, commentData))
-          notify.show('✅ New Comment Added!');
+          notify.show('✅ New Comment Added!')
         })
       })
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnimatedWrapper(AddComment))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AnimatedWrapper(AddComment)
+)

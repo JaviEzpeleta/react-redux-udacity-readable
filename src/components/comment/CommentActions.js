@@ -1,36 +1,43 @@
 import React, { Component } from 'react'
-import { deleteCommentById, getCommentsByPostId } from './../../utils/readableAPI'
+import {
+  deleteCommentById,
+  getCommentsByPostId
+} from './../../utils/readableAPI'
 import { setPostComments, controlEditCommentForm } from '../../actions'
-import { connect } from 'react-redux';
-import {notify} from 'react-notify-toast';
+import { connect } from 'react-redux'
+import { notify } from 'react-notify-toast'
 
 class CommentActions extends Component {
-
-	render() {
-
+  render() {
     const { deleteComment, startEditingThisComment } = this.props
 
-		return (
+    return (
       <span>
-        <div onClick={deleteComment} className="button is-small is-danger is-outlined">
+        <div
+          onClick={deleteComment}
+          className="button is-small is-danger is-outlined"
+        >
           delete
         </div>
         &nbsp;
-        <div onClick={startEditingThisComment} className="button is-small is-info is-outlined">
+        <div
+          onClick={startEditingThisComment}
+          className="button is-small is-info is-outlined"
+        >
           edit
         </div>
       </span>
-		)
-	}
+    )
+  }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     deleteComment: () => {
       deleteCommentById(ownProps.comment.id).then(() => {
-        getCommentsByPostId(ownProps.comment.parentId).then( (comments) => {
+        getCommentsByPostId(ownProps.comment.parentId).then(comments => {
           dispatch(setPostComments(ownProps.comment.parentId, comments))
-          notify.show('✔️ comment deleted');
+          notify.show('✔️ comment deleted')
         })
       })
     },
@@ -43,4 +50,3 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 export default connect(null, mapDispatchToProps)(CommentActions)
-
