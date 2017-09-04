@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { applyVoteToComment } from './../../actions'
 import { voteComment } from './../../utils/readableAPI'
 import { objectToArray, getColorClassForVoteScore } from '../../utils/utils'
+import * as LocalStorageAPI from './../../utils/localStorageAPI'
 
 class VoteScoreComment extends Component {
   render() {
@@ -45,13 +46,38 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     applyVoteToComment: (newValue, diff) => {
       voteComment(ownProps.comment.id, diff)
-      dispatch(
-        applyVoteToComment(
-          ownProps.comment.id,
-          ownProps.comment.parentId,
-          newValue + diff
+        .then(
+          dispatch(
+            applyVoteToComment(
+              ownProps.comment.id,
+              ownProps.comment.parentId,
+              newValue + diff
+            )
+          )
         )
-      )
+        .catch(() => {
+          dispatch(
+            applyVoteToComment(
+              ownProps.comment.id,
+              ownProps.comment.parentId,
+              newValue + diff
+            )
+          )
+          LocalStorageAPI.voteComment(
+            ownProps.comment.id,
+            newValue + diff,
+            ownProps.comment.parentId
+          )
+          LocalStorageAPI.addPendingAction({
+            function: 'voteComment',
+            vote: {
+              id: ownProps.comment.id,
+              newValue: newValue + diff,
+              diff: diff
+            }
+          })
+          console.log('connection failed when trying to vote this comment')
+        })
     }
   }
 }

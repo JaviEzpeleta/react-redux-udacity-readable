@@ -58,3 +58,11 @@ export const votePost = (postId, value) => {
   })
   setPosts(posts)
 }
+
+export const voteComment = (commentId, value, postId) => {
+  let comments = getCommentsByPostId(postId)
+  comments.forEach(comment => {
+    if (comment.id === commentId) comment.voteScore = value
+  })
+  setCommentsByPostId(postId, comments)
+}
