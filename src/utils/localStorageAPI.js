@@ -23,3 +23,13 @@ export const getPosts = () => {
   }
   return null
 }
+
+export const setCommentsByPostId = (postId, comments) => {
+  console.log('setting the comments...')
+  console.log(comments)
+  localStorage.setItem('commentsByPost-' + postId, JSON.stringify(comments))
+}
+
+export const getCommentsByPostId = postId => {
+  return JSON.parse(localStorage.getItem('commentsByPost-' + postId))
+}

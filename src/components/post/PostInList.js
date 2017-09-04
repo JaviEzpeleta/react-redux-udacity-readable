@@ -11,6 +11,7 @@ import * as ReadableAPI from './../../utils/readableAPI'
 import VoteScore from './VoteScore'
 import AnimatedWrapper from './../../utils/AnimatedWrapper'
 import PostDeleteModal from './PostDeleteModal'
+import * as LocalStorageAPI from './../../utils/localStorageAPI'
 
 class PostInList extends Component {
   componentWillMount() {
@@ -130,10 +131,17 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    setPostComments: () =>
-      ReadableAPI.getCommentsByPostId(ownProps.post.id).then(comments => {
+    setPostComments: () => {
+      let comments = LocalStorageAPI.getCommentsByPostId(ownProps.post.id)
+      if (comments) {
+        console.log('I have the comments at localStorageAPI')
         dispatch(setPostComments(ownProps.post.id, comments))
-      }),
+      }
+      ReadableAPI.getCommentsByPostId(ownProps.post.id).then(comments => {
+        LocalStorageAPI.setCommentsByPostId(ownProps.post.id, comments)
+        dispatch(setPostComments(ownProps.post.id, comments))
+      })
+    },
     displayDeleteModal: bool => {
       dispatch(displayDeleteModal(bool))
     },
