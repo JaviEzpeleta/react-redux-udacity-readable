@@ -66,12 +66,12 @@ class NewPost extends Component {
                 </span>
                 &nbsp; You are offline now
               </div>
-              Unfortunately, you need to hace connection to publish a new post.
+              Unfortunately, you need to have connection to publish a new post.
               <br />
               Please come back when you have internet connection.
               <br />
               <br />
-              <i>While you are offline, you can still vod and add comments.</i>
+              <i>While you are offline, you can still vote and add comments.</i>
             </div>}
           <div className="columns">
             <div className="column is-half">

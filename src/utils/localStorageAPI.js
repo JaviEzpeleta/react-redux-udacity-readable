@@ -50,3 +50,11 @@ export const setPendingActions = pendingActions => {
 export const cleanAllPendingActions = () => {
   localStorage.setItem('pendingActions', null)
 }
+
+export const votePost = (postId, value) => {
+  let posts = getPosts()
+  posts.forEach(post => {
+    if (post.id === postId) post.voteScore = value
+  })
+  setPosts(posts)
+}

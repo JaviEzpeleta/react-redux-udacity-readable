@@ -1,4 +1,4 @@
-import * as ReadableAPI from './readableAPI'
+// import * as ReadableAPI from './readableAPI'
 import * as LocalStorageAPI from './localStorageAPI'
 
 export const backgroundSync = () => {
