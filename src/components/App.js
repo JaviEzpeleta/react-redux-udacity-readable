@@ -12,6 +12,7 @@ import {
   postsAreLoading
 } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
+import * as LocalStorageAPI from './../utils/localStorageAPI'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
 import NewPost from './post/NewPost'
@@ -110,14 +111,28 @@ function mapDispatchToProps(dispatch) {
     setToastMessage: message => dispatch(setToastMessage(message)),
     getAllCategories: () => {
       dispatch(categoriesAreLoading(true))
+      let categories = LocalStorageAPI.getCategories()
+      if (categories) {
+        console.log('I have the categories at localStorageAPI')
+        dispatch(setCategories(objectToArray(categories)))
+        dispatch(categoriesAreLoading(false))
+      }
       ReadableAPI.getAllCategories().then(categories => {
+        LocalStorageAPI.setCategories(categories)
         dispatch(setCategories(objectToArray(categories)))
         dispatch(categoriesAreLoading(false))
       })
     },
     getAllPosts: () => {
       dispatch(postsAreLoading(true))
+      let posts = LocalStorageAPI.getPosts()
+      if (posts) {
+        console.log('I have the posts at localStorageAPI')
+        dispatch(setPosts(posts))
+        dispatch(postsAreLoading(false))
+      }
       ReadableAPI.getAllPosts().then(posts => {
+        LocalStorageAPI.setPosts(posts)
         dispatch(setPosts(posts))
         dispatch(postsAreLoading(false))
       })

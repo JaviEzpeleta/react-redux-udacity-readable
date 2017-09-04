@@ -1,7 +1,7 @@
 import firebase from './../firebase'
 import { objectToArray } from './utils'
 
-const workOnLocalhost = false
+const workOnLocalhost = true
 
 let api = ''
 if (workOnLocalhost) api = 'http://localhost:5001'
@@ -66,6 +66,11 @@ export const votePost = workOnLocalhost
           return updatePostById(postId, { voteScore: newValue })
         })
     }
+
+export const getAllCategoriesOfflineFirst = () => {
+  if (localStorage.categories) return localStorage.categories
+  return getAllCategories()
+}
 
 export const getAllCategories = workOnLocalhost
   ? () =>
