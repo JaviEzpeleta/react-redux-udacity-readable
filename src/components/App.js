@@ -13,7 +13,12 @@ import {
 } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import * as LocalStorageAPI from './../utils/localStorageAPI'
-import { backgroundSync } from './../utils/backgroundSync'
+import {
+  backgroundSync,
+  performSync,
+  cleanAllPendingActions,
+  showPending
+} from './../utils/backgroundSync'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
 import NewPost from './post/NewPost'
@@ -41,6 +46,27 @@ class App extends Component {
 
     return (
       <div>
+        &nbsp; &nbsp; &nbsp;
+        <div
+          className="button is-success has-top-margin has-bottom-margin"
+          onClick={() => showPending()}
+        >
+          Show pending-to-sync actions
+        </div>
+        &nbsp; &nbsp; &nbsp;
+        <div
+          className="button is-danger has-top-margin has-bottom-margin"
+          onClick={() => cleanAllPendingActions()}
+        >
+          Clean all pending
+        </div>
+        &nbsp; &nbsp; &nbsp;
+        <div
+          className="button is-info has-top-margin has-bottom-margin"
+          onClick={() => performSync()}
+        >
+          -> Sync!
+        </div>
         <Switch>
           <Route
             exact
@@ -91,7 +117,6 @@ class App extends Component {
 
           <Route path="*" component={NotFound} />
         </Switch>
-
         <Notifications options={{ timeout: 2200 }} />
       </div>
     )
@@ -125,7 +150,7 @@ function mapDispatchToProps(dispatch) {
           dispatch(setCategories(objectToArray(categories)))
           dispatch(categoriesAreLoading(false))
         })
-        .catch(function() {
+        .catch(() => {
           LocalStorageAPI.addPendingAction({ function: 'getAllCategories' })
           console.log('connection failed, getting the categories')
         })
