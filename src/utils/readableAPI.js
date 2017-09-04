@@ -56,7 +56,7 @@ export const votePost = workOnLocalhost
       }).then(res => res)
     }
   : (postId, value) => {
-      firebase
+      return firebase
         .database()
         .ref('posts/' + postId + '/voteScore')
         .once('value')
