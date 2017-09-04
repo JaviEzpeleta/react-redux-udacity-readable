@@ -13,6 +13,7 @@ import {
 } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
 import * as LocalStorageAPI from './../utils/localStorageAPI'
+import { backgroundSync } from './../utils/backgroundSync'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
 import NewPost from './post/NewPost'
@@ -24,6 +25,7 @@ class App extends Component {
   componentWillMount() {
     this.props.getAllCategories()
     this.props.getAllPosts()
+    backgroundSync()
   }
 
   componentWillReceiveProps() {
@@ -117,11 +119,16 @@ function mapDispatchToProps(dispatch) {
         dispatch(setCategories(objectToArray(categories)))
         dispatch(categoriesAreLoading(false))
       }
-      ReadableAPI.getAllCategories().then(categories => {
-        LocalStorageAPI.setCategories(categories)
-        dispatch(setCategories(objectToArray(categories)))
-        dispatch(categoriesAreLoading(false))
-      })
+      ReadableAPI.getAllCategories()
+        .then(categories => {
+          LocalStorageAPI.setCategories(categories)
+          dispatch(setCategories(objectToArray(categories)))
+          dispatch(categoriesAreLoading(false))
+        })
+        .catch(function() {
+          LocalStorageAPI.addPendingAction({ function: 'getAllCategories' })
+          console.log('connection failed, getting the categories')
+        })
     },
     getAllPosts: () => {
       dispatch(postsAreLoading(true))
@@ -131,11 +138,16 @@ function mapDispatchToProps(dispatch) {
         dispatch(setPosts(posts))
         dispatch(postsAreLoading(false))
       }
-      ReadableAPI.getAllPosts().then(posts => {
-        LocalStorageAPI.setPosts(posts)
-        dispatch(setPosts(posts))
-        dispatch(postsAreLoading(false))
-      })
+      ReadableAPI.getAllPosts()
+        .then(posts => {
+          LocalStorageAPI.setPosts(posts)
+          dispatch(setPosts(posts))
+          dispatch(postsAreLoading(false))
+        })
+        .catch(function() {
+          LocalStorageAPI.addPendingAction({ function: 'getAllPosts' })
+          console.log('connection failed, getting the posts')
+        })
     }
   }
 }

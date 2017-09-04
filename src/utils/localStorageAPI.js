@@ -18,9 +18,7 @@ export const setPosts = posts => {
 }
 
 export const getPosts = () => {
-  if (localStorage.posts) {
-    return JSON.parse(localStorage.getItem('posts'))
-  }
+  if (localStorage.posts) return JSON.parse(localStorage.getItem('posts'))
   return null
 }
 
@@ -32,4 +30,23 @@ export const setCommentsByPostId = (postId, comments) => {
 
 export const getCommentsByPostId = postId => {
   return JSON.parse(localStorage.getItem('commentsByPost-' + postId))
+}
+
+export const getAllPendingActions = () => {
+  return JSON.parse(localStorage.getItem('pendingActions'))
+}
+
+export const addPendingAction = action => {
+  let pendingActions = getAllPendingActions()
+  if (!pendingActions) pendingActions = []
+  pendingActions.push(action)
+  setPendingActions(pendingActions)
+}
+
+export const setPendingActions = pendingActions => {
+  localStorage.setItem('pendingActions', JSON.stringify(pendingActions))
+}
+
+export const cleanAllPendingActions = () => {
+  localStorage.setItem('pendingActions', null)
 }

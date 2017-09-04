@@ -137,10 +137,21 @@ function mapDispatchToProps(dispatch, ownProps) {
         console.log('I have the comments at localStorageAPI')
         dispatch(setPostComments(ownProps.post.id, comments))
       }
-      ReadableAPI.getCommentsByPostId(ownProps.post.id).then(comments => {
-        LocalStorageAPI.setCommentsByPostId(ownProps.post.id, comments)
-        dispatch(setPostComments(ownProps.post.id, comments))
-      })
+      ReadableAPI.getCommentsByPostId(ownProps.post.id)
+        .then(comments => {
+          LocalStorageAPI.setCommentsByPostId(ownProps.post.id, comments)
+          dispatch(setPostComments(ownProps.post.id, comments))
+        })
+        .catch(function() {
+          LocalStorageAPI.addPendingAction({
+            function: 'getCommentsByPostId',
+            id: ownProps.post.id
+          })
+          console.log(
+            'connection failed, getting the comments for the post id: ' +
+              ownProps.post.id
+          )
+        })
     },
     displayDeleteModal: bool => {
       dispatch(displayDeleteModal(bool))
