@@ -1,7 +1,7 @@
 import firebase from './../firebase'
 import { objectToArray } from './utils'
 
-const workOnLocalhost = true
+const workOnLocalhost = false
 
 let api = ''
 if (workOnLocalhost) api = 'http://localhost:5001'

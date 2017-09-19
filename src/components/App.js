@@ -12,13 +12,6 @@ import {
   postsAreLoading
 } from './../actions'
 import * as ReadableAPI from './../utils/readableAPI'
-import * as LocalStorageAPI from './../utils/localStorageAPI'
-import {
-  backgroundSync,
-  performSync,
-  cleanAllPendingActions,
-  showPending
-} from './../utils/backgroundSync'
 import { withRouter } from 'react-router'
 import { objectToArray } from '../utils/utils'
 import NewPost from './post/NewPost'
@@ -30,7 +23,6 @@ class App extends Component {
   componentWillMount() {
     this.props.getAllCategories()
     this.props.getAllPosts()
-    backgroundSync()
   }
 
   componentWillReceiveProps() {
@@ -46,27 +38,6 @@ class App extends Component {
 
     return (
       <div>
-        &nbsp; &nbsp; &nbsp;
-        <div
-          className="button is-success has-top-margin has-bottom-margin"
-          onClick={() => showPending()}
-        >
-          Show pending-to-sync actions
-        </div>
-        &nbsp; &nbsp; &nbsp;
-        <div
-          className="button is-danger has-top-margin has-bottom-margin"
-          onClick={() => cleanAllPendingActions()}
-        >
-          Clean all pending
-        </div>
-        &nbsp; &nbsp; &nbsp;
-        <div
-          className="button is-info has-top-margin has-bottom-margin"
-          onClick={() => performSync()}
-        >
-          -> Sync!
-        </div>
         <Switch>
           <Route
             exact
@@ -138,41 +109,17 @@ function mapDispatchToProps(dispatch) {
     setToastMessage: message => dispatch(setToastMessage(message)),
     getAllCategories: () => {
       dispatch(categoriesAreLoading(true))
-      let categories = LocalStorageAPI.getCategories()
-      if (categories) {
-        console.log('I have the categories at localStorageAPI')
+      ReadableAPI.getAllCategories().then(categories => {
         dispatch(setCategories(objectToArray(categories)))
         dispatch(categoriesAreLoading(false))
-      }
-      ReadableAPI.getAllCategories()
-        .then(categories => {
-          LocalStorageAPI.setCategories(categories)
-          dispatch(setCategories(objectToArray(categories)))
-          dispatch(categoriesAreLoading(false))
-        })
-        .catch(() => {
-          LocalStorageAPI.addPendingAction({ function: 'getAllCategories' })
-          console.log('connection failed, getting the categories')
-        })
+      })
     },
     getAllPosts: () => {
       dispatch(postsAreLoading(true))
-      let posts = LocalStorageAPI.getPosts()
-      if (posts) {
-        console.log('I have the posts at localStorageAPI')
+      ReadableAPI.getAllPosts().then(posts => {
         dispatch(setPosts(posts))
         dispatch(postsAreLoading(false))
-      }
-      ReadableAPI.getAllPosts()
-        .then(posts => {
-          LocalStorageAPI.setPosts(posts)
-          dispatch(setPosts(posts))
-          dispatch(postsAreLoading(false))
-        })
-        .catch(function() {
-          LocalStorageAPI.addPendingAction({ function: 'getAllPosts' })
-          console.log('connection failed, getting the posts')
-        })
+      })
     }
   }
 }

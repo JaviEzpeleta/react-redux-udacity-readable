@@ -8,7 +8,6 @@ import { objectToArray } from '../../utils/utils'
 import Post from './Post'
 import PostBadCategory from './PostBadCategory'
 import PostIsDeleted from './PostIsDeleted'
-import * as LocalStorageAPI from './../../utils/localStorageAPI'
 
 class PostView extends Component {
   componentWillMount() {
@@ -65,9 +64,6 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     setPostComments: () => {
-      const comments = LocalStorageAPI.getCommentsByPostId(ownProps.postId)
-      if (comments) dispatch(setPostComments(ownProps.postId, comments))
-
       ReadableAPI.getCommentsByPostId(ownProps.postId).then(comments => {
         dispatch(setPostComments(ownProps.postId, comments))
       })

@@ -11,7 +11,6 @@ import * as ReadableAPI from './../../utils/readableAPI'
 import VoteScore from './VoteScore'
 import AnimatedWrapper from './../../utils/AnimatedWrapper'
 import PostDeleteModal from './PostDeleteModal'
-import * as LocalStorageAPI from './../../utils/localStorageAPI'
 
 class PostInList extends Component {
   componentWillMount() {
@@ -30,10 +29,11 @@ class PostInList extends Component {
 
     let postComments = false
     if (comments) {
-      if (comments[post.id])
+      if (comments[post.id]) {
         postComments = comments[post.id].filter(
           comment => comment.deleted === false
         )
+      }
     }
 
     return (
@@ -132,26 +132,9 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     setPostComments: () => {
-      let comments = LocalStorageAPI.getCommentsByPostId(ownProps.post.id)
-      if (comments) {
-        console.log('I have the comments at localStorageAPI')
+      ReadableAPI.getCommentsByPostId(ownProps.post.id).then(comments => {
         dispatch(setPostComments(ownProps.post.id, comments))
-      }
-      ReadableAPI.getCommentsByPostId(ownProps.post.id)
-        .then(comments => {
-          LocalStorageAPI.setCommentsByPostId(ownProps.post.id, comments)
-          dispatch(setPostComments(ownProps.post.id, comments))
-        })
-        .catch(function() {
-          LocalStorageAPI.addPendingAction({
-            function: 'getCommentsByPostId',
-            id: ownProps.post.id
-          })
-          console.log(
-            'connection failed, getting the comments for the post id: ' +
-              ownProps.post.id
-          )
-        })
+      })
     },
     displayDeleteModal: bool => {
       dispatch(displayDeleteModal(bool))
